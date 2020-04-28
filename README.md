@@ -7,6 +7,8 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R build
+status](https://github.com/Metropolitan-Council/councilR/workflows/R-CMD-check/badge.svg)](https://github.com/Metropolitan-Council/councilR/actions)
 <!-- badges: end -->
 
 The goal of councilR is to provide a curated collection of commonly used
