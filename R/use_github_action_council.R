@@ -6,6 +6,7 @@
 #' @export
 #'
 #' @importFrom usethis use_github_actions_badge ui_done ui_value
+#' @importFrom utils getFromNamespace
 #' @examples
 #' use_github_action_council()
 #'

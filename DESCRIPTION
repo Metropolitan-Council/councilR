@@ -15,4 +15,5 @@ RoxygenNote: 7.1.0
 Suggests: 
     testthat
 Imports: 
-    usethis (>= 1.6.0)
+    usethis (>= 1.6.0),
+    utils
