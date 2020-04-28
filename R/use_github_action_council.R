@@ -2,7 +2,6 @@
 #'
 #' @param type "check". the type of Action to take
 #'
-#' @return
 #' @export
 #'
 #' @importFrom usethis use_github_actions_badge ui_done ui_value
