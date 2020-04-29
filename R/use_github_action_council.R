@@ -1,14 +1,16 @@
 #' Use GitHub Actions template
 #'
 #' @param type "check". the type of Action to take
+#' @param path where to save the Action
 #'
 #' @export
 #'
-#' @importFrom usethis use_github_actions_badge ui_done ui_value
+#' @importFrom usethis use_github_actions_badge ui_done ui_value ui_path
 #' @importFrom utils getFromNamespace
 #' @examples
+#' \dontrun{
 #' use_github_action_council()
-#'
+#'}
 use_github_action_council <- function(type = "check",
                                       path = ".github/workflows"){
 
