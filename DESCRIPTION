@@ -4,9 +4,10 @@ Title: An R package for the Metropolitan Council
 Version: 0.1.0
 Year: 2020
 Authors@R: c(person("Metropolitan Council", role=c("cph")),
-             person('Liz', 'Roten', email = 'liz.roten@metc.state.mn.us', role = c('cre', 'aut')))
-Description: A collection of commonly used templates, color palettes, functions,
-    and more!
+             person('Liz', 'Roten', email = 'liz.roten@metc.state.mn.us', role = c('cre', 'aut')),
+             person(given = "Garrick", family = "Aden-Buie", role = c("ctb"), email = "garrick@adenbuie.com",
+             comment = c(ORCID = "0000-0002-7111-0077")))
+Description: A collection of commonly used templates, color palettes, functions, and more!
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -16,4 +17,9 @@ Suggests:
     testthat
 Imports: 
     usethis (>= 1.6.0),
-    utils
+    utils,
+    fs (>= 1.4.1),
+    glue (>= 1.4.0),
+    purrr (>= 0.3.4),
+    rstudioapi (>= 0.11),
+    magrittr
