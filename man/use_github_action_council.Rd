@@ -8,11 +8,14 @@ use_github_action_council(type = "check", path = ".github/workflows")
 }
 \arguments{
 \item{type}{"check". the type of Action to take}
+
+\item{path}{where to save the Action}
 }
 \description{
 Use GitHub Actions template
 }
 \examples{
+\dontrun{
 use_github_action_council()
-
+}
 }
