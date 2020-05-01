@@ -6,3 +6,6 @@
 ^\.github$
 ^R-CMD-check\.yaml$
 ^data-raw$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
