@@ -1,0 +1,51 @@
+---
+title: "Untitled"
+author: "Your Name"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+ html_document: 
+   css: style.css
+   code_download: true
+   code_folding: hide
+   toc: true
+   toc_float: true
+bibliography: references.bib
+nocite: '@*'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, width = 800)
+
+date <- format(Sys.time(), '%Y%m%d')
+options(knitr.table.format = "html")
+options(scipen = 999)
+
+# import packages here!
+
+
+## run repmis::LoadandCite() to generate references for all the packages in the environment
+
+# library(repmis)
+# repmis::LoadandCite(file = "references.bib")
+# @Manual{R-dplyr,
+#   title = {dplyr: A Grammar of Data Manipulation},
+#   author = {Hadley Wickham and Romain Fran{\c{c}}ois and Lionel Henry and Kirill M{\"{u}}ller},
+#   year = {2019},
+#   note = {R package version 0.8.1},
+#   url = {https://CRAN.R-project.org/package=dplyr},
+# }
+```
+
+## Background  
+
+A short introduction including metadata and project information. Include links to things like articles, data downloads, methodology, whitepapers, etc. 
+
+
+### Equity questions and considerations  
+
+
+## References  
+
+
+<a href="https://metrocouncil.org" target="_blank"><img src="logo.png" style="margin-left: 50%;margin-right: 50%;"><div></div></a>
+
