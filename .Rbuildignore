@@ -5,3 +5,4 @@
 ^CODE_OF_CONDUCT\.md$
 ^\.github$
 ^R-CMD-check\.yaml$
+^data-raw$
