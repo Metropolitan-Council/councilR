@@ -22,4 +22,10 @@ Imports:
     glue (>= 1.4.0),
     purrr (>= 0.3),
     rstudioapi (>= 0.11),
-    magrittr
+    magrittr,
+    ggplot2 (>= 3.3.0)
+Enhances: 
+    showtext,
+    sysfonts
+Depends: 
+    R (>= 2.10)
