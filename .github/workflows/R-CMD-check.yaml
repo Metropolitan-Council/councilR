@@ -34,6 +34,6 @@ jobs:
           sudo apt autoremove -y
       - name: Install Package Dependencies
         run: |-
-          Rscript -e "remotes::install_deps(dependencies = TRUE, upgrade = 'never', repos = 'https://mirror.las.iastate.edu/CRAN/')"
+          Rscript -e "remotes::install_deps(dependencies = TRUE, upgrade = 'default', repos = 'https://mirror.las.iastate.edu/CRAN/')"
       - name: Check Package
         run: Rscript -e "rcmdcheck::rcmdcheck(error_on = 'error', check_dir = 'check', args = '--no-manual')"
