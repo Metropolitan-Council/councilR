@@ -19,7 +19,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: /usr/local/lib/R/site-library
-          key: ${{ runner.os }}-r-${{ '3.6' }}-${{ hashFiles('DESCRIPTION') }}
+          key: ${{ runner.os }}-r-${{ '4.0' }}-${{ hashFiles('DESCRIPTION') }}
       - name: Install System Dependencies
         run: |
           sudo apt-get update && apt-get install -y --no-install-recommends \
