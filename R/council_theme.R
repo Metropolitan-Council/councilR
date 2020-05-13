@@ -40,14 +40,14 @@
 #' @importFrom ggplot2 theme_minimal theme element_text margin
 #'
 council_theme <- function(use_showtext = FALSE,
-                         size_header = 22,
-                         size_axis_title = 14,
-                         size_legend_title = 14,
-                         size_axis_text = 11,
-                         size_legend_text = 10,
-                         size_caption = 8,
-                         size_margin = 10) {
-  if (use_fonts == TRUE) {
+                          size_header = 22,
+                          size_axis_title = 14,
+                          size_legend_title = 14,
+                          size_axis_text = 11,
+                          size_legend_text = 10,
+                          size_caption = 8,
+                          size_margin = 10) {
+  if (use_showtext == TRUE) {
     requireNamespace("sysfonts", quietly = TRUE)
     requireNamespace("showtext", quietly = TRUE)
 
