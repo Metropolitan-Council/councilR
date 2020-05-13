@@ -49,7 +49,6 @@ Play Features, and MetroStats in Hex code format
 }
 \examples{
 colors$councilBlue
-
 }
 \seealso{
 Other aesthetics: 

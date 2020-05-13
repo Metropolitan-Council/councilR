@@ -11,7 +11,9 @@ null_if_nothing <- function(x) {
 is_null_or_nothing <- function(x) is.null(x) || identical(x, "")
 
 tabs2spaces <- function(x, spaces = 2) {
-  if (is.null(x)) return(NULL)
+  if (is.null(x)) {
+    return(NULL)
+  }
   gsub("\t", strrep(" ", spaces), x)
 }
 
@@ -70,9 +72,11 @@ with_rstudio <- function(fn, ..., stopifnot = FALSE) {
 
 has_rstudio <- function(fn, stopifnot = FALSE) {
   has <- rstudioapi::hasFun(fn)
-  if (!has && stopifnot) stop(glue(
-    "Your version of RStudio does not support this function: {fn}"
-  ), call. = FALSE)
+  if (!has && stopifnot) {
+    stop(glue(
+      "Your version of RStudio does not support this function: {fn}"
+    ), call. = FALSE)
+  }
   has
 }
 
