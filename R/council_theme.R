@@ -107,14 +107,11 @@ council_theme <- function(use_showtext = FALSE,
       ),
       legend.title = ggplot2::element_text(
         family = font_title,
-        size = size_legend_title,
-        vjust = -2
-      ),
-      legend.justification = c(1, 0),
-      legend.position = c(1, .5),
+        size = size_legend_title
+        ),
       legend.text = ggplot2::element_text(
         family = font_axis,
-        size = size_legend_text
+        size = size_legend_text,
       ),
       strip.text.x = ggplot2::element_text(
         family = font_axis,
