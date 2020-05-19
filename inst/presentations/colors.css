@@ -1,8 +1,12 @@
 :root {
-  --council-blue:  #0054a4;
-  --council-black: #252525;
-  --council-white: #FFFFFF;
-  --cd-green:      #78A22F;
-  --mts-red:       #EE3124;
-  --dark-teal:     #009999
+  --council-blue:       #0054a4;
+  --council-light-blue: #0070e0;
+  --council-dark-blue:  #002b5c;
+  --council-black:      #252525;
+  --council-white:      #FFFFFF;
+  --cd-green:           #78A22F;
+  --mts-red:            #EE3124;
+  --es-blue:            #009AC7;
+  --transit-yellow:     #FFd200;
+  --transit-red:        #ED1B2E;
 }
