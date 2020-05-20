@@ -4,7 +4,7 @@ subtitle: ""
 institute: "Metropolitan Council"
 author: 
   - "Liz Roten"
-date: '`r Sys.Date()`'
+date: '2020-05-20'
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -33,6 +33,11 @@ library(fansi)
 xaringanExtra::use_animate_css()
 # style_solarized_light()
 ```
+class: center, middle
+
+# Slides live at [lizroten.info/talks](https://lizroten.info/talks)
+
+---
 class: inverse, center, middle, hide-logo
 
 # What is an R package anyway?
