@@ -385,17 +385,17 @@ Lives in `inst/rmarkdown/templates`
 
 ![](rmarkdown_template.PNG)
 
----
+--
 
-# Council logo  
+.animated.fadeInUp[
 
-Lives in `inst/img`
-
-![](../main-logo.png)
-
+  Includes Council logo!
+]
 ---
 
 # Snippets  
+
+.pull-left[
 
 Install helpful snippets for RStudio.  
 
@@ -403,7 +403,29 @@ Install helpful snippets for RStudio.
 snippets_install()
 ```
 
-![](snippets_gif.gif)  
+![](snippets_gif.gif) 
+]
+
+--
+.pull-right[
+.animated.FadeInRight[
+
+Plus MPO counties!  
+
+```{r, echo = TRUE, eval = FALSE}
+# counties_mpo
+c("Hennepin",
+  "Dakota",
+  "Carver",
+  "Ramsey",
+  "Anoka",
+  "Scott",
+  "Washington",
+  "Wright",
+  "Sherburne")
+```
+]
+]
 
 ---
 # And More!  
@@ -421,10 +443,34 @@ by me...
 or anyone else!  
 
 ---
+class: inverse, middle, hide-logo, center
+
+# Contributing  
+
+(pay attention here for a walk-through)
+
+---
+
 
 # Bug reporting  
 
-Bugs happen! Report them on GitHub. 
+.pull-left[
+
+1. Go to [https://github.com/Metropolitan-Council/councilR](https://github.com/Metropolitan-Council/councilR)   
+
+2. Go to "Issues" tab > click "New Issue" button  
+
+3. Fill in form (don't forget to Label and Assign!)  
+
+4. Click Submit  
+
+]
+
+.pull-right[
+
+![](github_issue.gif)
+
+]
 
 ---
 

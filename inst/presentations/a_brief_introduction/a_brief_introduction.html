@@ -4,7 +4,7 @@
     <title>A brief introduction to R packages and package development</title>
     <meta charset="utf-8" />
     <meta name="author" content="Liz Roten" />
-    <meta name="date" content="2020-05-19" />
+    <meta name="date" content="2020-05-20" />
     <link href="libs/animate.css/animate.xaringan.css" rel="stylesheet" />
     <link href="libs/text-poster/text-poster.css" rel="stylesheet" />
     <script src="libs/text-poster/text-poster.js"></script>
@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 # A brief introduction to R packages and package development
 ### Liz Roten
 ### Metropolitan Council
-### 2020-05-19
+### 2020-05-20
 
 ---
 
@@ -407,17 +407,17 @@ Lives in `inst/rmarkdown/templates`
 
 ![](rmarkdown_template.PNG)
 
----
+--
 
-# Council logo  
+.animated.fadeInUp[
 
-Lives in `inst/img`
-
-![](../main-logo.png)
-
+  Includes Council logo!
+]
 ---
 
 # Snippets  
+
+.pull-left[
 
 Install helpful snippets for RStudio.  
 
@@ -426,7 +426,30 @@ Install helpful snippets for RStudio.
 snippets_install()
 ```
 
-![](snippets_gif.gif)  
+![](snippets_gif.gif) 
+]
+
+--
+.pull-right[
+.animated.FadeInRight[
+
+Plus MPO counties!  
+
+
+```r
+# counties_mpo
+c("Hennepin",
+  "Dakota",
+  "Carver",
+  "Ramsey",
+  "Anoka",
+  "Scott",
+  "Washington",
+  "Wright",
+  "Sherburne")
+```
+]
+]
 
 ---
 # And More!  
@@ -444,10 +467,33 @@ by me...
 or anyone else!  
 
 ---
+class: inverse, middle, hide-logo, center
+
+# Contributing  
+
+
+---
+
 
 # Bug reporting  
 
-Bugs happen! Report them on GitHub. 
+.pull-left[
+
+1. Go to [https://github.com/Metropolitan-Council/councilR](https://github.com/Metropolitan-Council/councilR)   
+
+2. Go to "Issues" tab &gt; click "New Issue" button  
+
+3. Fill in form (don't forget to Label and Assign!)  
+
+4. Click Submit  
+
+]
+
+.pull-right[
+
+![](github_issue.gif)
+
+]
 
 ---
 
