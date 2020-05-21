@@ -9,3 +9,4 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^inst/presentations/a_brief_introduction$
