@@ -48,9 +48,18 @@ A short introduction including metadata and project information. Include links t
 
 ### Equity questions and considerations  
 
+What are the limitations of the data you are using? Who is being missed or excluded? How is equity being integrated into this project? What groups, organizations, or individuals benefit most and least from the results of this analysis? See *Data Feminism* by Catherine D’Ignazio and Lauren Klein 
+[@dignazio_data_2020] for more question ideas[^1]. 
+
+
+## Reproducibility  
+
+```{details, echo = FALSE, details.summary = 'current session info', results=TRUE}
+sessioninfo::session_info()
+```
 
 ## References  
 
-
 <a href="https://metrocouncil.org" target="_blank"><img src="logo.png" style="margin-left: 50%;margin-right: 50%;"><div></div></a>
 
+[^1]: The open review version of *Data Feminism* is availabe on [MIT Press Open](https://bookbook.pubpub.org/data-feminism).  
