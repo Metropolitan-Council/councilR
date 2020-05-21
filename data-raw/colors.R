@@ -41,4 +41,6 @@ colors <- list(
   metrostatsTan     = "#EAE6C8"
 )
 
+
+# wow, what great colors
 usethis::use_data(colors, overwrite = TRUE, compress = "xz")

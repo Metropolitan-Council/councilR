@@ -1,12 +1,12 @@
 ---
 title: "Untitled"
-author: "Your Name"
+author: "`r Sys.getenv()['USERNAME']`"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output: 
  html_document: 
    css: style.css
    code_download: true
-   code_folding: hide
+   code_folding: show
    toc: true
    toc_float: true
 bibliography: references.bib
@@ -21,12 +21,20 @@ options(knitr.table.format = "html")
 options(scipen = 999)
 
 # import packages here!
+requireNamespace("details", quietly = TRUE)
+requireNamespace("repmis", quietly = TRUE)
+requireNamespace("citr", quietly = TRUE)
 
+library(repmis) # for package citations
+library(citr) # for traditional references. citr also interfaces with Zotero
+library(details) # reproducibility 
+library(councilR)
 
-## run repmis::LoadandCite() to generate references for all the packages in the environment
-
-# library(repmis)
+## run repmis::LoadandCite() to generate references for all the packages in the environment -----
 # repmis::LoadandCite(file = "references.bib")
+
+## repmis has a bug in handling special characters. see example below
+#
 # @Manual{R-dplyr,
 #   title = {dplyr: A Grammar of Data Manipulation},
 #   author = {Hadley Wickham and Romain Fran{\c{c}}ois and Lionel Henry and Kirill M{\"{u}}ller},
@@ -43,9 +51,18 @@ A short introduction including metadata and project information. Include links t
 
 ### Equity questions and considerations  
 
+What are the limitations of the data you are using? Who is being missed or excluded? How is equity being integrated into this project? What groups, organizations, or individuals benefit most and least from the results of this analysis? See *Data Feminism* by Catherine D’Ignazio and Lauren Klein 
+[@dignazio_data_2020] for more question ideas[^1]. 
+
+
+## Reproducibility  
+
+```{details, echo = FALSE, details.summary = 'current session info', results=TRUE}
+sessioninfo::session_info()
+```
 
 ## References  
 
-
 <a href="https://metrocouncil.org" target="_blank"><img src="logo.png" style="margin-left: 50%;margin-right: 50%;"><div></div></a>
 
+[^1]: The open review version of *Data Feminism* is availabe on [MIT Press Open](https://bookbook.pubpub.org/data-feminism).  

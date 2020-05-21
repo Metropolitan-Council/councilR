@@ -29,7 +29,10 @@ Imports:
     usethis (>= 1.6.0),
     utils
 Suggests: 
-    testthat (>= 2.3.2)
+    testthat (>= 2.3.2),
+    details (>= 0.2.1),
+    repmis (>= 0.5),
+    citr (>= 0.3.2)
 Enhances: 
     showtext (>= 0.8),
     sysfonts (>= 0.8.1)
