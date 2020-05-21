@@ -16,6 +16,10 @@
 #'   you want to make sure that no snippets are overwritten. The newer snippets
 #'   will mask older snippets, but no data will be lost.
 #'
+#' @details Snippets will only appear when writing in the snippet's language.
+#'  For example, HTML snippets will not appear while editing a ".R" file, but will
+#'  appear when editing a ".html" file.
+#'
 #' @author Garrick Aden-Buie \email{g.adenbuie@@gmail.com},
 #'   Liz Roten \email{liz.roten@@metc.state.mn.us}
 #'
