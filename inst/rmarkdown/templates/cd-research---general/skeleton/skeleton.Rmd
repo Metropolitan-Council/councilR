@@ -21,6 +21,9 @@ options(knitr.table.format = "html")
 options(scipen = 999)
 
 # import packages here!
+requireNamespace("details", quietly = TRUE)
+requireNamespace("repmis", quietly = TRUE)
+requireNamespace("citr", quietly = TRUE)
 
 library(repmis) # for package citations
 library(citr) # for traditional references. citr also interfaces with Zotero
