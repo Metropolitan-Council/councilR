@@ -1,12 +1,12 @@
 ---
 title: "Untitled"
-author: "Your Name"
+author: "`r Sys.getenv()['USERNAME']`"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output: 
  html_document: 
    css: style.css
    code_download: true
-   code_folding: hide
+   code_folding: show
    toc: true
    toc_float: true
 bibliography: references.bib
