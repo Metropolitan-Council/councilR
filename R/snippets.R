@@ -16,6 +16,10 @@
 #'   you want to make sure that no snippets are overwritten. The newer snippets
 #'   will mask older snippets, but no data will be lost.
 #'
+#' @details Snippets will only appear when writing in the snippet's language.
+#'  For example, HTML snippets will not appear while editing a ".R" file, but will
+#'  appear when editing a ".html" file.
+#'
 #' @author Garrick Aden-Buie \email{g.adenbuie@@gmail.com},
 #'   Liz Roten \email{liz.roten@@metc.state.mn.us}
 #'
@@ -42,7 +46,8 @@
 #' @importFrom purrr map map_depth reduce flatten
 #'
 snippets_install <- function(install_path = NULL, update = TRUE) {
-  new <- snippets_list()
+  # browser()
+  new <- snippets_list("councilR")
   old <- snippets_list("system")
   dir <- install_path %||% snippets_dir("system")
   fs::dir_create(dir)
@@ -71,6 +76,7 @@ snippets_install <- function(install_path = NULL, update = TRUE) {
 }
 
 snippets_dir <- function(which = c("councilR", "system"), .intern = NULL) {
+  # browser()
   switch(
     match.arg(which),
     councilR = councilR_file("snippets"),
@@ -83,6 +89,7 @@ snippets_dir <- function(which = c("councilR", "system"), .intern = NULL) {
 }
 
 snippets_list <- function(which = c("", "system")) {
+  # browser()
   dir <- snippets_dir(which)
   if (!fs::dir_exists(dir)) {
     return(character(0))
@@ -94,6 +101,7 @@ snippets_list <- function(which = c("", "system")) {
 
 snippets_warn_mask <- function(new, old = NULL, warn = FALSE) {
   # returns TRUE if snippets are masked, else FALSE
+  # browser()
   file_new <- fs::path_file(new)
   file_old <- fs::path_file(old)
   if (is.null(old) || is.na(old)) {
@@ -125,6 +133,7 @@ snippets_warn_mask <- function(new, old = NULL, warn = FALSE) {
 }
 
 snippets_read_names <- function(path) {
+  # browser()
   snp <- if (length(path) == 1) read_lines(path) else path
   snp <- grep("^snippet", snp, value = TRUE)
   gsub("^snippet ([^ ]+).*", "\\1", snp)

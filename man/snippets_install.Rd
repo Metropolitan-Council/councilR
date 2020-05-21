@@ -24,6 +24,11 @@ RStudio. By default, the snippets are installed where RStudio will find
 them. If you haven't previously installed snippets to RStudio, these
 snippets will mask some of the built-in snippets that ship with RStudio.
 }
+\details{
+Snippets will only appear when writing in the snippet's language.
+For example, HTML snippets will not appear while editing a ".R" file, but will
+appear when editing a ".html" file.
+}
 \note{
 This function is adapted from
 \href{https://github.com/gadenbuie/js4shiny/blob/master/R/snippets.R}{js4shiny::snippets_install()}.
