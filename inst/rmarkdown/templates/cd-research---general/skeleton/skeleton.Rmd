@@ -22,11 +22,16 @@ options(scipen = 999)
 
 # import packages here!
 
+library(repmis) # for package citations
+library(citr) # for traditional references. citr also interfaces with Zotero
+library(details) # reproducibility 
+library(councilR)
 
-## run repmis::LoadandCite() to generate references for all the packages in the environment
-
-# library(repmis)
+## run repmis::LoadandCite() to generate references for all the packages in the environment -----
 # repmis::LoadandCite(file = "references.bib")
+
+## repmis has a bug in handling special characters. see example below
+#
 # @Manual{R-dplyr,
 #   title = {dplyr: A Grammar of Data Manipulation},
 #   author = {Hadley Wickham and Romain Fran{\c{c}}ois and Lionel Henry and Kirill M{\"{u}}ller},
