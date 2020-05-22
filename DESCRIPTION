@@ -31,7 +31,8 @@ Imports:
     tictoc (>= 1.0),
     sf (>= 0.9.3),
     odbc (>= 1.2.2),
-    DBI (>= 1.1.0)
+    DBI (>= 1.1.0),
+    units (>= 0.6.6)
 Suggests: 
     testthat (>= 2.3.2),
     details (>= 0.2.1),
