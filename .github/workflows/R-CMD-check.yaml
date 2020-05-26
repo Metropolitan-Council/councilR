@@ -60,8 +60,9 @@ jobs:
           sudo -s eval "$sysreqs"
           sudo apt-get install gdal-bin
           sudo apt-get install libgdal-dev
+      - name: Install Mac dependencies
         if: runner.os == 'Mac'
-        run: |
+        run:  |
           brew install udunits
 
       - name: Install dependencies
