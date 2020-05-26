@@ -58,6 +58,11 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
+          sudo apt-get install gdal-bin
+          sudo apt-get install libgdal-dev
+        if: runner.os == 'Mac'
+        run: |
+          brew install udunits
 
       - name: Install dependencies
         run: |
