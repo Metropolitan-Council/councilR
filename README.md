@@ -38,8 +38,8 @@ Finally, be sure to add your name to the authors section in the
 `DESCRIPTION`.
 
 Please note that the `{councilR}` project is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to
-this project, you agree to abide by its terms.
+[Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By
+contributing to this project, you agree to abide by its terms.
 
 ### Acknowledgements
 
