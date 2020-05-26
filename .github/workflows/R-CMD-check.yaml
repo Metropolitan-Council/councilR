@@ -61,9 +61,10 @@ jobs:
           sudo apt-get install gdal-bin
           sudo apt-get install libgdal-dev
       - name: Install Mac dependencies
-        if: runner.os == 'Mac'
+        if: runner.os == 'MacOS'
         run:  |
           brew install udunits
+          brew install gnu-units
 
       - name: Install dependencies
         run: |
