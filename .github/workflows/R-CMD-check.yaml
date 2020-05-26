@@ -55,6 +55,7 @@ jobs:
         run:  |
           brew install udunits
           brew install gnu-units
+          brew install gdal-config
 
       - name: Install dependencies
         run: |
