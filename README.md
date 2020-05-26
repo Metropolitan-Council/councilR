@@ -40,3 +40,9 @@ Finally, be sure to add your name to the authors section in the
 Please note that the `{councilR}` project is released with a
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to
 this project, you agree to abide by its terms.
+
+### Acknowledgements
+
+Thanks to all the folks who have contributed to this project in one way
+or another: [@ashleyasmus](https://github.com/ashleyasmus), and
+[@eroten](https://github.com/eroten).
