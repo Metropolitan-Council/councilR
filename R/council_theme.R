@@ -1,13 +1,13 @@
 #' Council ggplot2 theme
 #'
-#' @param use_showtext logical, whether to use Council fonts.
-#' @param size_header header font size in px
-#' @param size_axis_title axis title font size in px
-#' @param size_legend_title legend title font size in px
-#' @param size_axis_text axis text font size in px
-#' @param size_legend_text legend test font size in px
-#' @param size_caption caption font size in px
-#' @param size_margin the margin size in pt
+#' @param use_showtext Logical, whether to use Council fonts.
+#' @param size_header Header font size in pt. Default is 22
+#' @param size_axis_title Axis title font size in pt. Default is 14.
+#' @param size_legend_title Legend title font size in pt. Default is 14.
+#' @param size_axis_text Axis text font size in pt. Default is 11
+#' @param size_legend_text Legend test font size in pt. Default is 10.
+#' @param size_caption Caption font size in pt. Default is 8.
+#' @param size_margin Margin size in pt. Default is 10
 #'
 #'
 #' @details
@@ -64,6 +64,7 @@ council_theme <- function(use_showtext = FALSE,
     font_title <- "HelveticaNeueLT Std Lt"
     font_caption <- "Palatino Linotype"
     font_axis <- "Arial Narrow"
+
   } else {
     font_title <- "sans"
     font_caption <- "serif"

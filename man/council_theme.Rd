@@ -16,21 +16,21 @@ council_theme(
 )
 }
 \arguments{
-\item{use_showtext}{logical, whether to use Council fonts.}
+\item{use_showtext}{Logical, whether to use Council fonts.}
 
-\item{size_header}{header font size in px}
+\item{size_header}{Header font size in pt. Default is 22}
 
-\item{size_axis_title}{axis title font size in px}
+\item{size_axis_title}{Axis title font size in pt. Default is 14.}
 
-\item{size_legend_title}{legend title font size in px}
+\item{size_legend_title}{Legend title font size in pt. Default is 14.}
 
-\item{size_axis_text}{axis text font size in px}
+\item{size_axis_text}{Axis text font size in pt. Default is 11}
 
-\item{size_legend_text}{legend test font size in px}
+\item{size_legend_text}{Legend test font size in pt. Default is 10.}
 
-\item{size_caption}{caption font size in px}
+\item{size_caption}{Caption font size in pt. Default is 8.}
 
-\item{size_margin}{the margin size in pt}
+\item{size_margin}{Margin size in pt. Default is 10}
 }
 \value{
 a \code{\link[ggplot2:theme]{ggplot2::theme()}} object
