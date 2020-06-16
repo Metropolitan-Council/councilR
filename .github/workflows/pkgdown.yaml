@@ -15,6 +15,9 @@ jobs:
       - uses: r-lib/actions/setup-r@master
 
       - uses: r-lib/actions/setup-pandoc@master
+      - name: Install units
+        run: |
+          brew install udunits
 
       - name: Query dependencies
         run: |
