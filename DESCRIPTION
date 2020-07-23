@@ -16,33 +16,32 @@ Authors@R:
              comment = c(ORCID = "0000-0002-7111-0077")))
 Description: A collection of commonly used templates, color
     palettes, functions, and more!
-License: MIT + file LICENSE
+License: GPL-3 + file LICENSE
 Depends: 
     R (>= 2.10)
 Imports: 
+    DBI (>= 1.1.0),
     fs (>= 1.4),
     ggplot2 (>= 3.3.0),
     glue (>= 1.4.0),
     magrittr (>= 1.5),
+    odbc (>= 1.2.2),
     purrr (>= 0.3),
     rstudioapi (>= 0.11),
-    usethis (>= 1.6.0),
-    utils,
+    sf (>= 0.9.5),
     tictoc (>= 1.0),
-    sf,
-    odbc (>= 1.2.2),
-    DBI (>= 1.1.0),
-    units (>= 0.6.6)
+    utils
 Suggests: 
-    testthat (>= 2.3.2),
+    citr (>= 0.3.2),
     details (>= 0.2.1),
     repmis (>= 0.5),
-    citr (>= 0.3.2)
+    testthat (>= 2.3.2),
+    usethis (>= 1.6.1)
 Enhances: 
     showtext (>= 0.8),
     sysfonts (>= 0.8.1)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Year: 2020

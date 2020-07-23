@@ -20,7 +20,6 @@ jobs:
         config:
           - {os: windows-latest, r: 'release'}
           - {os: macOS-latest, r: 'release'}
-          - {os: macOS-latest, r: 'devel'}
           - {os: ubuntu-latest, r: 'release', container: rocker/geospatial, rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
 
     env:
@@ -49,14 +48,7 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-1-
-
-      - name: Install Mac dependencies
-        if: runner.os == 'MacOS'
-        run:  |
-          brew install udunits
-          brew install gnu-units
-          brew install gdal
-
+          
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
