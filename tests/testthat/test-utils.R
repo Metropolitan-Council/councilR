@@ -2,10 +2,10 @@
 
 test_that("requires_pkg", {
   missing_pkg <- function() requires_pkg("flarf")
-  has_pkg <- function() requires_pkg("usethis")
+  has_pkg <- function() requires_pkg("ggplot2")
   missing_pkg_v <- function() requires_pkg_version("flarf", "1.2")
-  outdated_pkg <- function() requires_pkg_version("usethis", "1.0.0")
-  uptodate_pkg <- function() requires_pkg_version("usethis", "1.6.0")
+  outdated_pkg <- function() requires_pkg_version("ggplot2", "1.0.0")
+  uptodate_pkg <- function() requires_pkg_version("ggplot2", "1.6.0")
 
   expect_silent(has_pkg())
   expect_silent(uptodate_pkg())
