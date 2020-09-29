@@ -39,28 +39,55 @@ a \code{\link[ggplot2:theme]{ggplot2::theme()}} object
 Council ggplot2 theme
 }
 \section{Council fonts}{
-If you wish to use Council fonts, you must have the following fonts installed:
+There are a few requirements needed if you want to use Council font families.
+\enumerate{
+\item You must have the optional \href{https://github.com/yixuan/showtext}{\code{{showtext}}}
+and \href{https://github.com/yixuan/sysfonts}{\code{{sysfonts}}} packages installed.
+\item You must have the following fonts installed:
+}
 \itemize{
 \item HelveticaNeueLT Standard Light, Standard Condensed, and Standard Medium Condensed
 \item Arial Narrow
 \item Palatino Linotype
+If you do not have the font files handy, contact a package author or your manager.
 }
-
-You must also have the \href{https://github.com/yixuan/showtext}{showtext} and \href{https://github.com/yixuan/sysfonts}{sysfonts}
-packages installed.
+\enumerate{
+\item The font family and file names much match those listed below
+}
+\itemize{
+\item "HelveticaNeueLT Std Cn" = "HelveticaNeueLTStd-Cn.otf"
+\item "HelveticaNeueLT Std Lt" = "HelveticaNeueLTStd-Lt.otf"
+\item "Arial Narrow" ="ARIALN.TTF"
+\item "HelveticaNeueLT Std Med Cn" = "HelveticaNeueLTStd-MdCn.otf")
+\item "Palatino Linotype" = "pala.ttf"
+}
+\enumerate{
+\item Consider options for your OS
+}
+\itemize{
+\item On Windows, be sure that the fonts are installed for the entire system, not just a single user.
+These are located in \verb{C:/Windows/Fonts}.
+\item On Mac OSX, be sure that fonts are installed for the user. These are located in \verb{~/Library/Fonts}.
+Consider copying the entire system font directory (\verb{/Library/Fonts}) to the user font directory for easy access.
+}
 }
 
 \section{Font size suggestions}{
 If you are creating plots for a presentation, you should increase all font sizes.
 Check the default font sizes in the presentation platform you are working in
-and adjust from there.
+and adjust from there. For example, Microsoft PowerPoint sets slide headings at 77 pnt and
+body text at 46 pnt. You will likely want to make the plot title less than 77 pnt so you
+can preserve the text hierarchy in the slide.
 }
 
 \section{Theme modifications}{
 If you wish to make changes to this theme template, such as removing
-the legend, adusting text positons,  access the source code by typing
+the legend, adjusting text positions,  access the source code by typing
 \code{councilR::council_theme} in the console. You can then copy/paste the
-function into whatever document you are working on and make changes.
+function into whatever document you are working on and make changes there.
+If you want to make a change to the default template, open an Issue on GitHub
+and ask for the change to be made, and/or make the change yourself and make
+a pull request.
 }
 
 \seealso{

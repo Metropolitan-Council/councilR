@@ -4,10 +4,12 @@
 \alias{import_from_gis}
 \title{Import a dataset from ArcCatalog}
 \usage{
-import_from_gis(query)
+import_from_gis(query, dbname = "GISLibrary")
 }
 \arguments{
-\item{query}{a string with the database connection and feature class}
+\item{query}{character, string with the database connection and feature class}
+
+\item{dbname}{character, database name. Usually either \code{"GIS"} or \code{"GISLibrary"}}
 }
 \value{
 an \code{sf} object
