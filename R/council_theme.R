@@ -13,24 +13,46 @@
 #' @details
 #' # Council fonts
 #'
-#' If you wish to use Council fonts, you must have the following fonts installed:
+#' There are a few requirements needed if you want to use Council font families.
+#'
+#' 1. You must have the optional [`{showtext}`](https://github.com/yixuan/showtext)
+#'  and [`{sysfonts}`](https://github.com/yixuan/sysfonts) packages installed.
+#'
+#' 2. You must have the following fonts installed:
 #'   - HelveticaNeueLT Standard Light, Standard Condensed, and Standard Medium Condensed
 #'   - Arial Narrow
 #'   - Palatino Linotype
+#'   If you do not have the font files handy, contact a package author or your manager.
 #'
-#' You must also have the [showtext](https://github.com/yixuan/showtext) and [sysfonts](https://github.com/yixuan/sysfonts)
-#'  packages installed.
+#' 3. The font family and file names much match those listed below
+#'   - "HelveticaNeueLT Std Cn" = "HelveticaNeueLTStd-Cn.otf"
+#'   - "HelveticaNeueLT Std Lt" = "HelveticaNeueLTStd-Lt.otf"
+#'   - "Arial Narrow" ="ARIALN.TTF"
+#'   - "HelveticaNeueLT Std Med Cn" = "HelveticaNeueLTStd-MdCn.otf")
+#'   - "Palatino Linotype" = "pala.ttf"
+#'
+#' 4. Consider options for your OS
+#'   - On Windows, be sure that the fonts are installed for the entire system, not just a single user.
+#'     These are located in `C:/Windows/Fonts`.
+#'   - On Mac OSX, be sure that fonts are installed for the user. These are located in `~/Library/Fonts`.
+#'     Consider copying the entire system font directory (`/Library/Fonts`) to the user font directory for easy access.
 #'
 #' # Font size suggestions
 #'  If you are creating plots for a presentation, you should increase all font sizes.
 #'  Check the default font sizes in the presentation platform you are working in
-#'  and adjust from there.
+#'  and adjust from there. For example, Microsoft PowerPoint sets slide headings at 77 pnt and
+#'  body text at 46 pnt. You will likely want to make the plot title less than 77 pnt so you
+#'  can preserve the text hierarchy in the slide.
 #'
 #' # Theme modifications
 #'  If you wish to make changes to this theme template, such as removing
-#'  the legend, adusting text positons,  access the source code by typing
+#'  the legend, adjusting text positions,  access the source code by typing
 #'  `councilR::council_theme` in the console. You can then copy/paste the
-#'  function into whatever document you are working on and make changes.
+#'  function into whatever document you are working on and make changes there.
+#'  If you want to make a change to the default template, open an Issue on GitHub
+#'  and ask for the change to be made, and/or make the change yourself and make
+#'  a pull request.
+#'
 #'
 #' @return a [ggplot2::theme()] object
 #' @export
