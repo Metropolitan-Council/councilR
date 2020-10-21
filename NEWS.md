@@ -13,4 +13,4 @@
 ## Housekeeping  
 
 * Added a `NEWS.md` file to track changes to the package.  
-* Updataed [Contributor Code of Conduct](.github/CODE_OF_CONDCT.md).  
+* Updated [Contributor Code of Conduct](.github/CODE_OF_CONDCT.md).  
