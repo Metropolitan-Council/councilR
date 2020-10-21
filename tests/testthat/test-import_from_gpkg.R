@@ -1,5 +1,8 @@
 testthat::skip_if_offline()
 
+testthat::skip_on_os("windows"){
 testthat::expect_warning(import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip"))
+}
+
 
 # testthat::expect_true(class(import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip"))[[1]] == "sf")
