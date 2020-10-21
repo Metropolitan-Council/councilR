@@ -8,7 +8,7 @@ import_from_gpkg(
   link,
   save_file = FALSE,
   save_path = getwd(),
-  crs_ = 4326,
+  .crs = 4326,
   keep_temp = FALSE,
   .quiet = TRUE
 )
@@ -22,13 +22,13 @@ File will be saved in .RDS format}
 \item{save_path}{character, the path where the downloaded file should be saved.
 Default location is in the working directory.}
 
+\item{.crs, }{the CRS code or string used to transform the download.
+Default is "4326" (WGS 84)}
+
 \item{keep_temp}{character, whether to keep the temporary download.
 Default is \code{FALSE}.}
 
 \item{.quiet}{logical, suppress messages}
-
-\item{.crs, }{the CRS code or string used to transform the download.
-Default is "4326" (WGS 84)}
 }
 \value{
 an \code{sf} object
