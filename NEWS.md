@@ -2,7 +2,7 @@
 
 ## New functions
 
-* `import_from_gpkg()` function allows user to import an `sf` object from a URL. This is particularly useful for accessing Minnesota Geospatial Commons if you are unable to access the Council's ArcGIS catalog. 
+* `import_from_gpkg()` function allows the user to import an `sf` object from a geopackage URL. This is particularly useful for accessing Minnesota Geospatial Commons if you are unable to access the Council's ArcGIS catalog. 
 
 # v0.1.0  (2020-05-26)
 
