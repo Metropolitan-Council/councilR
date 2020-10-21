@@ -5,11 +5,11 @@
 #'     File will be saved in .RDS format
 #' @param save_path character, the path where the downloaded file should be saved.
 #'     Default location is in the working directory.
-#' @param crs_ the CRS code or string used to transform the download.
+#' @param .crs, the CRS code or string used to transform the download.
 #'     Default is "4326" (WGS 84)
 #' @param keep_temp character, whether to keep the temporary download.
 #'     Default is `FALSE`.
-#' @param .quiet logical, supress messages
+#' @param .quiet logical, suppress messages
 #'
 #' @return an `sf` object
 #' @export
@@ -46,7 +46,7 @@ import_from_gpkg <- function(
     gsub(pattern = ".zip", replacement = "")
 
   out_sf <- sf::read_sf(unzip(temp, paste0(file_name, ".gpkg")), quiet = .quiet,) %>%
-    sf::st_transform(crs = crs_)
+    sf::st_transform(crs = .crs)
 
   # delete the temp file
   if(keep_temp == FALSE){
