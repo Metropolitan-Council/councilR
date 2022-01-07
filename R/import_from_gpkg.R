@@ -26,16 +26,12 @@
 #'
 #' # import regional parks from Minnesota Geospatial Commons
 #' import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
-#'
-#'
-import_from_gpkg <- function(
-  link,
-  save_file = FALSE,
-  save_path = getwd(),
-  .crs = 4326,
-  keep_temp = FALSE,
-  .quiet = TRUE
-) {
+import_from_gpkg <- function(link,
+                             save_file = FALSE,
+                             save_path = getwd(),
+                             .crs = 4326,
+                             keep_temp = FALSE,
+                             .quiet = TRUE) {
   temp <- tempfile()
   download.file(link, temp, quiet = .quiet)
 
@@ -45,16 +41,16 @@ import_from_gpkg <- function(
     gsub(pattern = "gpkg_", replacement = "") %>%
     gsub(pattern = ".zip", replacement = "")
 
-  out_sf <- sf::read_sf(unzip(temp, paste0(file_name, ".gpkg")), quiet = .quiet,) %>%
+  out_sf <- sf::read_sf(unzip(temp, paste0(file_name, ".gpkg")), quiet = .quiet, ) %>%
     sf::st_transform(crs = .crs)
 
   # delete the temp file
-  if(keep_temp == FALSE){
+  if (keep_temp == FALSE) {
     fs::file_delete(paste0(file_name, ".gpkg"))
   }
 
   # save the cle
-  if(save_file == TRUE){
+  if (save_file == TRUE) {
     saveRDS(out_sf, paste0(save_path, "/", file_name, ".RDS"))
   }
 

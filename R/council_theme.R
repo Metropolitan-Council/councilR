@@ -86,7 +86,6 @@ council_theme <- function(use_showtext = FALSE,
     font_title <- "HelveticaNeueLT Std Lt"
     font_caption <- "Palatino Linotype"
     font_axis <- "Arial Narrow"
-
   } else {
     font_title <- "sans"
     font_caption <- "serif"
@@ -97,7 +96,6 @@ council_theme <- function(use_showtext = FALSE,
   ggplot2::theme_minimal() +
     ggplot2::theme(
       plot.margin = ggplot2::margin(size_margin, size_margin, size_margin, size_margin, "pt"),
-
       axis.title.x = ggplot2::element_text(
         vjust = -1,
         family = font_axis,
@@ -131,7 +129,7 @@ council_theme <- function(use_showtext = FALSE,
       legend.title = ggplot2::element_text(
         family = font_title,
         size = size_legend_title
-        ),
+      ),
       legend.text = ggplot2::element_text(
         family = font_axis,
         size = size_legend_text,

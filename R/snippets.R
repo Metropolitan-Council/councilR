@@ -24,7 +24,6 @@
 #'   Liz Roten \email{liz.roten@@metc.state.mn.us}
 #'
 #' @examples
-#'
 #' \dontrun{
 #' snip_tmp <- tempfile("snippets")
 #' dir.create(snip_tmp)
@@ -77,8 +76,7 @@ snippets_install <- function(install_path = NULL, update = TRUE) {
 
 snippets_dir <- function(which = c("councilR", "system"), .intern = NULL) {
   # browser()
-  switch(
-    match.arg(which),
+  switch(match.arg(which),
     councilR = councilR_file("snippets"),
     system = if (rstudio_gt_1.3()) {
       fs::path_home_r(".config", "rstudio", "snippets")
