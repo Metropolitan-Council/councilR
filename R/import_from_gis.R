@@ -2,28 +2,49 @@
 #'
 #' @param query character, string with the database connection and feature class
 #' @param dbname character, database name. Usually either `"GIS"` or `"GISLibrary"`
+#' @param uid character, user ID. default is `getOption("councilR.uid")`
+#' @param pwd character, user password. Default is `getOption("councilR.pwd")`.
 #'
 #' @return an `sf` object
 #' @export
-#' @examples \dontrun{import_from_gis("GISTransit.dbo.PublicParcelsMetroCTUs")}
+#' @examples \dontrun{import_from_gis("GISLibrary.dbo.AIRPORTS")}
 #' @importFrom sf st_as_sf
 #' @importFrom odbc odbc dbConnect
 #' @importFrom DBI dbGetQuery dbDisconnect
 #' @importFrom tictoc tic toc
 import_from_gis <- function(query,
-                            dbname = "GISLibrary"){
+                            dbname = "GISLibrary",
+                            uid = getOption("councilR.uid"),
+                            pwd = getOption("councilR.pwd")){
   tictoc::tic()
-
-  if(DBI::dbCanConnect(odbc::odbc(), dbname) != TRUE){
+  browser()
+  if(DBI::dbCanConnect(odbc::odbc(),
+                       # driver = "FreeTDS",
+                       dbname,
+                       timeout = 10,
+                       Uid = uid,
+                       Pwd = pwd) != TRUE){
     stop("Database could not connect.")
   }
 
-  conn <- odbc::dbConnect(odbc::odbc(), dbname)
+  conn <- DBI::dbConnect(odbc::odbc(),
+                         # driver = "FreeTDS",
+                         dbname,
+                         timeout = 10,
+                         Uid = uid,
+                         Pwd = pwd)
 
-  sf_df <- sf::st_as_sf(DBI::dbGetQuery(conn,
-                                        paste0("SELECT *, Shape.STAsText() as wkt FROM ", query)),
-                        wkt = "wkt", crs = 26915)
+  que <-DBI::dbGetQuery(
+    conn,
+    paste0("SELECT *, Shape.STAsText() as wkt FROM ", query))
+
+  DBI::dbFetch(que)
+
+  sf_df <- sf::st_as_sf(
+    wkt = "wkt", crs = 26915)
   DBI::dbDisconnect(conn)
+
   tictoc::toc()
+
   return(sf_df)
 }

@@ -4,12 +4,21 @@
 \alias{import_from_gis}
 \title{Import a dataset from ArcCatalog}
 \usage{
-import_from_gis(query, dbname = "GISLibrary")
+import_from_gis(
+  query,
+  dbname = "GISLibrary",
+  uid = getOption("councilR.uid"),
+  pwd = getOption("councilR.pwd")
+)
 }
 \arguments{
 \item{query}{character, string with the database connection and feature class}
 
 \item{dbname}{character, database name. Usually either \code{"GIS"} or \code{"GISLibrary"}}
+
+\item{uid}{character, user ID. default is \code{getOption("councilR.uid")}}
+
+\item{pwd}{character, user password. Default is \code{getOption("councilR.pwd")}.}
 }
 \value{
 an \code{sf} object
@@ -18,5 +27,5 @@ an \code{sf} object
 Import a dataset from ArcCatalog
 }
 \examples{
-\dontrun{import_from_gis("GISTransit.dbo.PublicParcelsMetroCTUs")}
+\dontrun{import_from_gis("GISLibrary.dbo.AIRPORTS")}
 }
