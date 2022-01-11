@@ -44,6 +44,7 @@ By contributing to this project, you agree to abide by its terms.
 
 ### Acknowledgements    
 
-Thanks to all the folks who have contributed to this project in one way or another: [&#x0040;ashleyasmus](https://github.com/ashleyasmus), and [&#x0040;eroten](https://github.com/eroten).  
+Thanks to all the folks who have contributed to this project in one way or another  [&#x0040;ashleyasmus](https://github.com/ashleyasmus), [&#x0040;ehesch](https://github.com/ehesch), and [&#x0040;eroten](https://github.com/eroten).
+
 
 
