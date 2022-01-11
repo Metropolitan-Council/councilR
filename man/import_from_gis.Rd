@@ -27,5 +27,7 @@ an \code{sf} object
 Import a dataset from ArcCatalog
 }
 \examples{
-\dontrun{import_from_gis("GISLibrary.dbo.AIRPORTS")}
+\dontrun{
+import_from_gis("GISLibrary.dbo.AIRPORTS")
+}
 }
