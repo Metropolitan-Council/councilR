@@ -43,7 +43,6 @@ will mask older snippets, but no data will be lost.
 }
 
 \examples{
-
 \dontrun{
 snip_tmp <- tempfile("snippets")
 dir.create(snip_tmp)

@@ -37,8 +37,8 @@ scale_color_council <- ### modified from scale_fill_brewer, removed some argumen
     ## scale, it will create a new Scale object.
   }
 
-test <- tibble(x = c(1:8), y = c(1:8), col = c(1:8))
-ggplot(test, aes(x = x, y = y, col = as.factor(col), fill = as.factor(col))) +
-  geom_point(size = 4, pch = 21) +
-  scale_fill_council() + # "councilCat") +
-  scale_color_council() # "councilCat")
+# test <- tibble(x = c(1:8), y = c(1:8), col = c(1:8))
+# ggplot(test, aes(x = x, y = y, col = as.factor(col), fill = as.factor(col))) +
+#   geom_point(size = 4, pch = 21) +
+#   scale_fill_council() + # "councilCat") +
+#   scale_color_council() # "councilCat")

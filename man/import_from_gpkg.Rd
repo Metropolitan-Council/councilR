@@ -43,6 +43,4 @@ library(councilR)
 
 # import regional parks from Minnesota Geospatial Commons
 import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
-
-
 }
