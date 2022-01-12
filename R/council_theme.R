@@ -60,6 +60,7 @@
 #' @family aesthetics
 #'
 #' @importFrom ggplot2 theme_minimal theme element_text margin
+#' @importFrom rlang warn
 #'
 council_theme <- function(use_showtext = FALSE,
                           size_header = 22,
@@ -69,6 +70,9 @@ council_theme <- function(use_showtext = FALSE,
                           size_legend_text = 10,
                           size_caption = 8,
                           size_margin = 10) {
+
+  rlang::warn(message = "council_theme() is deprecated as of version 0.1.1. Please use theme_council()", .frequency = "once", .frequency_id = "once")
+
   if (use_showtext == TRUE) {
     requireNamespace("sysfonts", quietly = TRUE)
     requireNamespace("showtext", quietly = TRUE)
