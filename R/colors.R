@@ -36,6 +36,7 @@
 #' }
 #'
 #' @family aesthetics
+#' @note See these colors in action in `vignette("Color")`
 #'
 #' @examples
 #' colors$councilBlue
