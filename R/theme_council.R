@@ -68,11 +68,13 @@
 #' library(councilR)
 #'
 #' ggplot(datasets::iris) +
-#' aes(Sepal.Length, Sepal.Width, color = Species) +
-#' geom_point() +
-#' scale_color_viridis_d() +
-#' theme_council(use_showtext = TRUE,
-#'              use_manual_font_sizes = TRUE)
+#'   aes(Sepal.Length, Sepal.Width, color = Species) +
+#'   geom_point() +
+#'   scale_color_viridis_d() +
+#'   theme_council(
+#'     use_showtext = TRUE,
+#'     use_manual_font_sizes = TRUE
+#'   )
 #' }
 #'
 #' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel
@@ -110,42 +112,43 @@ theme_council <- function(base_size = 11,
 
 
     font_families <-
-      list("title" = "HelveticaNeueLT Std Lt",
-           "subtitle" = "HelveticaNeueLT Std Cn",
-           "axis_title" = "Arial Narrow",
-           "axis_text" = "Arial Narrow",
-           "legend_title" = "HelveticaNeueLT Std Cn",
-           "legend_text"= "Arial Narrow",
-           "caption" = "Palatino Linotype",
-           "strip" = "Arial Narrow"
+      list(
+        "title" = "HelveticaNeueLT Std Lt",
+        "subtitle" = "HelveticaNeueLT Std Cn",
+        "axis_title" = "Arial Narrow",
+        "axis_text" = "Arial Narrow",
+        "legend_title" = "HelveticaNeueLT Std Cn",
+        "legend_text" = "Arial Narrow",
+        "caption" = "Palatino Linotype",
+        "strip" = "Arial Narrow"
       )
-
   } else {
-
     font_families <-
-      list("title" = "sans",
-           "subtitle" = "sans",
-           "axis_title" = "sans",
-           "axis_text" = "sans",
-           "legend_title" = "sans",
-           "legend_text"= "sans",
-           "caption" = "serif",
-           "strip" = "sans"
+      list(
+        "title" = "sans",
+        "subtitle" = "sans",
+        "axis_title" = "sans",
+        "axis_text" = "sans",
+        "legend_title" = "sans",
+        "legend_text" = "sans",
+        "caption" = "serif",
+        "strip" = "sans"
       )
-
   }
 
 
-  if(use_manual_font_sizes == FALSE){
+  if (use_manual_font_sizes == FALSE) {
     font_sizes <-
-      list("title" = ggplot2::rel(1.2),
-           "subtitle" = ggplot2::rel(1.1),
-           "axis_title" = base_size,
-           "axis_text" = ggplot2::rel(0.8),
-           "legend_title" = base_size,
-           "legend_text" = ggplot2::rel(0.8),
-           "caption" = ggplot2::rel(0.8),
-           "strip" = ggplot2::rel(0.8))
+      list(
+        "title" = ggplot2::rel(1.2),
+        "subtitle" = ggplot2::rel(1.1),
+        "axis_title" = base_size,
+        "axis_text" = ggplot2::rel(0.8),
+        "legend_title" = base_size,
+        "legend_text" = ggplot2::rel(0.8),
+        "caption" = ggplot2::rel(0.8),
+        "strip" = ggplot2::rel(0.8)
+      )
   }
 
 
