@@ -19,6 +19,7 @@
 #'
 #' @importFrom sf read_sf st_transform
 #' @importFrom fs file_delete
+#' @importFrom utils download.file tail unzip
 #'
 #' @examples
 #'
