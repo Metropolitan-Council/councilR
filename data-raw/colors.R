@@ -42,5 +42,29 @@ colors <- list(
 )
 
 
+blue_cascade <- list(
+
+  level1 = list("background" = "#002b5c",
+                "color" = colors$suppWhite),
+  level2 = list("background" = "#01408a",
+                "color" = colors$suppWhite),
+  level3 = list("background" = colors$councilBlue,
+               "color" = "#002b5c"),
+  level4 = list("background" = "#cad3e0",
+               "color" = "#002b5c"),
+  level5 = list("background" = "#e0e3e8",
+               "color" = "#002b5c"),
+  level6 = list("background" = colors$suppGray,
+               "color" = "#002b5c"),
+  level7 = list("background" = "#f7f7f7",
+               "color" = "#002b5c"),
+  level8 = list("background" = colors$suppWhite,
+               "color" = "#002b5c")
+)
+
+
+
+
 # wow, what great colors
 usethis::use_data(colors, overwrite = TRUE, compress = "xz")
+usethis::use_data(blue_cascade, overwrite = TRUE, compress = "xz")
