@@ -29,11 +29,13 @@ Imports:
     utils
 Suggests: 
     citr (>= 0.3.2),
+    cowplot (>= 1.1.1),
     details (>= 0.2.1),
     knitr (>= 1.37),
     repmis (>= 0.5),
     rmarkdown (>= 2.11),
     testthat (>= 2.3.2),
+    tibble (>= 3.1.6),
     usethis (>= 1.6.1)
 Enhances: 
     showtext (>= 0.8),
