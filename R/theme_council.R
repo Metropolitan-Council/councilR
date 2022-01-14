@@ -119,7 +119,7 @@ theme_council <- function(base_size = 11,
         "axis_text" = "Arial Narrow",
         "legend_title" = "HelveticaNeueLT Std Cn",
         "legend_text" = "Arial Narrow",
-        "caption" = "Palatino Linotype",
+        "caption" = "Arial Narrow", #"Palatino Linotype",
         "strip" = "Arial Narrow"
       )
   } else {
@@ -131,7 +131,7 @@ theme_council <- function(base_size = 11,
         "axis_text" = "sans",
         "legend_title" = "sans",
         "legend_text" = "sans",
-        "caption" = "serif",
+        "caption" = "sans", #"serif",
         "strip" = "sans"
       )
   }
@@ -360,6 +360,7 @@ theme_council <- function(base_size = 11,
       hjust = 1,
       vjust = 1,
       size = font_sizes$caption,
+      color = "grey30",
       family = font_families$caption,
       margin = ggplot2::margin(t = half_line)
     ),
