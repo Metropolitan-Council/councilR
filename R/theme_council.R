@@ -217,7 +217,7 @@ theme_council <- function(base_size = 11,
     ),
 
     ## ticks ----
-    axis.ticks = ggplot2::element_blank(),
+    axis.ticks = element_line(color = "grey92"),
     axis.ticks.length = ggplot2::unit(half_line / 2, "pt"),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
