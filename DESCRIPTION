@@ -9,7 +9,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-5346-3549")),
     person("Garrick", "Aden-Buie", , "garrick@adenbuie.com", role = "ctb",
            comment = c(ORCID = "0000-0002-7111-0077")),
-    person("Ellen", "Esch", , "ellen.esch@metc.state.mn.us", role = c("ctb"),
+    person("Ellen", "Esch", , "ellen.esch@metc.state.mn.us", role = "ctb",
            comment = c(ORCID = "https://orcid.org/0000-0002-4253-0910"))
   )
 Description: A collection of commonly used templates, color palettes,
@@ -45,6 +45,8 @@ Enhances:
     sysfonts (>= 0.8.1)
 VignetteBuilder: 
     knitr
+Remotes: 
+    crsh/citr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
