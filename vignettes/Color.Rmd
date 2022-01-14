@@ -120,7 +120,6 @@ There is the traditional `theme_council()` but now also `theme_council_open()` w
 ```{r}
 plot_example +
   scale_color_council() +
-  theme_council_open() +
-  labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15), 
-       caption = "Test caption") 
+  theme_council_open(use_showtext = T) +
+  labs(title = "This is theme_council_open()") 
 ```
