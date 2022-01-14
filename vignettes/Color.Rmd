@@ -109,8 +109,18 @@ cowplot::plot_grid(plotlist = blue_plots)
 plot_example +
   scale_color_council() +
   theme_council(use_showtext = T) +
-  labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15)) +
-  facet_wrap(~as.factor(Month))# +
-  theme(axis.ticks = element_line(color = "grey92"))
+  labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15)) 
 
+```
+
+## Update to council theme
+
+There is the traditional `theme_council()` but now also `theme_council_open()` which will be more appropriate for simple scatterplots or lineplots.
+
+```{r}
+plot_example +
+  scale_color_council() +
+  theme_council_open() +
+  labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15), 
+       caption = "Test caption") 
 ```
