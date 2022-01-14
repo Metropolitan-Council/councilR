@@ -240,11 +240,11 @@ theme_council <- function(base_size = 11,
       size = font_sizes$axis_title
     ),
     axis.title.y = ggplot2::element_text(
-      angle = 90,
+      angle = 0,
       family = font_families$axis_title,
       size = font_sizes$axis_title,
       margin = ggplot2::margin(r = half_line / 2),
-      vjust = 2
+      vjust = .5
     ),
     axis.title.y.right = ggplot2::element_text(
       angle = -90,
