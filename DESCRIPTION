@@ -8,7 +8,9 @@ Authors@R: c(
     person("Liz", "Roten", , "liz.roten@metc.state.mn.us", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-5346-3549")),
     person("Garrick", "Aden-Buie", , "garrick@adenbuie.com", role = "ctb",
-           comment = c(ORCID = "0000-0002-7111-0077"))
+           comment = c(ORCID = "0000-0002-7111-0077")),
+    person("Ellen", "Esch", , "ellen.esch@metc.state.mn.us", role = c("ctb"),
+           comment = c(ORCID = "https://orcid.org/0000-0002-4253-0910"))
   )
 Description: A collection of commonly used templates, color palettes,
     functions, and more!
