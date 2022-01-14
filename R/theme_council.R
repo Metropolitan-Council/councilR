@@ -379,3 +379,37 @@ theme_council <- function(base_size = 11,
 
   return(t)
 }
+
+
+
+### theme_council_open
+# appropriate for single scatterplots / line graphs
+theme_council_open <- function(base_size = 11,
+                                base_family = "",
+                                base_line_size = base_size / 22,
+                                base_rect_size = base_size / 22,
+                                use_showtext = FALSE,
+                                use_manual_font_sizes = FALSE,
+                                font_sizes = list(
+                                  "title" = 22,
+                                  "subtitle" = 16,
+                                  "axis_title" = 14,
+                                  "axis_text" = 11,
+                                  "legend_title" = 14,
+                                  "legend_text" = 10,
+                                  "caption" = 8,
+                                  "strip" = 14
+                                )) {
+
+  # Starts with theme_council and then modifies some parts
+  theme_council() %+replace%
+    theme(
+      # remove grid lines
+      panel.grid.minor  = element_blank(),
+      panel.grid.major  = element_blank(),
+
+      # add axis line
+      axis.line = element_line(color = "grey92"),
+      complete = TRUE
+    )
+}
