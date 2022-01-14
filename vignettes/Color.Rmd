@@ -71,8 +71,8 @@ color_range_green <- colorRampPalette(c("#EEF3E5", colors$cdGreen))
 
 plot_example +
   scale_color_manual(values = color_range_green(5)) +
-  theme_council(use_showtext = T)
-  
+  theme_council(use_showtext = T) +
+  labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))
 
 ```
 
