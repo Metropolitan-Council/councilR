@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = FALSE
 )
 ```
 
@@ -21,7 +22,7 @@ library(councilR)
 `{councilR}` has a few `options()` that can help the package run more smoothly. 
 
 ```{r}
-options(councilR.uid = "mc\\rotenle", # your user id
+options(councilR.uid = "mc\\myuuid", # your user id
         councilR.pwd = keyring::key_get("MetC") # your password
 )
 ```
@@ -31,6 +32,8 @@ If you'd like to have these options loaded when you start up R, edit your `.Rpro
 ```{r}
 usethis::edit_r_profile()
 ```
+
+This will open your `.Rprofile`. 
 
 ```{r, eval=FALSE}
 options(

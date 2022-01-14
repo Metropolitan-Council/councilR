@@ -12,7 +12,7 @@ status](https://github.com/Metropolitan-Council/councilR/workflows/R-CMD-check/b
 <!-- badges: end -->
 
 The goal of `{councilR}` is to provide a curated collection of commonly
-used templates, color palettes, snippets, functions, and more\!
+used templates, color palettes, snippets, functions, and more!
 
 ## Installation
 
@@ -44,5 +44,6 @@ contributing to this project, you agree to abide by its terms.
 ### Acknowledgements
 
 Thanks to all the folks who have contributed to this project in one way
-or another: [@ashleyasmus](https://github.com/ashleyasmus), and
+or another [@ashleyasmus](https://github.com/ashleyasmus),
+[@ehesch](https://github.com/ehesch), and
 [@eroten](https://github.com/eroten).

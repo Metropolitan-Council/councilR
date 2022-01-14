@@ -45,14 +45,19 @@ colors
 }
 \description{
 A named list of Council colors for each division, Metro Transit,
-Play Features, and MetroStats in Hex code format
+Play Features, and MetroStats in hex code format
+}
+\note{
+See these colors in action in \code{vignette("Color")}
 }
 \examples{
 colors$councilBlue
 }
 \seealso{
 Other aesthetics: 
-\code{\link{council_theme}()}
+\code{\link{blue_cascade}},
+\code{\link{council_theme}()},
+\code{\link{theme_council}()}
 }
 \concept{aesthetics}
 \keyword{datasets}

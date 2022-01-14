@@ -8,7 +8,9 @@ Authors@R: c(
     person("Liz", "Roten", , "liz.roten@metc.state.mn.us", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-5346-3549")),
     person("Garrick", "Aden-Buie", , "garrick@adenbuie.com", role = "ctb",
-           comment = c(ORCID = "0000-0002-7111-0077"))
+           comment = c(ORCID = "0000-0002-7111-0077")),
+    person("Ellen", "Esch", , "ellen.esch@metc.state.mn.us", role = c("ctb"),
+           comment = c(ORCID = "https://orcid.org/0000-0002-4253-0910"))
   )
 Description: A collection of commonly used templates, color palettes,
     functions, and more!
@@ -23,17 +25,20 @@ Imports:
     magrittr (>= 1.5),
     odbc (>= 1.2.2),
     purrr (>= 0.3),
+    rlang (>= 0.4.12),
     rstudioapi (>= 0.11),
     sf (>= 0.9.5),
     tictoc (>= 1.0),
     utils
 Suggests: 
     citr (>= 0.3.2),
+    cowplot (>= 1.1.1),
     details (>= 0.2.1),
     knitr (>= 1.37),
     repmis (>= 0.5),
     rmarkdown (>= 2.11),
     testthat (>= 2.3.2),
+    tibble (>= 3.1.6),
     usethis (>= 1.6.1)
 Enhances: 
     showtext (>= 0.8),

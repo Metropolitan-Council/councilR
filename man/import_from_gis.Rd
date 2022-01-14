@@ -26,6 +26,9 @@ an \code{sf} object
 \description{
 Import a dataset from ArcCatalog
 }
+\note{
+See \code{vignette("Options")} to review package options.
+}
 \examples{
 \dontrun{
 import_from_gis("GISLibrary.dbo.AIRPORTS")

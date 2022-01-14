@@ -1,7 +1,7 @@
 #' @title Council colors
 #'
 #' @description A named list of Council colors for each division, Metro Transit,
-#'  Play Features, and MetroStats in Hex code format
+#'  Play Features, and MetroStats in hex code format
 #'
 #' @format A list of 29 character objects
 #' \describe{
@@ -36,6 +36,7 @@
 #' }
 #'
 #' @family aesthetics
+#' @note See these colors in action in `vignette("Color")`
 #'
 #' @examples
 #' colors$councilBlue

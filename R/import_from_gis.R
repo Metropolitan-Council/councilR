@@ -5,6 +5,7 @@
 #' @param uid character, user ID. default is `getOption("councilR.uid")`
 #' @param pwd character, user password. Default is `getOption("councilR.pwd")`.
 #'
+#' @note See `vignette("Options")` to review package options.
 #' @return an `sf` object
 #' @export
 #' @examples \dontrun{
