@@ -37,6 +37,7 @@ Suggests:
     knitr (>= 1.37),
     repmis (>= 0.5),
     rmarkdown (>= 2.11),
+    stringr (>= 1.4.0),
     testthat (>= 2.3.2),
     tibble (>= 3.1.6),
     usethis (>= 1.6.1)
