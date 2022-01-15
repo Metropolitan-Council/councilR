@@ -2,10 +2,40 @@
 % Please edit documentation in R/scale_fill_council.R
 \name{council.pal}
 \alias{council.pal}
-\title{Colour scales from council palette}
+\title{Council colors turned into palettes}
 \usage{
 council.pal(n, name)
 }
-\description{
-Council colors turned into palettes
+\arguments{
+\item{n}{numeric, value between 1-8}
+
+\item{name}{character, starting color name. One of \code{councilR::colors}.}
 }
+\description{
+\code{scale_color_council()} and \code{scale_fill_council} will give
+a color palette starting with \code{councilBlue}, followed by \code{cdGreen} and \code{mtsRed},
+and then a couple other Council colors which will look
+decent afterwards (up to 8 levels).
+
+Modified \code{\link[RColorBrewer:ColorBrewer]{RColorBrewer::brewer.pal()}}
+}
+\examples{
+\dontrun{
+library(scales)
+library(councilR)
+show_col(council_pal2())
+
+}
+}
+\seealso{
+Other aesthetics: 
+\code{\link{blue_cascade}},
+\code{\link{colors}},
+\code{\link{council_pal2}()},
+\code{\link{council_theme}()},
+\code{\link{scale_color_council}()},
+\code{\link{scale_fill_council}()},
+\code{\link{theme_council_open}()},
+\code{\link{theme_council}()}
+}
+\concept{aesthetics}
