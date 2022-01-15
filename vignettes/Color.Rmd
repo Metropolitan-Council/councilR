@@ -23,6 +23,7 @@ library(ggplot2)
 library(purrr)
 library(grDevices)
 
+requireNamespace("stringr", quietly = TRUE)
 requireNamespace("cowplot", quietly = TRUE)
 requireNamespace("tibble", quietly = TRUE)
 requireNamespace("showtext", quietly = TRUE)
@@ -104,12 +105,12 @@ cowplot::plot_grid(plotlist = blue_plots)
 
 ## Also council palettes
 
-`scale_color_council()` and `scale_fill_council` will give a color palette starting with `councilBlue`, followed by `$cdGreen` and and `mtsRed` and then a couple other council colors which will look decent afterwards (up to 8 levels).
+`scale_color_council()` and `scale_fill_council` will give a color palette starting with `councilBlue`, followed by `cdGreen` and and `mtsRed` and then a couple other council colors which will look decent afterwards (up to 8 levels).
 
 ```{r, color-councilpalette}
 
 plot_example +
-  scale_color_council() +
+  councilR:::scale_color_council() +
   theme_council(use_showtext = T) +
   labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15)) 
 
@@ -121,7 +122,7 @@ There is the traditional `theme_council()` but now also `theme_council_open()` w
 
 ```{r}
 plot_example +
-  scale_color_council() +
+  councilR:::scale_color_council() +
   theme_council_open(use_showtext = T) +
   labs(title = "This is theme_council_open()") 
 ```

@@ -37,7 +37,6 @@
 #'
 #' @family aesthetics
 #' @note See these colors in action in `vignette("Color")`
-#'
 #' @examples
 #' colors$councilBlue
 #' @source \url{https://www.metrotransit.org/Data/Sites/1/media/logos/brand_standards.pdf}
