@@ -1,5 +1,9 @@
 #' Council ggplot2 theme
 #'
+#' The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatterplots or line graphs.
+#'
+#' Please note that the y-axis text is horizontal, and long axis names will need to be wrapped; the `str_wrap` function from `stringr` will be useful. For example, consider using this piece of code: `labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))`
+#'
 #' @param base_size numeric, base font size, given in pts. Default is `11`
 #' @param base_family character, base font family. Default is `""`
 #' @param base_line_size numeric, base size for line elements. Default is `base_size/22`
@@ -381,34 +385,10 @@ theme_council <- function(base_size = 11,
   return(t)
 }
 
-
-
-#
-#' Appropriate for single scatterplots / line graphs
-#'
-#'
-#' @inheritParams theme_council
-#'
-#' @return a [ggplot2::theme()] object
+#' @rdname theme_council
 #' @export
-#'
-#' @family aesthetics
-#'
-#' @examples
-#' \dontrun{
-#' library(ggplot2)
-#' library(councilR)
-#'
-#' ggplot(datasets::iris) +
-#'   aes(Sepal.Length, Sepal.Width, color = Species) +
-#'   geom_point() +
-#'   scale_color_viridis_d() +
-#'   theme_council_open(
-#'     use_showtext = TRUE,
-#'     use_manual_font_sizes = TRUE
-#'   )
-#' }
-#' @importFrom ggplot2 theme element_text element_blank element_line %+replace%
+
+
 theme_council_open <- function(base_size = 11,
                                base_family = "",
                                base_line_size = base_size / 22,
@@ -438,3 +418,7 @@ theme_council_open <- function(base_size = 11,
       complete = TRUE
     )
 }
+
+#' @rdname theme_council_open
+#' @export
+#'
