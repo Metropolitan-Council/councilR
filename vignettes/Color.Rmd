@@ -23,6 +23,7 @@ library(ggplot2)
 library(purrr)
 library(grDevices)
 
+requireNamespace("stringr", quietly = TRUE)
 requireNamespace("cowplot", quietly = TRUE)
 requireNamespace("tibble", quietly = TRUE)
 requireNamespace("showtext", quietly = TRUE)
@@ -65,7 +66,7 @@ color_range_blue <- colorRampPalette(c("#e0e3e8", colors$playDaBlue))
 
  plot_example +
   scale_color_manual(values = color_range_blue(5)) +
-  theme_council(use_showtext = T)
+  theme_council(use_showtext = F)
 
 ```
 ```{r, color-range-green}
@@ -73,7 +74,7 @@ color_range_green <- colorRampPalette(c("#EEF3E5", colors$cdGreen))
 
 plot_example +
   scale_color_manual(values = color_range_green(5)) +
-  theme_council(use_showtext = T) +
+  theme_council(use_showtext = F) +
   labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))
 
 ```
@@ -102,26 +103,26 @@ cowplot::plot_grid(plotlist = blue_plots)
 ```
 
 
-## Also council palettes
+## Council paletttes
 
-`scale_color_council()` and `scale_fill_council` will give a color palette starting with `councilBlue`, followed by `$cdGreen` and and `mtsRed` and then a couple other council colors which will look decent afterwards (up to 8 levels).
+`scale_color_council()` and `scale_fill_council` will give a color palette starting with `councilBlue`, followed by `cdGreen` and and `mtsRed` and then a couple other council colors which will look decent afterwards (up to 8 levels).
 
 ```{r, color-councilpalette}
 
 plot_example +
-  scale_color_council() +
-  theme_council(use_showtext = T) +
+  councilR:::scale_color_council() +
+  theme_council(use_showtext = F) +
   labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15)) 
 
 ```
 
-## Update to council theme
+## Update to `theme_council()`
 
 There is the traditional `theme_council()` but now also `theme_council_open()` which will be more appropriate for simple scatterplots or lineplots.
 
 ```{r}
 plot_example +
-  scale_color_council() +
-  theme_council_open(use_showtext = T) +
+  councilR:::scale_color_council() +
+  theme_council_open(use_showtext = F) +
   labs(title = "This is theme_council_open()") 
 ```

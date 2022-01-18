@@ -38,7 +38,12 @@ blue_cascade$level2$color
 \seealso{
 Other aesthetics: 
 \code{\link{colors}},
+\code{\link{council.pal}()},
+\code{\link{council_pal2}()},
 \code{\link{council_theme}()},
+\code{\link{scale_color_council}()},
+\code{\link{scale_fill_council}()},
+\code{\link{theme_council_open}()},
 \code{\link{theme_council}()}
 }
 \concept{aesthetics}

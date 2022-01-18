@@ -1,5 +1,9 @@
 #' Council ggplot2 theme
 #'
+#' The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatterplots or line graphs.
+#'
+#' Please note that the y-axis text is horizontal, and long axis names will need to be wrapped; the `str_wrap` function from `stringr` will be useful. For example, consider using this piece of code: `labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))`
+#'
 #' @param base_size numeric, base font size, given in pts. Default is `11`
 #' @param base_family character, base font family. Default is `""`
 #' @param base_line_size numeric, base size for line elements. Default is `base_size/22`
@@ -119,7 +123,7 @@ theme_council <- function(base_size = 11,
         "axis_text" = "Arial Narrow",
         "legend_title" = "HelveticaNeueLT Std Cn",
         "legend_text" = "Arial Narrow",
-        "caption" = "Arial Narrow", #"Palatino Linotype",
+        "caption" = "Arial Narrow", # "Palatino Linotype",
         "strip" = "Arial Narrow"
       )
   } else {
@@ -131,7 +135,7 @@ theme_council <- function(base_size = 11,
         "axis_text" = "sans",
         "legend_title" = "sans",
         "legend_text" = "sans",
-        "caption" = "sans", #"serif",
+        "caption" = "sans", # "serif",
         "strip" = "sans"
       )
   }
@@ -302,7 +306,7 @@ theme_council <- function(base_size = 11,
     panel.background = ggplot2::element_blank(),
     panel.border = ggplot2::element_blank(),
     panel.grid = ggplot2::element_line(colour = "grey92"),
-    panel.grid.minor = element_blank(),#ggplot2::element_line(size = ggplot2::rel(0.5)),
+    panel.grid.minor = element_blank(), # ggplot2::element_line(size = ggplot2::rel(0.5)),
     panel.grid.major = ggplot2::element_line(size = ggplot2::rel(1)),
     panel.spacing = ggplot2::unit(half_line, "pt"),
     panel.spacing.x = NULL,
@@ -381,36 +385,40 @@ theme_council <- function(base_size = 11,
   return(t)
 }
 
+#' @rdname theme_council
+#' @export
 
 
-### theme_council_open
-# appropriate for single scatterplots / line graphs
 theme_council_open <- function(base_size = 11,
-                                base_family = "",
-                                base_line_size = base_size / 22,
-                                base_rect_size = base_size / 22,
-                                use_showtext = FALSE,
-                                use_manual_font_sizes = FALSE,
-                                font_sizes = list(
-                                  "title" = 22,
-                                  "subtitle" = 16,
-                                  "axis_title" = 14,
-                                  "axis_text" = 11,
-                                  "legend_title" = 14,
-                                  "legend_text" = 10,
-                                  "caption" = 8,
-                                  "strip" = 14
-                                )) {
+                               base_family = "",
+                               base_line_size = base_size / 22,
+                               base_rect_size = base_size / 22,
+                               use_showtext = FALSE,
+                               use_manual_font_sizes = FALSE,
+                               font_sizes = list(
+                                 "title" = 22,
+                                 "subtitle" = 16,
+                                 "axis_title" = 14,
+                                 "axis_text" = 11,
+                                 "legend_title" = 14,
+                                 "legend_text" = 10,
+                                 "caption" = 8,
+                                 "strip" = 14
+                               )) {
 
   # Starts with theme_council and then modifies some parts
   theme_council() %+replace%
-    theme(
+    ggplot2::theme(
       # remove grid lines
-      panel.grid.minor  = element_blank(),
-      panel.grid.major  = element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+      panel.grid.major = ggplot2::element_blank(),
 
       # add axis line
-      axis.line = element_line(color = "grey92"),
+      axis.line = ggplot2::element_line(color = "grey92"),
       complete = TRUE
     )
 }
+
+#' @rdname theme_council_open
+#' @export
+#'
