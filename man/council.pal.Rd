@@ -35,7 +35,6 @@ Other aesthetics:
 \code{\link{council_theme}()},
 \code{\link{scale_color_council}()},
 \code{\link{scale_fill_council}()},
-\code{\link{theme_council_open}()},
 \code{\link{theme_council}()}
 }
 \concept{aesthetics}

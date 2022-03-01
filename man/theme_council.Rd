@@ -2,9 +2,21 @@
 % Please edit documentation in R/theme_council.R
 \name{theme_council}
 \alias{theme_council}
+\alias{theme_council_open}
 \title{Council ggplot2 theme}
 \usage{
 theme_council(
+  base_size = 11,
+  base_family = "",
+  base_line_size = base_size/22,
+  base_rect_size = base_size/22,
+  use_showtext = FALSE,
+  use_manual_font_sizes = FALSE,
+  font_sizes = list(title = 22, subtitle = 16, axis_title = 14, axis_text = 11,
+    legend_title = 14, legend_text = 10, caption = 8, strip = 14)
+)
+
+theme_council_open(
   base_size = 11,
   base_family = "",
   base_line_size = base_size/22,
@@ -34,7 +46,10 @@ theme_council(
 a \code{\link[ggplot2:theme]{ggplot2::theme()}} object
 }
 \description{
-Council ggplot2 theme
+The default \code{theme_council()} plus a more simple \code{theme_council_open()} for making MetCouncil figures. \code{theme_council()} will be appropriate in most cases while \code{theme_council_open()} is appropriate for single scatterplots or line graphs.
+}
+\details{
+Please note that the y-axis text is horizontal, and long axis names will need to be wrapped; the \code{str_wrap} function from \code{stringr} will be useful. For example, consider using this piece of code: \code{labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))}
 }
 \section{Council fonts}{
 There are a few requirements needed if you want to use Council font families.
@@ -115,7 +130,6 @@ Other aesthetics:
 \code{\link{council_pal2}()},
 \code{\link{council_theme}()},
 \code{\link{scale_color_council}()},
-\code{\link{scale_fill_council}()},
-\code{\link{theme_council_open}()}
+\code{\link{scale_fill_council}()}
 }
 \concept{aesthetics}
