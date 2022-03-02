@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r, setup}
 library(councilR)
 library(ggplot2)
 library(purrr)
