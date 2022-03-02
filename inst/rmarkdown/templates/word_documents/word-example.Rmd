@@ -1,0 +1,89 @@
+---
+title: "An example word document"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  bookdown::word_document2:
+    reference_docx: wordtemplate.docx
+    toc: true
+urlcolor: blue
+language:
+  label:
+    fig: "Figure "
+    tab: "Table "
+always_allow_html: yes
+---
+
+```{r setup-global, include=FALSE}
+# include some code to make the figures have decent resolution
+knitr::opts_chunk$set(
+  echo = F, message = F, warning = F, results = "hide",
+  fig.pos = "H"
+  ,fig.width = 7, dpi = 300
+)
+
+library(tidyverse)
+library(flextable)
+```
+
+# Introduction
+
+This is how you turn an R markdown document in to a word document. Have your collaborators use track changes, and then you can see what text changes need to be brought back into the word document. 
+
+It is recommended to use this work flow with figure/table heavy work. If you are dealing with text-heavy documents, the need for ensuring updated figures and tables may be smaller and it may be easier to just export updated figures which can be plopped into a word document. 
+
+Anyways, please note the **wordtemplate.docx** file which puts a Met Council theme on this document. 
+
+## Add automatic figure and table captions. 
+
+Maybe you want to reference a nice logo (Figure \@ref(fig:metc-logo)). 
+
+
+```{r metc-logo, fig.align = 'center', out.width = "90%", fig.cap = "This is the logo used by the Metropolitan Council", results='markup'}
+knitr::include_graphics("../cd-research---general/skeleton/logo.png")
+```
+
+Or maybe you want to reference a table (Table \@ref(tab:example-table)). Flextable works here.
+
+```{r example-table, results='markup', tidy = F}
+regulartable(
+  mtcars %>%
+  group_by(cyl) %>%
+  summarise(`Average mpg` = mean(mpg),
+            `Number of cars` = n()) %>%
+  rename(`Number of cylinders` = cyl)
+) %>%
+  theme_zebra() %>%
+  autofit(add_w = 0, add_h = 0) %>%
+  set_table_properties(layout = "autofit") %>%
+    set_caption("This is an example of a table.")
+```
+
+Look! You can even make the text smaller in flextable by including a **fontsize** argument (Table \@ref(tab:small-text-table)). Do note that for some reason, you must include the **set_caption** argument on flextable in order to get the references to work correctly. 
+
+```{r small-text-table, results='markup', tidy=FALSE}
+regulartable(
+  mtcars %>%
+  group_by(cyl) %>%
+  summarise(`Average mpg` = mean(mpg),
+            `Number of cars` = n()) %>%
+  rename(`Number of cylinders` = cyl)
+) %>%
+  theme_zebra() %>%
+  autofit(add_w = 0, add_h = 0) %>%
+  set_table_properties(layout = "autofit") %>%
+  fontsize(size = 7, part = "all") %>%
+    set_caption("Look, the text is smaller now.")
+```
+
+
+\newpage
+
+# Sub-analysis
+
+And then maybe it's time to pull in a discrete analysis contained in a different rmd.
+
+Note, this "child" document started with heading level 2, so I just included the title above. 
+
+```{r, child=c('../cd-research---general/skeleton/skeleton.Rmd')}
+```
+

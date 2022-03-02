@@ -81,7 +81,7 @@
 #'   )
 #' }
 #'
-#' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel
+#' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel %+replace%
 #'
 #'
 theme_council <- function(base_size = 11,
@@ -407,7 +407,8 @@ theme_council_open <- function(base_size = 11,
                                )) {
 
   # Starts with theme_council and then modifies some parts
-  theme_council() %+replace%
+  ggplot2::`%+replace%`(
+    theme_council(),
     ggplot2::theme(
       # remove grid lines
       panel.grid.minor = ggplot2::element_blank(),
@@ -417,6 +418,7 @@ theme_council_open <- function(base_size = 11,
       axis.line = ggplot2::element_line(color = "grey92"),
       complete = TRUE
     )
+  )
 }
 
 #' @rdname theme_council_open
