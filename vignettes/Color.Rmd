@@ -87,8 +87,7 @@ plot_example +
 ```{r, blue-plots}
 blue_plots <- map(seq(1:length(blue_cascade)), function(x){
   ggplot(mapping = aes(xmin = 0, xmax = 1,
-                       ymin = 0, ymax = 1,
-                       label = )) +
+                       ymin = 0, ymax = 1)) +
     geom_rect(fill = blue_cascade[x][[1]][1]) +
     geom_text(aes(x = 0.5,
                   y = 0.5),
