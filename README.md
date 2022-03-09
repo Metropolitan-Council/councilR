@@ -15,7 +15,7 @@ used templates, color palettes, snippets, functions, and more!
 
 ## Installation
 
-You can install the released version of councilR from GitHub.
+You can install the released version of `{councilR}` from GitHub.
 
 ``` r
 remotes::install_github("Metropolitan-Council/councilR")
@@ -43,6 +43,9 @@ contributing to this project, you agree to abide by its terms.
 ### Acknowledgements
 
 Thanks to all the folks who have contributed to this project in one way
-or another [@ashleyasmus](https://github.com/ashleyasmus),
-[@ehesch](https://github.com/ehesch), and
-[@eroten](https://github.com/eroten).
+or another
+
+[@ashleyasmus](https://github.com/ashleyasmus),
+[@ehesch](https://github.com/ehesch),
+[@eroten](https://github.com/eroten), and
+[@leonx075](https://github.com/leonx075).
