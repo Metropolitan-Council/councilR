@@ -20,10 +20,9 @@ import_from_gis <- function(query,
                             uid = getOption("councilR.uid"),
                             pwd = getOption("councilR.pwd")) {
   tictoc::tic()
-  browser()
   if (DBI::dbCanConnect(odbc::odbc(),
-    # driver = "FreeTDS",
-    dbname,
+                        # driver = "FreeTDS",
+                        dbname,
     timeout = 10,
     Uid = uid,
     Pwd = pwd
@@ -44,9 +43,9 @@ import_from_gis <- function(query,
     paste0("SELECT *, Shape.STAsText() as wkt FROM ", query)
   )
 
-  DBI::dbFetch(que)
 
   sf_df <- sf::st_as_sf(
+    que,
     wkt = "wkt", crs = 26915
   )
   DBI::dbDisconnect(conn)
