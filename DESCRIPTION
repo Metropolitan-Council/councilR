@@ -33,6 +33,7 @@ Imports:
 Suggests: 
     citr (>= 0.3.2),
     cowplot (>= 1.1.1),
+    curl (>= 4.3.2),
     details (>= 0.2.1),
     knitr (>= 1.37),
     repmis (>= 0.5),
