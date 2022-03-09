@@ -24,7 +24,6 @@ Modified \code{\link[RColorBrewer:ColorBrewer]{RColorBrewer::brewer.pal()}}
 library(scales)
 library(councilR)
 show_col(council_pal2())
-
 }
 }
 \seealso{

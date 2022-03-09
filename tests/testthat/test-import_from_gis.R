@@ -16,7 +16,8 @@ testthat::skip_if(is.null(getOption("councilR.pwd")))
 
 airport <- import_from_gis(
   query = "GISLibrary.dbo.AIRPORTS",
-  dbname = "GISLibrary")
+  dbname = "GISLibrary"
+)
 
 testthat::expect_equal(nrow(airport), 14)
 testthat::expect_equal(class(airport)[[1]], "sf")

@@ -41,6 +41,5 @@ options(councilR.uid = "mc\\\\uid", councilR.pwd = "pwd")
 
 # query db name matches
 import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
-
 }
 }

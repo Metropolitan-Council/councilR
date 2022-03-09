@@ -19,7 +19,6 @@
 #'
 #' # query db name matches
 #' import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
-#'
 #' }
 #' @importFrom sf st_as_sf
 #' @importFrom odbc odbc dbConnect
@@ -31,21 +30,21 @@ import_from_gis <- function(query,
                             pwd = getOption("councilR.pwd")) {
   tictoc::tic()
   if (DBI::dbCanConnect(odbc::odbc(),
-                        # driver = "FreeTDS",
-                        dbname,
-                        timeout = 10,
-                        Uid = uid,
-                        Pwd = pwd
+    # driver = "FreeTDS",
+    dbname,
+    timeout = 10,
+    Uid = uid,
+    Pwd = pwd
   ) != TRUE) {
     stop("Database could not connect.")
   }
 
   conn <- DBI::dbConnect(odbc::odbc(),
-                         # driver = "FreeTDS",
-                         dbname,
-                         timeout = 10,
-                         Uid = uid,
-                         Pwd = pwd
+    # driver = "FreeTDS",
+    dbname,
+    timeout = 10,
+    Uid = uid,
+    Pwd = pwd
   )
 
   que <- DBI::dbGetQuery(
