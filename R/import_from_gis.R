@@ -1,7 +1,8 @@
 #' Import a dataset from ArcCatalog
 #'
 #' @param query character, string with the database connection and feature class
-#' @param dbname character, database name. Usually either `"GIS"` or `"GISLibrary"`
+#' @param dbname character, database name. Default is `"GISLibrary"`.
+#'     Must match the database name in `query`.
 #' @param uid character, user ID. default is `getOption("councilR.uid")`
 #' @param pwd character, user password. Default is `getOption("councilR.pwd")`.
 #'
@@ -9,7 +10,13 @@
 #' @return an `sf` object
 #' @export
 #' @examples \dontrun{
-#' import_from_gis("GISLibrary.dbo.AIRPORTS")
+#' library(councilR)
+#'
+#' options(councilR.uid = "mc\\uid", councilR.pwd = "pwd")
+#'
+#' # query db name matches
+#' import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
+#'
 #' }
 #' @importFrom sf st_as_sf
 #' @importFrom odbc odbc dbConnect
@@ -23,19 +30,19 @@ import_from_gis <- function(query,
   if (DBI::dbCanConnect(odbc::odbc(),
                         # driver = "FreeTDS",
                         dbname,
-    timeout = 10,
-    Uid = uid,
-    Pwd = pwd
+                        timeout = 10,
+                        Uid = uid,
+                        Pwd = pwd
   ) != TRUE) {
     stop("Database could not connect.")
   }
 
   conn <- DBI::dbConnect(odbc::odbc(),
-    # driver = "FreeTDS",
-    dbname,
-    timeout = 10,
-    Uid = uid,
-    Pwd = pwd
+                         # driver = "FreeTDS",
+                         dbname,
+                         timeout = 10,
+                         Uid = uid,
+                         Pwd = pwd
   )
 
   que <- DBI::dbGetQuery(

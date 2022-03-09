@@ -14,7 +14,8 @@ import_from_gis(
 \arguments{
 \item{query}{character, string with the database connection and feature class}
 
-\item{dbname}{character, database name. Usually either \code{"GIS"} or \code{"GISLibrary"}}
+\item{dbname}{character, database name. Default is \code{"GISLibrary"}.
+Must match the database name in \code{query}.}
 
 \item{uid}{character, user ID. default is \code{getOption("councilR.uid")}}
 
@@ -31,6 +32,12 @@ See \code{vignette("Options")} to review package options.
 }
 \examples{
 \dontrun{
-import_from_gis("GISLibrary.dbo.AIRPORTS")
+library(councilR)
+
+options(councilR.uid = "mc\\\\uid", councilR.pwd = "pwd")
+
+# query db name matches
+import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
+
 }
 }
