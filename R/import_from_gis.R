@@ -21,8 +21,8 @@
 #' import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
 #' }
 #' @importFrom sf st_as_sf
-#' @importFrom odbc odbc dbConnect
-#' @importFrom DBI dbGetQuery dbDisconnect
+#' @importFrom odbc odbc
+#' @importFrom DBI dbGetQuery dbDisconnect dbCanConnect dbConnect
 #' @importFrom tictoc tic toc
 import_from_gis <- function(query,
                             dbname = "GISLibrary",
