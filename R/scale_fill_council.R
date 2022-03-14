@@ -14,7 +14,6 @@
 #' library(scales)
 #' library(councilR)
 #' show_col(council_pal2())
-#'
 #' }
 #' @export
 council.pal <- function(n, name) {
