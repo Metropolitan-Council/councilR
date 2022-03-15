@@ -32,7 +32,7 @@
 #'   \item{metrostatsMePurple}{Metro Stats medium purple}
 #'   \item{metrostatsLiPurple}{Metro Stats light purple}
 #'   \item{metrostatsPink}{Metro Stats pink}
-#'   \item{metrostatsTan}{Metro stats tan}
+#'   \item{metrostatsTan}{Metro Stats tan}
 #' }
 #'
 #' @family aesthetics
