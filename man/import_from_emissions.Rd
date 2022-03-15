@@ -2,12 +2,13 @@
 % Please edit documentation in R/import_from_emissions.R
 \name{import_from_emissions}
 \alias{import_from_emissions}
-\title{Import data table from Emissions Database}
+\title{Fetch Greenhouse gas scenario planning data tables}
 \usage{
 import_from_emissions(
-  uid = councilR.uid,
-  pwd = councilR.pwd,
-  table_name = "metro_energy.vw_electricity_residential_ctu",
+  uid = getOption("councilR.uid"),
+  pwd = getOption("councilR.pwd"),
+  module = c("mod_1", "mod_2", "mod_3", "metro_demos", "state_demos", "metro_energy",
+    "state_energy", "all"),
   local = TRUE,
   serv = "dbsqlcl11t.test.local,65414",
   db = "CD_Emissions"
@@ -20,7 +21,11 @@ Default is \code{getOption("councilR.uid")}. For example, \code{"mc\\\\rotenle"}
 \item{pwd}{character, your network password.
 Default is \code{getOption("councilR.pwd")}. For example, \code{"my_password"}}
 
-\item{table_name}{character, which table to pull}
+\item{module}{character, which module tables to pull. One of \code{"mod_1"}, \code{"mod_2"},
+\code{"mod_3"},\code{ "metro_demos"},
+\code{"state_demos"}, \code{"metro_energy"}, \code{"state_energy"}, or \code{"all"}}
+
+\item{local}{logical, whether to pull from the onsite database or Azure.}
 
 \item{serv}{character, database server.
 Default is \code{"dbsqlcl11t.test.local,65414"} (the test database).}
@@ -28,20 +33,18 @@ Default is \code{"dbsqlcl11t.test.local,65414"} (the test database).}
 \item{db}{character, database name. Default is \code{"CD_Emissions"}}
 }
 \value{
-a table from the CD_Emissions database.
+a list of tables from the CD_Emissions database. List length depends
+\code{module} parameter.
 }
 \description{
-WARNING: Function error may results in RStudio crash. Requires a password for access to the database.
+WARNING: Function error may results in RStudio crash.
 }
 \note{
-To make connection seamless, add \code{councilR.uid} and \code{councilR.pwd} to your \code{.Rprofile}. Edit your \code{.Rprofile} as such\preformatted{options(
-    ...,
-    councilR.uid = "mc\\\\myuid",
-    councilR.pwd = keyring::key_get("MetC")
-)
-}
-
-See more details in \href{https://github.com/Metropolitan-Council/councilR/blob/main/vignettes/Options.Rmd}{\code{{councilR}} documentation}.
+See \code{vignette("Options")} to review package options.
+You must be set up with the appropriate database drivers to use this function.
+\strong{Windows} users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
+\strong{Mac} users need \code{unixodbc} and \code{freetds}. See instructions in
+\href{https://github.com/Metropolitan-Council/MetroTransitR}{\code{{MetroTransitR}}}
 }
 \examples{
 \dontrun{
@@ -53,8 +56,13 @@ options(
   councilR.pwd = "mypwd"
 )
 
-t_electricity_residential_ctu <- import_from_emissions(table_name = "metro_energy.vw_electricity_residential_ctu")
-t_eia_energy_consumption_state <- import_from_emissions(table_name = "state_energy.eia_energy_consumption_state")
-t_utility_natural_gas_by_ctu <- import_from_emissions(table_name = "metro_energy.vw_utility_natural_gas_by_ctu")
+mod_1_tables <- import_from_emissions(module = "mod_1")
+mod_2_tables <- import_from_emissions(module = "mod_2")
+mod_3_tables <- import_from_emissions(module = "mod_3")
+
+# or fetch all tables
+
+all <- import_from_emissions(module = "all")
 }
+
 }

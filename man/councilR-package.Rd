@@ -8,6 +8,13 @@
 \description{
 A collection of commonly used templates, color palettes, functions, and more!
 }
+\seealso{
+Useful links:
+\itemize{
+  \item Report bugs at \url{https://github.com/Metropolitan-Council/councilR/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Liz Roten \email{liz.roten@metc.state.mn.us} (\href{https://orcid.org/0000-0002-5346-3549}{ORCID})
 
@@ -16,6 +23,7 @@ Other contributors:
   \item Metropolitan Council [copyright holder]
   \item Garrick Aden-Buie \email{garrick@adenbuie.com} (\href{https://orcid.org/0000-0002-7111-0077}{ORCID}) [contributor]
   \item Ellen Esch \email{ellen.esch@metc.state.mn.us} (\href{https://orcid.org/0000-0002-4253-0910}{ORCID}) [contributor]
+  \item Mauricio León \email{mauricio.leon@metc.state.mn.us} [contributor]
 }
 
 }
