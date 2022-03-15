@@ -1,7 +1,7 @@
 # basic testing
 
 testthat::expect_error(
-  fetch_db_tables(
+  import_from_emissions(
     local = FALSE,
     module = "mod_1"
   )
@@ -21,7 +21,7 @@ testthat::skip_if(is.null(getOption("councilR.uid")))
 testthat::skip_if(is.null(getOption("councilR.pwd")))
 
 
-mod_2 <- fetch_db_tables(
+mod_2 <- import_from_emissions(
   module = "mod_2"
 )
 

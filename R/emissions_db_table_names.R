@@ -13,7 +13,7 @@
 #'
 #' @family datasets
 #' @examples
-#' library(ghg.sp)
+#' library(councilR)
 #' emissions_db_table_names$mod_1
 #' emissions_db_table_names$metro_demos
 # emissions_db_table_names -----
