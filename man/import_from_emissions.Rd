@@ -2,28 +2,25 @@
 % Please edit documentation in R/import_from_emissions.R
 \name{import_from_emissions}
 \alias{import_from_emissions}
-\title{Fetch Greenhouse gas scenario planning data tables}
+\title{Import data table from greenhouse gas emissions scenario planning database}
 \usage{
 import_from_emissions(
+  table_name,
   uid = getOption("councilR.uid"),
   pwd = getOption("councilR.pwd"),
-  module = c("mod_1", "mod_2", "mod_3", "metro_demos", "state_demos", "metro_energy",
-    "state_energy", "all"),
   local = TRUE,
   serv = "dbsqlcl11t.test.local,65414",
   db = "CD_Emissions"
 )
 }
 \arguments{
+\item{table_name}{character, which table to pull.}
+
 \item{uid}{character, your network id.
 Default is \code{getOption("councilR.uid")}. For example, \code{"mc\\\\rotenle"}}
 
 \item{pwd}{character, your network password.
 Default is \code{getOption("councilR.pwd")}. For example, \code{"my_password"}}
-
-\item{module}{character, which module tables to pull. One of \code{"mod_1"}, \code{"mod_2"},
-\code{"mod_3"},\code{ "metro_demos"},
-\code{"state_demos"}, \code{"metro_energy"}, \code{"state_energy"}, or \code{"all"}}
 
 \item{local}{logical, whether to pull from the onsite database or Azure.}
 
@@ -33,11 +30,11 @@ Default is \code{"dbsqlcl11t.test.local,65414"} (the test database).}
 \item{db}{character, database name. Default is \code{"CD_Emissions"}}
 }
 \value{
-a list of tables from the CD_Emissions database. List length depends
-\code{module} parameter.
+Requested table
 }
 \description{
 WARNING: Function error may results in RStudio crash.
+Requires a password for access to the database.
 }
 \note{
 See \code{vignette("Options")} to review package options.
@@ -56,13 +53,7 @@ options(
   councilR.pwd = "mypwd"
 )
 
-mod_1_tables <- import_from_emissions(module = "mod_1")
-mod_2_tables <- import_from_emissions(module = "mod_2")
-mod_3_tables <- import_from_emissions(module = "mod_3")
-
-# or fetch all tables
-
-all <- import_from_emissions(module = "all")
+t_electricity_residential_ctu <- import_from_emissions(table_name = "metro_energy.vw_electricity_residential_ctu")
+t_eia_energy_consumption_state <- import_from_emissions(table_name = "state_energy.eia_energy_consumption_state")
 }
-
 }

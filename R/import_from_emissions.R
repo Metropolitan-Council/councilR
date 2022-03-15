@@ -83,8 +83,10 @@ import_from_emissions <- function(table_name,
     Server = serv
   )
 
-  db_sp_table <- DBI::dbGetQuery(conn,
-                                 paste0("SELECT * FROM ", table_name))
+  db_sp_table <- DBI::dbGetQuery(
+    conn,
+    paste0("SELECT * FROM ", table_name)
+  )
 
   DBI::dbDisconnect(conn)
 

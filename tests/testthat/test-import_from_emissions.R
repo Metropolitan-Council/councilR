@@ -3,7 +3,8 @@
 testthat::expect_error(
   mod_2 <- import_from_emissions(
     local = FALSE,
-    table_name = "metro_energy.vw_electricity_residential_ctu")
+    table_name = "metro_energy.vw_electricity_residential_ctu"
+  )
 )
 
 
@@ -21,6 +22,7 @@ testthat::skip_if(is.null(getOption("councilR.pwd")))
 
 
 electric_residential <- import_from_emissions(
-  table_name = "metro_energy.vw_electricity_residential_ctu")
+  table_name = "metro_energy.vw_electricity_residential_ctu"
+)
 
 testthat::expect_equal(nrow(electric_residential), 186)
