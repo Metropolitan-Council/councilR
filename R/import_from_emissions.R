@@ -7,12 +7,12 @@
 #' @param serv character, database server.
 #'     Default is `"dbsqlcl11t.test.local,65414"` (the test database).
 #' @param db character, database name. Default is `"CD_Emissions"`
-#' @param module character, which module tables to pull. One of `"mod_1"`, `"mod_2"`,
+#' @param table_name character, which table to pull
 #'     `"mod_3"`,` "metro_demos"`,
 #'     `"state_demos"`, `"metro_energy"`, `"state_energy"`, or `"all"`
 #' @param local logical, whether to pull from the onsite database or Azure.
 #'
-#' @description WARNING: Function error may results in RStudio crash.
+#' @description WARNING: Function error may results in RStudio crash. Requires a password for access to the database.
 #'
 #' @note See `vignette("Options")` to review package options.
 #'     You must be set up with the appropriate database drivers to use this function.
@@ -34,31 +34,21 @@
 #'   councilR.pwd = "mypwd"
 #' )
 #'
-#' mod_1_tables <- import_from_emissions(module = "mod_1")
-#' mod_2_tables <- import_from_emissions(module = "mod_2")
-#' mod_3_tables <- import_from_emissions(module = "mod_3")
-#'
-#' # or fetch all tables
-#'
-#' all <- import_from_emissions(module = "all")
+#' t_electricity_residential_ctu <- import_from_emissions(table_name = "metro_energy.vw_electricity_residential_ctu")
+#' t_eia_energy_consumption_state <- import_from_emissions(table_name = "state_energy.eia_energy_consumption_state")
+# t_utility_natural_gas_by_ctu <- import_from_emissions(table_name = "metro_energy.vw_utility_natural_gas_by_ctu")
 #' }
-#'
 #' @importFrom DBI dbCanConnect dbGetQuery dbConnect dbDisconnect
 #' @importFrom odbc odbc
 #' @importFrom purrr map flatten
 #' @importFrom utils osVersion
 import_from_emissions <- function(uid = getOption("councilR.uid"),
                                   pwd = getOption("councilR.pwd"),
-                                  module = c(
-                                    "mod_1", "mod_2", "mod_3",
-                                    "metro_demos", "state_demos",
-                                    "metro_energy", "state_energy",
-                                    "all"
-                                  ),
+                                  table_name = "metro_energy.vw_electricity_residential_ctu",
                                   local = TRUE,
                                   serv = "dbsqlcl11t.test.local,65414",
                                   db = "CD_Emissions") {
-  # browser()
+  browser()
   # decide which driver to use based on OS
 
   if (local == FALSE) {
@@ -95,7 +85,7 @@ import_from_emissions <- function(uid = getOption("councilR.uid"),
     stop("No matching module name")
   }
 
-  conn <- DBI::dbConnect(odbc::odbc(),
+  conn <- DBI::dbConnect(
     Driver = drv,
     Database = db,
     Uid = uid,
@@ -103,19 +93,10 @@ import_from_emissions <- function(uid = getOption("councilR.uid"),
     Server = serv
   )
 
-  db_sp_tables <- purrr::map(
-    tables_to_fetch,
-    function(x) {
-      DBI::dbGetQuery(
-        conn,
-        paste0("SELECT * FROM ", x)
-      )
-    }
-  )
-
-  names(db_sp_tables) <- names(tables_to_fetch)
+  db_sp_table <- DBI::dbGetQuery(conn,
+                                 paste0("SELECT * FROM ", table_name))
 
   DBI::dbDisconnect(conn)
 
-  return(db_sp_tables)
+  return(db_sp_table)
 }
