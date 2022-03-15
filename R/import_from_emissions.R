@@ -60,28 +60,56 @@ import_from_emissions <- function(table_name,
   }
 
   # check that DB connection works
-  if (
-    DBI::dbCanConnect(
-      odbc::odbc(),
-      Driver = drv,
-      Database = db,
-      Uid = uid,
-      Pwd = pwd,
-      Server = serv
-    ) == FALSE) {
-    stop("Database failed to connect")
+  if(drv == "FreeTDS"){
+    if (
+      DBI::dbCanConnect(
+        odbc::odbc(),
+        Driver = drv,
+        Database = db,
+        Uid = uid,
+        Pwd = pwd,
+        Server = serv
+      ) == FALSE) {
+      stop("Database failed to connect")
+    }
+  } else if (drv == "SQL Server"){
+    if (
+      DBI::dbCanConnect(
+        odbc::odbc(),
+        Driver = drv,
+        Database = db,
+        Uid = uid,
+        Pwd = pwd,
+        Server = serv,
+        Trusted_Connection = "yes"
+      ) == FALSE) {
+      stop("Database failed to connect")
+    }
   }
 
 
 
-  conn <- DBI::dbConnect(
-    odbc::odbc(),
-    Driver = drv,
-    Database = db,
-    Uid = uid,
-    Pwd = pwd,
-    Server = serv
-  )
+  conn <-
+    if(drv == "FreeTDS"){
+      DBI::dbConnect(
+        odbc::odbc(),
+        Driver = drv,
+        Database = db,
+        Uid = uid,
+        Pwd = pwd,
+        Server = serv
+      )
+    } else if(drv == "SQL Server"){
+      DBI::dbConnect(
+        odbc::odbc(),
+        Driver = drv,
+        Database = db,
+        Uid = uid,
+        Pwd = pwd,
+        Server = serv,
+        Trusted_Connection = "yes"
+      )
+    }
 
   db_sp_table <- DBI::dbGetQuery(
     conn,
