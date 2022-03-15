@@ -10,6 +10,7 @@
 #' @param module character, which module tables to pull. One of `"mod_1"`, `"mod_2"`,
 #'     `"mod_3"`,` "metro_demos"`,
 #'     `"state_demos"`, `"metro_energy"`, `"state_energy"`, or `"all"`
+#' @param local logical, whether to pull from the onsite database or Azure.
 #'
 #' @description WARNING: Function error may results in RStudio crash.
 #'
