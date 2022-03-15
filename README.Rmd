@@ -24,7 +24,7 @@ The goal of `{councilR}` is to provide a curated collection of commonly used tem
 
 ## Installation
 
-You can install the released version of councilR from GitHub.  
+You can install the released version of `{councilR}` from GitHub.  
 
 ``` r
 remotes::install_github("Metropolitan-Council/councilR")
@@ -44,7 +44,10 @@ By contributing to this project, you agree to abide by its terms.
 
 ### Acknowledgements    
 
-Thanks to all the folks who have contributed to this project in one way or another  [&#x0040;ashleyasmus](https://github.com/ashleyasmus), [&#x0040;ehesch](https://github.com/ehesch), and [&#x0040;eroten](https://github.com/eroten).
+Thanks to all the folks who have contributed to this project in one way or another
+
+[&#x0040;ashleyasmus](https://github.com/ashleyasmus), [&#x0040;ehesch](https://github.com/ehesch), [&#x0040;eroten](https://github.com/eroten), and [&#x0040;leonx075](https://github.com/leonx075).
+
 
 
 
