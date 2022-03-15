@@ -1,5 +1,7 @@
-#' @title Fetch Greenhouse gas scenario planning data tables
+#' @title Import data table from greenhouse gas emissions scenario planning database
 #'
+#'
+#' @param table_name character, which table to pull.
 #' @param uid character, your network id.
 #'     Default is `getOption("councilR.uid")`. For example, `"mc\\rotenle"`
 #' @param pwd character, your network password.
@@ -7,12 +9,10 @@
 #' @param serv character, database server.
 #'     Default is `"dbsqlcl11t.test.local,65414"` (the test database).
 #' @param db character, database name. Default is `"CD_Emissions"`
-#' @param table_name character, which table to pull
-#'     `"mod_3"`,` "metro_demos"`,
-#'     `"state_demos"`, `"metro_energy"`, `"state_energy"`, or `"all"`
 #' @param local logical, whether to pull from the onsite database or Azure.
 #'
-#' @description WARNING: Function error may results in RStudio crash. Requires a password for access to the database.
+#' @description WARNING: Function error may results in RStudio crash.
+#'     Requires a password for access to the database.
 #'
 #' @note See `vignette("Options")` to review package options.
 #'     You must be set up with the appropriate database drivers to use this function.
@@ -20,8 +20,7 @@
 #'     **Mac** users need `unixodbc` and `freetds`. See instructions in
 #'     [`{MetroTransitR}`](https://github.com/Metropolitan-Council/MetroTransitR)
 #'
-#' @return a list of tables from the CD_Emissions database. List length depends
-#'     `module` parameter.
+#' @return Requested table
 #' @export
 #'
 #' @examples
@@ -40,15 +39,14 @@
 #' }
 #' @importFrom DBI dbCanConnect dbGetQuery dbConnect dbDisconnect
 #' @importFrom odbc odbc
-#' @importFrom purrr map flatten
 #' @importFrom utils osVersion
-import_from_emissions <- function(uid = getOption("councilR.uid"),
+import_from_emissions <- function(table_name,
+                                  uid = getOption("councilR.uid"),
                                   pwd = getOption("councilR.pwd"),
-                                  table_name = "metro_energy.vw_electricity_residential_ctu",
                                   local = TRUE,
                                   serv = "dbsqlcl11t.test.local,65414",
                                   db = "CD_Emissions") {
-  browser()
+  # browser()
   # decide which driver to use based on OS
 
   if (local == FALSE) {
@@ -75,17 +73,9 @@ import_from_emissions <- function(uid = getOption("councilR.uid"),
   }
 
 
-  tables_to_fetch <- if (module == "all") {
-    purrr::flatten(emissions_db_table_names)
-  } else {
-    emissions_db_table_names[[module]]
-  }
-
-  if (length(tables_to_fetch) == 0) {
-    stop("No matching module name")
-  }
 
   conn <- DBI::dbConnect(
+    odbc::odbc(),
     Driver = drv,
     Database = db,
     Uid = uid,
