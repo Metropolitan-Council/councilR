@@ -48,16 +48,16 @@
 #' @importFrom purrr map flatten
 #' @importFrom utils osVersion
 import_from_emissions <- function(uid = getOption("councilR.uid"),
-                            pwd = getOption("councilR.pwd"),
-                            module = c(
-                              "mod_1", "mod_2", "mod_3",
-                              "metro_demos", "state_demos",
-                              "metro_energy", "state_energy",
-                              "all"
-                            ),
-                            local = TRUE,
-                            serv = "dbsqlcl11t.test.local,65414",
-                            db = "CD_Emissions") {
+                                  pwd = getOption("councilR.pwd"),
+                                  module = c(
+                                    "mod_1", "mod_2", "mod_3",
+                                    "metro_demos", "state_demos",
+                                    "metro_energy", "state_energy",
+                                    "all"
+                                  ),
+                                  local = TRUE,
+                                  serv = "dbsqlcl11t.test.local,65414",
+                                  db = "CD_Emissions") {
   # browser()
   # decide which driver to use based on OS
 
@@ -96,11 +96,11 @@ import_from_emissions <- function(uid = getOption("councilR.uid"),
   }
 
   conn <- DBI::dbConnect(odbc::odbc(),
-                         Driver = drv,
-                         Database = db,
-                         Uid = uid,
-                         Pwd = pwd,
-                         Server = serv
+    Driver = drv,
+    Database = db,
+    Uid = uid,
+    Pwd = pwd,
+    Server = serv
   )
 
   db_sp_tables <- purrr::map(
