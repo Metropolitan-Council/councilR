@@ -1,9 +1,9 @@
 # basic testing
 
 testthat::expect_error(
-  import_from_emissions(
+  mod_2 <- import_from_emissions(
     local = FALSE,
-    module = "mod_1"
+    table_name = "metro_energy.vw_electricity_residential_ctu"
   )
 )
 
@@ -21,8 +21,8 @@ testthat::skip_if(is.null(getOption("councilR.uid")))
 testthat::skip_if(is.null(getOption("councilR.pwd")))
 
 
-mod_2 <- import_from_emissions(
-  module = "mod_2"
+electric_residential <- import_from_emissions(
+  table_name = "metro_energy.vw_electricity_residential_ctu"
 )
 
-testthat::expect_equal(length(mod_2), 3)
+testthat::expect_equal(nrow(electric_residential), 186)
