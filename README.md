@@ -47,5 +47,6 @@ or another
 
 [@ashleyasmus](https://github.com/ashleyasmus),
 [@ehesch](https://github.com/ehesch),
-[@eroten](https://github.com/eroten), and
+[@eroten](https://github.com/eroten),
+[@svelick](https://github.com/svelick), and
 [@leonx075](https://github.com/leonx075).
