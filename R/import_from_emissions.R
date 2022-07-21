@@ -1,6 +1,5 @@
 #' @title Import data table from greenhouse gas emissions scenario planning database
 #'
-#'
 #' @param table_name character, which table to pull.
 #' @param uid character, your network id.
 #'     Default is `getOption("councilR.uid")`. For example, `"mc\\rotenle"`

@@ -1,6 +1,6 @@
-#' Council ggplot2 theme
+#' @title Council ggplot2 theme
 #'
-#' The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatterplots or line graphs.
+#' @description The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatterplots or line graphs.
 #'
 #' Please note that the y-axis text is horizontal, and long axis names will need to be wrapped; the `str_wrap` function from `stringr` will be useful. For example, consider using this piece of code: `labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))`
 #'
