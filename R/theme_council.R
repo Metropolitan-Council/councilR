@@ -1,6 +1,6 @@
-#' Council ggplot2 theme
+#' @title Council ggplot2 theme
 #'
-#' The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatterplots or line graphs.
+#' @description The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatterplots or line graphs.
 #'
 #' Please note that the y-axis text is horizontal, and long axis names will need to be wrapped; the `str_wrap` function from `stringr` will be useful. For example, consider using this piece of code: `labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))`
 #'
@@ -105,7 +105,17 @@ theme_council <- function(base_size = 11,
     requireNamespace("showtext", quietly = TRUE)
 
     showtext::showtext_auto()
-    sysfonts::font_paths()
+    if(grepl("mac", osVersion)){
+      sysfonts::font_paths()
+    } else {
+      # if windows, add the user-level font files to font paths
+      sysfonts::font_paths(
+        paste0("C:\\Users\\",
+               Sys.info()["user"],
+               "\\AppData\\Local\\Microsoft\\Windows\\Fonts"))
+    }
+
+
     files <- sysfonts::font_files()
 
     sysfonts::font_add("HelveticaNeueLT Std Cn", "HelveticaNeueLTStd-Cn.otf")
