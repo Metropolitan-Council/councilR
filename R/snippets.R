@@ -1,6 +1,5 @@
-#' Install councilR snippets
-#'
-#' This function installs a set of R snippets that
+#' @title Install councilR snippets
+#'  @description This function installs a set of R snippets that
 #' are helpful when working with Metropolitan Council projects in in
 #' RStudio. By default, the snippets are installed where RStudio will find
 #' them. If you haven't previously installed snippets to RStudio, these
@@ -30,10 +29,10 @@
 #' snippets_install(snip_tmp)
 #' }
 #'
-#' @param install_path Where should the snippets be installed? If `NULL`, the
+#' @param install_path character, Where should the snippets be installed? If `NULL`, the
 #'   snippets will install to a default path based on the current version of
 #'   RStudio.
-#' @param update Should existing snippets be updated in place if there are any
+#' @param update logical, Should existing snippets be updated in place if there are any
 #'   conflicts? Default is yes (`TRUE`). Otherwise, new snippets are appended to
 #'   the end of the existing file, ensuring that you can recover your previous
 #'   snippets by editing the snippets file.
@@ -43,7 +42,7 @@
 #' @importFrom fs path_home_r path dir_create dir_exists path_file dir_ls file_copy
 #' @importFrom glue glue
 #' @importFrom purrr map map_depth reduce flatten
-#'
+#' @family spatial helpers
 snippets_install <- function(install_path = NULL, update = TRUE) {
   # browser()
   new <- snippets_list("councilR")

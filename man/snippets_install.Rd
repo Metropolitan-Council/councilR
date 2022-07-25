@@ -3,22 +3,28 @@
 \name{snippets_install}
 \alias{snippets_install}
 \alias{snippets}
-\title{Install councilR snippets}
+\title{Install councilR snippets
+@description This function installs a set of R snippets that
+are helpful when working with Metropolitan Council projects in in
+RStudio. By default, the snippets are installed where RStudio will find
+them. If you haven't previously installed snippets to RStudio, these
+snippets will mask some of the built-in snippets that ship with RStudio.}
 \usage{
 snippets_install(install_path = NULL, update = TRUE)
 }
 \arguments{
-\item{install_path}{Where should the snippets be installed? If \code{NULL}, the
+\item{install_path}{character, Where should the snippets be installed? If \code{NULL}, the
 snippets will install to a default path based on the current version of
 RStudio.}
 
-\item{update}{Should existing snippets be updated in place if there are any
+\item{update}{logical, Should existing snippets be updated in place if there are any
 conflicts? Default is yes (\code{TRUE}). Otherwise, new snippets are appended to
 the end of the existing file, ensuring that you can recover your previous
 snippets by editing the snippets file.}
 }
 \description{
-This function installs a set of R snippets that
+Install councilR snippets
+@description This function installs a set of R snippets that
 are helpful when working with Metropolitan Council projects in in
 RStudio. By default, the snippets are installed where RStudio will find
 them. If you haven't previously installed snippets to RStudio, these
@@ -54,3 +60,4 @@ snippets_install(snip_tmp)
 Garrick Aden-Buie \email{g.adenbuie@gmail.com},
 Liz Roten \email{liz.roten@metc.state.mn.us}
 }
+\concept{spatial helpers}
