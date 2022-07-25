@@ -59,7 +59,7 @@ import_from_emissions <- function(table_name,
   }
 
   # check that DB connection works
-  if(drv == "FreeTDS"){
+  if (drv == "FreeTDS") {
     if (
       DBI::dbCanConnect(
         odbc::odbc(),
@@ -71,7 +71,7 @@ import_from_emissions <- function(table_name,
       ) == FALSE) {
       stop("Database failed to connect")
     }
-  } else if (drv == "SQL Server"){
+  } else if (drv == "SQL Server") {
     if (
       DBI::dbCanConnect(
         odbc::odbc(),
@@ -89,7 +89,7 @@ import_from_emissions <- function(table_name,
 
 
   conn <-
-    if(drv == "FreeTDS"){
+    if (drv == "FreeTDS") {
       DBI::dbConnect(
         odbc::odbc(),
         Driver = drv,
@@ -98,7 +98,7 @@ import_from_emissions <- function(table_name,
         Pwd = pwd,
         Server = serv
       )
-    } else if(drv == "SQL Server"){
+    } else if (drv == "SQL Server") {
       DBI::dbConnect(
         odbc::odbc(),
         Driver = drv,

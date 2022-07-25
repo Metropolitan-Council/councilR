@@ -105,14 +105,17 @@ theme_council <- function(base_size = 11,
     requireNamespace("showtext", quietly = TRUE)
 
     showtext::showtext_auto()
-    if(grepl("mac", osVersion)){
+    if (grepl("mac", osVersion)) {
       sysfonts::font_paths()
     } else {
       # if windows, add the user-level font files to font paths
       sysfonts::font_paths(
-        paste0("C:\\Users\\",
-               Sys.info()["user"],
-               "\\AppData\\Local\\Microsoft\\Windows\\Fonts"))
+        paste0(
+          "C:\\Users\\",
+          Sys.info()["user"],
+          "\\AppData\\Local\\Microsoft\\Windows\\Fonts"
+        )
+      )
     }
 
 
