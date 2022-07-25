@@ -23,22 +23,7 @@ remotes::install_github("Metropolitan-Council/councilR")
 
 ## Contributing
 
-Clone this repository and make a new branch. When you are ready to
-submit your contribution for testing and review, write a pull request to
-the `main` branch.
-
-Generally, you should write tests for all R functions using
-[`{testthat}`](https://testthat.r-lib.org/). All functions must have
-documentation using [`{roxygen2}`](https://roxygen2.r-lib.org/). Changes
-to package dependencies, additions to `.Rbuildignore`, and data must be
-created using [`{usethis}`](https://usethis.r-lib.org/).
-
-Finally, be sure to add your name to the authors section in the
-`DESCRIPTION`.
-
-Please note that the `{councilR}` project is released with a
-[Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By
-contributing to this project, you agree to abide by its terms.
+Please see our contribution guidelines [here](.github/CONTRIBUTING.md)
 
 ### Acknowledgements
 
