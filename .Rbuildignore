@@ -12,3 +12,4 @@
 ^inst/presentations/a_brief_introduction$
 ^doc$
 ^Meta$
+^inst/r/key_setup\.R$
