@@ -56,6 +56,10 @@ snippets_install(snip_tmp)
 }
 
 }
+\seealso{
+Other spatial helpers: 
+\code{\link{fetch_counties}()}
+}
 \author{
 Garrick Aden-Buie \email{g.adenbuie@gmail.com},
 Liz Roten \email{liz.roten@metc.state.mn.us}
