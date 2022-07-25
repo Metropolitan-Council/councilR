@@ -27,14 +27,15 @@ options(councilR.uid = "mc\\myuuid", # your user id
 )
 ```
 
-If you'd like to have these options loaded when you start up R, edit your `.Rprofile`. An easy way to accomplish this is with `usethis::edit_r_profile()`.
+If you'd like to have these options loaded when you start up RStudio, edit your `.Rprofile`. An easy way to accomplish this is with `usethis::edit_r_profile()`.
 
 ```{r}
 usethis::edit_r_profile()
 ```
 
-This will open your `.Rprofile`. 
+This will open your `.Rprofile`.
 
+Then, add `councilR.uid` and `councilR.pwd` to the list of options. 
 ```{r, eval=FALSE}
 options(
   ...,
