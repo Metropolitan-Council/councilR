@@ -13,8 +13,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-4253-0910")),
     person("Mauricio", "León", , "mauricio.leon@metc.state.mn.us", role = "ctb")
   )
-Description: A collection of commonly used templates, color palettes,
-    functions, and more!
+Description: A collection of commonly used templates, color palettes, and
+    functions for R users at the Metropolitan Council.
 License: MIT + file LICENSE
 BugReports: https://github.com/Metropolitan-Council/councilR/issues
 Depends: 
