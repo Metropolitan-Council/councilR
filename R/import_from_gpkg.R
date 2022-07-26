@@ -17,6 +17,8 @@
 #' @description Particularly useful for importing data from Minnesota Geospatial Commons
 #'     when access to the internal GIS database is unavailable.
 #'
+#' @note This function relies on `[{rlang}]` internal functions.
+#'
 #' @importFrom sf read_sf st_transform
 #' @importFrom fs file_delete
 #' @importFrom utils download.file tail unzip

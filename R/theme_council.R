@@ -64,7 +64,7 @@
 #'  a pull request.
 #'
 #'
-#'
+#' @note This function relies on `[{rlang}]` internal functions.
 #'
 #' @examples
 #' \dontrun{

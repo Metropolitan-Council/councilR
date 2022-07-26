@@ -3,13 +3,16 @@
 #' @param query character, string with the database connection and feature class
 #' @param dbname character, database name. Default is `"GISLibrary"`.
 #'     Must match the database name in `query`.
-#' @param uid character, user ID. default is `getOption("councilR.uid")`
+#' @param uid character, user ID. Default is `getOption("councilR.uid")`
 #' @param pwd character, user password. Default is `getOption("councilR.pwd")`.
 #'
 #' @note See `vignette("Options")` to review package options.
 #'     You must be set up with the appropriate database drivers to use this function.
 #'     **Windows** users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
 #'     **Mac** users need `unixodbc` and `freetds`. See instructions in [`{MetroTransitR}`](https://github.com/Metropolitan-Council/MetroTransitR)
+#'
+#'      This function relies on `[{rlang}]` internal functions.
+#'
 #' @return an `sf` object
 #' @export
 #' @examples \dontrun{

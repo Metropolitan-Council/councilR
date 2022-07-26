@@ -19,6 +19,8 @@
 #'     **Mac** users need `unixodbc` and `freetds`. See instructions in
 #'     [`{MetroTransitR}`](https://github.com/Metropolitan-Council/MetroTransitR)
 #'
+#'     This function relies on `[{rlang}]` internal functions.
+#'
 #' @return Requested table
 #' @export
 #'
