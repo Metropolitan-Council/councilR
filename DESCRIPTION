@@ -32,6 +32,7 @@ Imports:
     rstudioapi (>= 0.11),
     sf (>= 0.9.5),
     tictoc (>= 1.0),
+    tigris (>= 1.6.1),
     utils
 Suggests: 
     citr (>= 0.3.2),
@@ -40,7 +41,6 @@ Suggests:
     details (>= 0.2.1),
     httr2 (>= 0.2.1),
     knitr (>= 1.37),
-    repmis (>= 0.5),
     rmarkdown (>= 2.11),
     stringr (>= 1.4.0),
     testthat (>= 3.0.0),
