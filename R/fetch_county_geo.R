@@ -7,11 +7,18 @@
 #' @family spatial helpers
 #' @examples
 #' \dontrun{
-#' fetch_counties()
+#' fetch_county_geo()
 #' }
+#'# importFrom can only access functions that are exported from the package
 #' @importFrom tigris counties
-#' @importFrom dplyr filter
-fetch_counties <- function(core = TRUE, ...){
+#' @importFrom cli cli_abort
+fetch_county_geo <- function(core = TRUE, ...){
+
+  suppressWarnings(
+    if(class(core) != "logical"){
+      cli::cli_abort("`core` must be a logical, not {rlang:::obj_type_friendly(core)}.")
+    }
+  )
 
   county_list <- if(core == TRUE){
     c("Anoka",
@@ -33,7 +40,12 @@ fetch_counties <- function(core = TRUE, ...){
       "Wright")
   }
 
-  tigris::counties(state = "MN", ...) %>%
-    dplyr::filter(.data$NAME %in% county_list)
+  # fetch county geograp
+  mn_counties <- tigris::counties(state = "MN", ...)
+
+  county_sf <- mn_counties[mn_counties$NAME %in% county_list,]
+
+
+  return(county_sf)
 
 }
