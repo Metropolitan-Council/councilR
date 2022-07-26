@@ -57,9 +57,9 @@ regional_parks_db <- import_from_gis(query = "PARKSREGIONAL")
 
 head(regional_parks_db)
 ```
-A commonly fetch spatial dataset is the 7-county geography. `fetch_counties()` does just that.  
+A commonly fetch spatial dataset is the 7-county geography. `fetch_county_geo()` does just that.  
 
-```{r}
-fetch_counties()
+```{r, eval = FALSE}
+fetch_county_geo()
 ```
 
