@@ -1,4 +1,4 @@
-#' Council ggplot2 theme
+#' @title Council ggplot2 theme
 #'
 #' @param use_showtext Logical, whether to use Council fonts.
 #' @param size_header Header font size in pt. Default is 22
