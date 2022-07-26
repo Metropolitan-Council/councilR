@@ -108,9 +108,7 @@ theme_council <- function(base_size = 11,
 
   purrr::map(
     c(
-      base_size,
-      base_line_size,
-      base_rect_size,
+      base_size
     ),
     rlang:::check_number
   )
