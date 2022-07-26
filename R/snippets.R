@@ -42,7 +42,7 @@
 #' @importFrom fs path_home_r path dir_create dir_exists path_file dir_ls file_copy
 #' @importFrom glue glue
 #' @importFrom purrr map map_depth reduce
-#' @importFrom rlang flatten
+#' @importFrom purrr flatten
 #' @family spatial helpers
 snippets_install <- function(install_path = NULL, update = TRUE) {
   # browser()
@@ -154,7 +154,7 @@ snippets_merge <- function(new, old) {
       names(.x) <- nm
       .x
     }) %>%
-    rlang::flatten()
+    purrr::flatten()
 
   new_snps <- setdiff(names(snps$new), names(snps$old))
   merged <- c()
