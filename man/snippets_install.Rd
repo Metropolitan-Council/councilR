@@ -3,28 +3,22 @@
 \name{snippets_install}
 \alias{snippets_install}
 \alias{snippets}
-\title{Install councilR snippets
-@description This function installs a set of R snippets that
-are helpful when working with Metropolitan Council projects in in
-RStudio. By default, the snippets are installed where RStudio will find
-them. If you haven't previously installed snippets to RStudio, these
-snippets will mask some of the built-in snippets that ship with RStudio.}
+\title{Install councilR snippets}
 \usage{
 snippets_install(install_path = NULL, update = TRUE)
 }
 \arguments{
-\item{install_path}{character, Where should the snippets be installed? If \code{NULL}, the
-snippets will install to a default path based on the current version of
+\item{install_path}{character, where should the snippets be installed? If \code{NULL},
+the snippets will install to a default path based on the current version of
 RStudio.}
 
-\item{update}{logical, Should existing snippets be updated in place if there are any
+\item{update}{logical, should existing snippets be updated in place if there are any
 conflicts? Default is yes (\code{TRUE}). Otherwise, new snippets are appended to
 the end of the existing file, ensuring that you can recover your previous
 snippets by editing the snippets file.}
 }
 \description{
-Install councilR snippets
-@description This function installs a set of R snippets that
+This function installs a set of R snippets that
 are helpful when working with Metropolitan Council projects in in
 RStudio. By default, the snippets are installed where RStudio will find
 them. If you haven't previously installed snippets to RStudio, these
@@ -36,8 +30,7 @@ For example, HTML snippets will not appear while editing a ".R" file, but will
 appear when editing a ".html" file.
 }
 \note{
-This function is adapted from
-\href{https://github.com/gadenbuie/js4shiny/blob/master/R/snippets.R}{js4shiny::snippets_install()}.
+This function is adapted from  \href{https://github.com/gadenbuie/js4shiny/blob/main/R/snippets.R}{\code{js4shiny::snippets_install()}}
 }
 \section{Updating Existing Snippets}{
  If you already have snippets installed,

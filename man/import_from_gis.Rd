@@ -17,7 +17,7 @@ import_from_gis(
 \item{dbname}{character, database name. Default is \code{"GISLibrary"}.
 Must match the database name in \code{query}.}
 
-\item{uid}{character, user ID. default is \code{getOption("councilR.uid")}}
+\item{uid}{character, user ID. Default is \code{getOption("councilR.uid")}}
 
 \item{pwd}{character, user password. Default is \code{getOption("councilR.pwd")}.}
 }
@@ -32,6 +32,9 @@ See \code{vignette("Options")} to review package options.
 You must be set up with the appropriate database drivers to use this function.
 \strong{Windows} users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
 \strong{Mac} users need \code{unixodbc} and \code{freetds}. See instructions in \href{https://github.com/Metropolitan-Council/MetroTransitR}{\code{{MetroTransitR}}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ This function relies on `[\{rlang\}]` internal functions.
+}\if{html}{\out{</div>}}
 }
 \examples{
 \dontrun{

@@ -42,6 +42,9 @@ You must be set up with the appropriate database drivers to use this function.
 \strong{Windows} users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
 \strong{Mac} users need \code{unixodbc} and \code{freetds}. See instructions in
 \href{https://github.com/Metropolitan-Council/MetroTransitR}{\code{{MetroTransitR}}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{This function relies on `[\{rlang\}]` internal functions.
+}\if{html}{\out{</div>}}
 }
 \examples{
 \dontrun{

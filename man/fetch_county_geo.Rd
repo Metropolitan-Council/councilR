@@ -18,7 +18,7 @@ An \verb{[sf]} object containing the
 Fetch standardized county geography
 }
 \note{
-This function relies on \verb{[rlang:::obj_type_friendly()]}, an internal function.
+This function relies on \verb{[\{rlang\}]} internal functions.
 }
 \examples{
 \dontrun{

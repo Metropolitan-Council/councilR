@@ -20,10 +20,10 @@ import_from_gpkg(
 File will be saved in .RDS format}
 
 \item{save_path}{character, the path where the downloaded file should be saved.
-Default location is in the working directory.}
+Default location is the working directory.}
 
-\item{.crs, }{the CRS code or string used to transform the download.
-Default is "4326" (WGS 84)}
+\item{.crs}{numeric, the CRS code or string used to transform the download.
+Default is \code{4326} (WGS 84)}
 
 \item{keep_temp}{character, whether to keep the temporary download.
 Default is \code{FALSE}.}
@@ -37,10 +37,14 @@ an \code{sf} object
 Particularly useful for importing data from Minnesota Geospatial Commons
 when access to the internal GIS database is unavailable.
 }
+\note{
+This function relies on \verb{[\{rlang\}]} internal functions.
+}
 \examples{
 
 library(councilR)
 
 # import regional parks from Minnesota Geospatial Commons
 import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
+
 }
