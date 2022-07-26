@@ -41,12 +41,25 @@
 #' @importFrom DBI dbCanConnect dbGetQuery dbConnect dbDisconnect
 #' @importFrom odbc odbc
 #' @importFrom utils osVersion
+#' @importFrom purrr map
+#'
 import_from_emissions <- function(table_name,
                                   uid = getOption("councilR.uid"),
                                   pwd = getOption("councilR.pwd"),
                                   local = TRUE,
                                   serv = "dbsqlcl11t.test.local,65414",
                                   db = "CD_Emissions") {
+
+  # check input types
+  purrr::map(
+    c(table_name, serv, uid, pwd, db),
+    rlang:::check_string
+  )
+  purrr::map(
+    c(local),
+    rlang:::check_bool
+  )
+
   # browser()
   # decide which driver to use based on OS
 

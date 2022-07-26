@@ -10,16 +10,14 @@
 #' fetch_county_geo()
 #' }
 #'
-#' @note This function relies on `[rlang:::obj_type_friendly()]`, an internal function.
+#' @note This function relies on `[{rlang}]` internal functions.
 #'
 #' @importFrom tigris counties
 #' @importFrom cli cli_abort
+#' @importFrom purrr map
+#'
 fetch_county_geo <- function(core = TRUE, ...) {
-  suppressWarnings(
-    if (class(core) != "logical") {
-      cli::cli_abort("`core` must be a logical, not {rlang:::obj_type_friendly(core)}.")
-    }
-  )
+  rlang:::check_bool(core)
 
   county_list <- if (core == TRUE) {
     c(

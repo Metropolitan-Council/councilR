@@ -82,6 +82,7 @@
 #' }
 #'
 #' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel %+replace%
+#' @importFrom purrr map
 #'
 #'
 theme_council <- function(base_size = 11,
@@ -100,6 +101,19 @@ theme_council <- function(base_size = 11,
                             "caption" = 8,
                             "strip" = 14
                           )) {
+  purrr::map(
+    c(use_showtext, use_manual_font_sizes),
+    rlang:::check_bool
+  )
+
+  purrr::map(c(base_size,
+               base_line_size,
+               base_rect_size,
+  ),
+  rlang:::check_number)
+
+  rlang:::check_string(base_family)
+
   if (use_showtext == TRUE) {
     requireNamespace("sysfonts", quietly = TRUE)
     requireNamespace("showtext", quietly = TRUE)

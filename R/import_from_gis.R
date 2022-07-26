@@ -27,10 +27,16 @@
 #' @importFrom odbc odbc
 #' @importFrom DBI dbGetQuery dbDisconnect dbCanConnect dbConnect
 #' @importFrom tictoc tic toc
+#' @importFrom purrr map
 import_from_gis <- function(query,
                             dbname = "GISLibrary",
                             uid = getOption("councilR.uid"),
                             pwd = getOption("councilR.pwd")) {
+  purrr::map(
+    c(query, dbname, uid, pwd),
+    rlang:::check_string
+  )
+
   tictoc::tic()
   if (DBI::dbCanConnect(odbc::odbc(),
     # driver = "FreeTDS",
