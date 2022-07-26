@@ -10,8 +10,8 @@
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
-The goal of `{councilR}` is to provide a curated collection of commonly
-used templates, color palettes, snippets, functions, and more!
+`{councilR`} is a collection of commonly used templates, color palettes,
+and functions for R users at the Metropolitan Council.
 
 ## Installation
 
@@ -23,7 +23,7 @@ remotes::install_github("Metropolitan-Council/councilR")
 
 ## Contributing
 
-Please see our contribution guidelines [here](.github/CONTRIBUTING.md)
+Please see our contribution guidelines [here](.github/CONTRIBUTING.md).
 
 ### Acknowledgements
 
