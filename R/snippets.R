@@ -41,7 +41,8 @@
 #'
 #' @importFrom fs path_home_r path dir_create dir_exists path_file dir_ls file_copy
 #' @importFrom glue glue
-#' @importFrom purrr map map_depth reduce flatten
+#' @importFrom purrr map map_depth reduce
+#' @importFrom rlang flatten
 #' @family spatial helpers
 snippets_install <- function(install_path = NULL, update = TRUE) {
   # browser()
