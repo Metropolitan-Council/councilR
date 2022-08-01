@@ -22,7 +22,7 @@ Must match the database name in \code{query}.}
 \item{pwd}{character, user password. Default is \code{getOption("councilR.pwd")}.}
 }
 \value{
-an \code{sf} object
+an \url{sf} object
 }
 \description{
 Import a dataset from ArcCatalog

@@ -34,21 +34,22 @@ theme_council_open(
 
 \item{base_line_size}{numeric, base size for line elements. Default is \code{base_size/22}}
 
-\item{base_rect_size}{numeric, base size for rect elements. Default is \code{base_size/22}}
+\item{base_rect_size}{numeric, base size for \code{rect} elements. Default is \code{base_size/22}}
 
 \item{use_showtext}{logical, whether to use Council fonts.}
 
 \item{use_manual_font_sizes}{logical, use supplied font sizes.}
 
-\item{font_sizes}{named list of font sizes. Only used if \code{use_manual_font_sizes} is \code{TRUE}}
+\item{font_sizes}{named list, font sizes. Only used if \code{use_manual_font_sizes} is \code{TRUE}}
 }
 \value{
 a \code{\link[ggplot2:theme]{ggplot2::theme()}} object
 }
 \description{
-The default \code{theme_council()} plus a more simple \code{theme_council_open()} for making MetCouncil figures. \code{theme_council()} will be appropriate in most cases while \code{theme_council_open()} is appropriate for single scatterplots or line graphs.
+The default \code{theme_council()} plus a more simple \code{theme_council_open()} for making MetCouncil figures. \code{theme_council()} will be appropriate in most cases while \code{theme_council_open()} is appropriate for single scatter plots or line graphs.
 
-Please note that the y-axis text is horizontal, and long axis names will need to be wrapped; the \code{str_wrap} function from \code{stringr} will be useful. For example, consider using this piece of code: \code{labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))}
+Please note that the y-axis text is horizontal, and long axis names will need to be wrapped;  \url{stringr::str_wrap()} is useful for managing length.
+For example, consider using this piece of code: \code{labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))}
 }
 \note{
 This function relies on \verb{[\{rlang\}]} internal functions.
@@ -130,7 +131,6 @@ Other aesthetics:
 \code{\link{colors}},
 \code{\link{council.pal}()},
 \code{\link{council_pal2}()},
-\code{\link{council_theme}()},
 \code{\link{scale_color_council}()},
 \code{\link{scale_fill_council}()}
 }
