@@ -13,3 +13,4 @@
 ^doc$
 ^Meta$
 ^inst/r/key_setup\.R$
+^\.vscode$

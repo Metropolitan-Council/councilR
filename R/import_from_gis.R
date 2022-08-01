@@ -7,9 +7,12 @@
 #' @param pwd character, user password. Default is `getOption("councilR.pwd")`.
 #'
 #' @note See `vignette("Options")` to review package options.
-#'     You must be set up with the appropriate database drivers to use this function.
-#'     **Windows** users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
-#'     **Mac** users need `unixodbc` and `freetds`. See instructions in the [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
+#'     You must be set up with the appropriate database drivers
+#'     to use this function.
+#'     **Windows** users need ODBC with Microsoft SQL. 
+#'       Contact IS support for ODBC installation.
+#'     **Mac** users need `unixodbc` and `freetds`.
+#'       See instructions in the [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
 
 #'
 #'      This function relies on `[{rlang}]` internal functions.
