@@ -2,7 +2,7 @@
 % Please edit documentation in R/import_from_gpkg.R
 \name{import_from_gpkg}
 \alias{import_from_gpkg}
-\title{Import an \code{sf} object using a URL}
+\title{Import an \code{sf} object using a geopackage URL}
 \usage{
 import_from_gpkg(
   link,
@@ -28,10 +28,10 @@ Default is \code{4326} (WGS 84)}
 \item{keep_temp}{character, whether to keep the temporary download.
 Default is \code{FALSE}.}
 
-\item{.quiet}{logical, suppress messages}
+\item{.quiet}{logical, suppress messages. Default is \code{TRUE}.}
 }
 \value{
-an \code{sf} object
+an \code{\link{sf}} object
 }
 \description{
 Particularly useful for importing data from Minnesota Geospatial Commons

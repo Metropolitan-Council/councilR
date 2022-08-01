@@ -22,7 +22,8 @@ Default is \code{getOption("councilR.uid")}. For example, \code{"mc\\\\rotenle"}
 \item{pwd}{character, your network password.
 Default is \code{getOption("councilR.pwd")}. For example, \code{"my_password"}}
 
-\item{local}{logical, whether to pull from the onsite database or Azure.}
+\item{local}{logical, whether to pull from the onsite database or Azure.
+Default is \code{TRUE}}
 
 \item{serv}{character, database server.
 Default is \code{"dbsqlcl11t.test.local,65414"} (the test database).}
