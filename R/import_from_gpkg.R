@@ -1,4 +1,4 @@
-#' @title Import an `sf` object using a URL
+#' @title Import an `sf` object using a geopackage URL
 #'
 #' @param link character, URL for the `.gpkg` object
 #' @param save_file logical, whether to save the downloaded file.
@@ -9,9 +9,9 @@
 #'     Default is `4326` (WGS 84)
 #' @param keep_temp character, whether to keep the temporary download.
 #'     Default is `FALSE`.
-#' @param .quiet logical, suppress messages
+#' @param .quiet logical, suppress messages. Default is `TRUE`.
 #'
-#' @return an `sf` object
+#' @return an [`sf`] object
 #' @export
 #'
 #' @description Particularly useful for importing data from Minnesota Geospatial Commons

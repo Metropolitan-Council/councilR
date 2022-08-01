@@ -1,8 +1,9 @@
 #' @title Fetch standardized county geography
 #'
-#' @param core logical, whether to include all counties in the MPO.
+#' @param core logical, whether to include all counties in the MPO. Default is `TRUE`.
 #' @param ... Arguments passed to `[tigris::counties]`
-#' @return An `[sf]` object containing the
+#'
+#' @return An [`sf`] object containing county geographies.
 #' @export
 #' @family spatial helpers
 #' @examples

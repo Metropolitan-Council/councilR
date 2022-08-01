@@ -9,6 +9,7 @@
 #'     Default is `"dbsqlcl11t.test.local,65414"` (the test database).
 #' @param db character, database name. Default is `"CD_Emissions"`
 #' @param local logical, whether to pull from the onsite database or Azure.
+#'     Default is `TRUE`
 #'
 #' @description WARNING: Function error may results in RStudio crash.
 #'     Requires a password for access to the database.
