@@ -2,7 +2,6 @@
 
 
 colors <- list(
-
   ## Council and Metro Transit Colors
   councilBlue = "#0054A4", # Council blue
   cdGreen = "#78A22F", # Community Development green
@@ -76,9 +75,6 @@ blue_cascade <- list(
     "color" = "#002b5c"
   )
 )
-
-
-
 
 # wow, what great colors
 usethis::use_data(colors, overwrite = TRUE, compress = "xz")
