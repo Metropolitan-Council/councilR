@@ -14,7 +14,7 @@
 #'
 #'      This function relies on `[{rlang}]` internal functions.
 #'
-#' @return an `sf` object
+#' @return an [`sf`]() object
 #' @export
 #' @examples \dontrun{
 #' library(councilR)
