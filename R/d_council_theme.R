@@ -25,6 +25,6 @@ council_theme <- function(use_showtext = FALSE,
                           size_margin = 10) {
   rlang::abort(
     message = "council_theme() is deprecated as of version 0.1.1. Please use theme_council()",
-    body = c("Equivalent is `theme_council(use_showtext = FALSE, use_manual_font_sizes = TRUE)`"))
-
+    body = c("Equivalent is `theme_council(use_showtext = FALSE, use_manual_font_sizes = TRUE)`")
+  )
 }

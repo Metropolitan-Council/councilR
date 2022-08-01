@@ -20,7 +20,8 @@ library(councilR)
 
 `{councilR}` has a couple functions and snippets to help you access and manipulate spatial data. 
 
-## Snippets  
+## Snippets
+
 Once you have installed snippets using `councilR::snippets_install()`, you will now have important values quickly accessible. To access them, start typing the snippet name into the console. The snippet will autocomplete. 
 
   - `metro_crs`, the numeric preferred coordinate reference system (CRS) for our region. Most commonly used when transforming a spatial object's projection with `sf::st_transform(df, 26915)`
@@ -40,7 +41,7 @@ metro_centroid
 
 ## Functions  
 
-Some datasets are maintained on [Minnesota Geospatial Commons](https://gisdata.mn.gov/). These datasets generally mirror datasets available in the internal GISLibrary. On Minnesota Geospatial commons, navigate to the dataset you want to access. Find the button to download the OGC GeoPackage format, and right click on it. Select "Copy link address". The address will end with  ".zip". 
+Some datasets are maintained on [Minnesota Geospatial Commons](https://gisdata.mn.gov/). These datasets generally mirror datasets available in the internal GISLibrary. On Minnesota Geospatial commons, navigate to the dataset you want to access. Find the button to download the OGC GeoPackage format, and right click on it. Select "Copy link address". The address will end with  ".zip".
 
 Pass this link to `import_from_gpkg()` to get the [sf]() object!
 
@@ -57,9 +58,9 @@ regional_parks_db <- import_from_gis(query = "PARKSREGIONAL")
 
 head(regional_parks_db)
 ```
+
 A commonly fetch spatial dataset is the 7-county geography. `fetch_county_geo()` does just that.  
 
 ```{r, eval = FALSE}
 fetch_county_geo()
 ```
-
