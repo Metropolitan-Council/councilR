@@ -1,7 +1,8 @@
 # Can import_from_gis() actually import from the GISLibrary database?
 
-# skip on GH Actions
+# skip on GH Actions, CRAN
 testthat::skip_on_ci()
+testthat::skip_on_cran()
 
 # skip if not connected to VPN
 testthat::skip_if(
