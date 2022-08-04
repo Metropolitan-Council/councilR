@@ -1,3 +1,30 @@
+# v.0.1.3 (2022-08-03)
+
+## New features
+
+- `fetch_county_geos()` uses `{tigris}` to create an `sf` object. It takes one argument, `core`, which indicates whether to include only the core 7-county metro or the 9-county MPO area.
+- Input checks using `{rlang}`
+- New vignette detailing helpers for accessing spatial data, including snippets.
+- New contributor guidelines. 
+- `council_theme()` is officially deprecated. Function will return error with message
+- Improved testing
+    - Package now uses `{httr2}` to access DB credentials securely. If you want to develop and test the package, you must contact @eroten for the `COUNCILR_KEY` to decrypt.
+    - Added testing for `colors`
+    
+### Dependency changes
+
+- `{tigris}`, `{cli}`, `{httr2}` added
+- `{repmis}` removed
+
+### General updates
+
+- More uniform documentation standards
+- RMarkdown template 
+    - New default text in RMarkdown template
+    - Remove `{repmis}` and use integrated `{knitr}` function to fetch package dependencies. 
+
+
+
 # v0.1.0.9000 (2020-10-21)  
 
 ## New functions
