@@ -18,6 +18,17 @@
 #' @importFrom cli cli_abort
 #' @importFrom purrr map
 #'
+#' @examples
+#' \dontrun{
+# library(ggplot2)
+# library(councilR)
+#
+# fetch_county_geo() %>%
+#   ggplot() +
+#   geom_sf() +
+#   theme_void()
+#'}
+
 fetch_county_geo <- function(core = TRUE, ...) {
   rlang:::check_bool(core)
 
