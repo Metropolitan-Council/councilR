@@ -1,16 +1,17 @@
 #' @title Council ggplot2 theme
 #'
-#' @description The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatterplots or line graphs.
+#' @description The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatter plots or line graphs.
 #'
-#' Please note that the y-axis text is horizontal, and long axis names will need to be wrapped; the `str_wrap` function from `stringr` will be useful. For example, consider using this piece of code: `labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))`
+#' Please note that the y-axis text is horizontal, and long axis names will need to be wrapped;  [`stringr::str_wrap()`]() is useful for managing length.
+#'  For example, consider using this piece of code: `labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))`
 #'
 #' @param base_size numeric, base font size, given in pts. Default is `11`
 #' @param base_family character, base font family. Default is `""`
 #' @param base_line_size numeric, base size for line elements. Default is `base_size/22`
-#' @param base_rect_size numeric, base size for rect elements. Default is `base_size/22`
+#' @param base_rect_size numeric, base size for `rect` elements. Default is `base_size/22`
 #' @param use_showtext logical, whether to use Council fonts.
 #' @param use_manual_font_sizes logical, use supplied font sizes.
-#' @param font_sizes named list of font sizes. Only used if `use_manual_font_sizes` is `TRUE`
+#' @param font_sizes named list, font sizes. Only used if `use_manual_font_sizes` is `TRUE`
 #'
 #' @return a [ggplot2::theme()] object
 #' @export
@@ -64,7 +65,7 @@
 #'  a pull request.
 #'
 #'
-#'
+#' @note This function relies on `[{rlang}]` internal functions.
 #'
 #' @examples
 #' \dontrun{
@@ -82,6 +83,7 @@
 #' }
 #'
 #' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel %+replace%
+#' @importFrom purrr map
 #'
 #'
 theme_council <- function(base_size = 11,
@@ -100,19 +102,36 @@ theme_council <- function(base_size = 11,
                             "caption" = 8,
                             "strip" = 14
                           )) {
+  purrr::map(
+    c(use_showtext, use_manual_font_sizes),
+    rlang:::check_bool
+  )
+
+  purrr::map(
+    c(
+      base_size
+    ),
+    rlang:::check_number
+  )
+
+  rlang:::check_string(base_family)
+
   if (use_showtext == TRUE) {
     requireNamespace("sysfonts", quietly = TRUE)
     requireNamespace("showtext", quietly = TRUE)
 
     showtext::showtext_auto()
-    if(grepl("mac", osVersion)){
+    if (grepl("mac", osVersion)) {
       sysfonts::font_paths()
     } else {
       # if windows, add the user-level font files to font paths
       sysfonts::font_paths(
-        paste0("C:\\Users\\",
-               Sys.info()["user"],
-               "\\AppData\\Local\\Microsoft\\Windows\\Fonts"))
+        paste0(
+          "C:\\Users\\",
+          Sys.info()["user"],
+          "\\AppData\\Local\\Microsoft\\Windows\\Fonts"
+        )
+      )
     }
 
 
@@ -397,8 +416,7 @@ theme_council <- function(base_size = 11,
 
 #' @rdname theme_council
 #' @export
-
-
+#'
 theme_council_open <- function(base_size = 11,
                                base_family = "",
                                base_line_size = base_size / 22,

@@ -2,7 +2,8 @@
 #'
 #' @description A named list of background and text colors for cascading menus
 #'
-#' @format A named list of 8 lists. Each item contains a named list of two items:
+#' @format A named list of 8 lists. Each item contains a named list 
+#'     of two items:
 #'     - "background" is the background or fill color
 #'     - "color" is the text or contrast color
 #' \describe{

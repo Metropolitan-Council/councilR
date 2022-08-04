@@ -22,7 +22,8 @@ Default is \code{getOption("councilR.uid")}. For example, \code{"mc\\\\rotenle"}
 \item{pwd}{character, your network password.
 Default is \code{getOption("councilR.pwd")}. For example, \code{"my_password"}}
 
-\item{local}{logical, whether to pull from the onsite database or Azure.}
+\item{local}{logical, whether to pull from the onsite database or Azure.
+Default is \code{TRUE}}
 
 \item{serv}{character, database server.
 Default is \code{"dbsqlcl11t.test.local,65414"} (the test database).}
@@ -40,8 +41,11 @@ Requires a password for access to the database.
 See \code{vignette("Options")} to review package options.
 You must be set up with the appropriate database drivers to use this function.
 \strong{Windows} users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
-\strong{Mac} users need \code{unixodbc} and \code{freetds}. See instructions in
-\href{https://github.com/Metropolitan-Council/MetroTransitR}{\code{{MetroTransitR}}}
+\strong{Mac} users need \code{unixodbc} and \code{freetds}. See instructions in the
+\href{https://furry-adventure-596f3adb.pages.github.io/database-connections.html}{onboarding guide}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{This function relies on `[\{rlang\}]` internal functions.
+}\if{html}{\out{</div>}}
 }
 \examples{
 \dontrun{

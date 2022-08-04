@@ -1,13 +1,12 @@
-#' Install councilR snippets
+#' @title Install councilR snippets
 #'
-#' This function installs a set of R snippets that
+#' @description This function installs a set of R snippets that
 #' are helpful when working with Metropolitan Council projects in in
 #' RStudio. By default, the snippets are installed where RStudio will find
 #' them. If you haven't previously installed snippets to RStudio, these
 #' snippets will mask some of the built-in snippets that ship with RStudio.
 #'
-#' @note This function is adapted from
-#' \href{https://github.com/gadenbuie/js4shiny/blob/master/R/snippets.R}{js4shiny::snippets_install()}.
+#' @note This function is adapted from  [`js4shiny::snippets_install()`](https://github.com/gadenbuie/js4shiny/blob/main/R/snippets.R)
 #'
 #' @section Updating Existing Snippets: If you already have snippets installed,
 #'   you can  you can have the installed snippets update the existing snippets
@@ -30,10 +29,10 @@
 #' snippets_install(snip_tmp)
 #' }
 #'
-#' @param install_path Where should the snippets be installed? If `NULL`, the
-#'   snippets will install to a default path based on the current version of
+#' @param install_path character, where should the snippets be installed? If `NULL`,
+#'   the snippets will install to a default path based on the current version of
 #'   RStudio.
-#' @param update Should existing snippets be updated in place if there are any
+#' @param update logical, should existing snippets be updated in place if there are any
 #'   conflicts? Default is yes (`TRUE`). Otherwise, new snippets are appended to
 #'   the end of the existing file, ensuring that you can recover your previous
 #'   snippets by editing the snippets file.
@@ -42,8 +41,9 @@
 #'
 #' @importFrom fs path_home_r path dir_create dir_exists path_file dir_ls file_copy
 #' @importFrom glue glue
-#' @importFrom purrr map map_depth reduce flatten
-#'
+#' @importFrom purrr map map_depth reduce
+#' @importFrom purrr flatten
+#' @family spatial helpers
 snippets_install <- function(install_path = NULL, update = TRUE) {
   # browser()
   new <- snippets_list("councilR")

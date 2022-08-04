@@ -25,6 +25,10 @@ requireNamespace("details", quietly = TRUE)
 requireNamespace("repmis", quietly = TRUE)
 requireNamespace("citr", quietly = TRUE)
 
+# install citr, if neccessary
+# remotes::install_github("crsh/citr")
+
+
 library(repmis) # for package citations
 library(citr) # for traditional references. citr also interfaces with Zotero
 library(details) # reproducibility 
@@ -32,22 +36,11 @@ library(councilR)
 
 ## run repmis::LoadandCite() to generate references for all the packages in the environment -----
 # repmis::LoadandCite(file = "references.bib")
-
-## repmis has a bug in handling special characters. see example below
-#
-# @Manual{R-dplyr,
-#   title = {dplyr: A Grammar of Data Manipulation},
-#   author = {Hadley Wickham and Romain Fran{\c{c}}ois and Lionel Henry and Kirill M{\"{u}}ller},
-#   year = {2019},
-#   note = {R package version 0.8.1},
-#   url = {https://CRAN.R-project.org/package=dplyr},
-# }
 ```
 
 ## Background  
 
-A short introduction including metadata and project information. Include links to things like articles, data downloads, methodology, whitepapers, etc. 
-
+A short introduction including metadata and project information. Include links to things like articles, data downloads, methodology, whitepapers, etc. Should answer questions like: What is this thing? Why does it exist? What projects are related to this one?
 
 ### Equity questions and considerations  
 
@@ -60,6 +53,11 @@ sessioninfo::session_info()
 ```
 
 ## References  
+
+```{r, message=FALSE, echo=FALSE}
+knitr::write_bib(c(.packages()), "references.bib")
+```
+
 
 <a href="https://metrocouncil.org" target="_blank"><img src="logo.png" style="margin-left: 50%;margin-right: 50%;"><div></div></a>
 

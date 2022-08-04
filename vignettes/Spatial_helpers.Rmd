@@ -1,0 +1,66 @@
+---
+title: "Spatial Helpers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Spatial_helpers}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(councilR)
+```
+
+`{councilR}` has a couple functions and snippets to help you access and manipulate spatial data. 
+
+## Snippets
+
+Once you have installed snippets using `councilR::snippets_install()`, you will now have important values quickly accessible. To access them, start typing the snippet name into the console. The snippet will autocomplete. 
+
+  - `metro_crs`, the numeric preferred coordinate reference system (CRS) for our region. Most commonly used when transforming a spatial object's projection with `sf::st_transform(df, 26915)`
+  - `tile_crs`, numeric coordinate reference system for spatial data using a tile-based system, like `{leaflet}`. Most commonly used with `sf::st_transform(df, 4326)`
+  - `metro_centroid`, vector with latitude and longitude coordinates of the geographic center of the 7-county metro. Useful for setting a starting center point and zoom in `{leaflet}` maps.
+  - `counties`, vector of county  names for the seven core counties serviced by the Metropolitan Council 
+  - `counties_mpo`, county names for all counties included in the Metropolitan Planning Organization (MPO) area. 
+
+```{r, eval=FALSE}
+metro_crs
+#> 26915
+
+metro_centroid
+#> c(-93.30375,
+#>   44.91831)
+```
+
+## Functions  
+
+Some datasets are maintained on [Minnesota Geospatial Commons](https://gisdata.mn.gov/). These datasets generally mirror datasets available in the internal GISLibrary. On Minnesota Geospatial commons, navigate to the dataset you want to access. Find the button to download the OGC GeoPackage format, and right click on it. Select "Copy link address". The address will end with  ".zip".
+
+Pass this link to `import_from_gpkg()` to get the [sf]() object!
+
+```{r}
+regional_parks_commons <- import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
+
+head(regional_parks_commons)
+```
+
+If you can access internal databases, use your Council login user ID and password to access data from the GIS Library. For seamless access, see `vignette("Options")` to review package options.
+
+```{r, eval = FALSE}
+regional_parks_db <- import_from_gis(query = "PARKSREGIONAL")
+
+head(regional_parks_db)
+```
+
+A commonly fetch spatial dataset is the 7-county geography. `fetch_county_geo()` does just that.  
+
+```{r, eval = FALSE}
+fetch_county_geo()
+```

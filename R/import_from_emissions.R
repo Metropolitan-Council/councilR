@@ -9,6 +9,7 @@
 #'     Default is `"dbsqlcl11t.test.local,65414"` (the test database).
 #' @param db character, database name. Default is `"CD_Emissions"`
 #' @param local logical, whether to pull from the onsite database or Azure.
+#'     Default is `TRUE`
 #'
 #' @description WARNING: Function error may results in RStudio crash.
 #'     Requires a password for access to the database.
@@ -16,8 +17,10 @@
 #' @note See `vignette("Options")` to review package options.
 #'     You must be set up with the appropriate database drivers to use this function.
 #'     **Windows** users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
-#'     **Mac** users need `unixodbc` and `freetds`. See instructions in
-#'     [`{MetroTransitR}`](https://github.com/Metropolitan-Council/MetroTransitR)
+#'     **Mac** users need `unixodbc` and `freetds`. See instructions in the
+#'     [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
+#'
+#'     This function relies on `[{rlang}]` internal functions.
 #'
 #' @return Requested table
 #' @export
@@ -39,12 +42,25 @@
 #' @importFrom DBI dbCanConnect dbGetQuery dbConnect dbDisconnect
 #' @importFrom odbc odbc
 #' @importFrom utils osVersion
+#' @importFrom purrr map
+#'
 import_from_emissions <- function(table_name,
                                   uid = getOption("councilR.uid"),
                                   pwd = getOption("councilR.pwd"),
                                   local = TRUE,
                                   serv = "dbsqlcl11t.test.local,65414",
                                   db = "CD_Emissions") {
+
+  # check input types
+  purrr::map(
+    c(table_name, serv, uid, pwd, db),
+    rlang:::check_string
+  )
+  purrr::map(
+    c(local),
+    rlang:::check_bool
+  )
+
   # browser()
   # decide which driver to use based on OS
 
@@ -59,7 +75,7 @@ import_from_emissions <- function(table_name,
   }
 
   # check that DB connection works
-  if(drv == "FreeTDS"){
+  if (drv == "FreeTDS") {
     if (
       DBI::dbCanConnect(
         odbc::odbc(),
@@ -71,7 +87,7 @@ import_from_emissions <- function(table_name,
       ) == FALSE) {
       stop("Database failed to connect")
     }
-  } else if (drv == "SQL Server"){
+  } else if (drv == "SQL Server") {
     if (
       DBI::dbCanConnect(
         odbc::odbc(),
@@ -89,7 +105,7 @@ import_from_emissions <- function(table_name,
 
 
   conn <-
-    if(drv == "FreeTDS"){
+    if (drv == "FreeTDS") {
       DBI::dbConnect(
         odbc::odbc(),
         Driver = drv,
@@ -98,7 +114,7 @@ import_from_emissions <- function(table_name,
         Pwd = pwd,
         Server = serv
       )
-    } else if(drv == "SQL Server"){
+    } else if (drv == "SQL Server") {
       DBI::dbConnect(
         odbc::odbc(),
         Driver = drv,

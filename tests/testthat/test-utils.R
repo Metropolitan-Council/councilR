@@ -1,4 +1,4 @@
-## https://github.com/gadenbuie/js4shiny/blob/master/tests/testthat/test-utils.R
+## https://github.com/gadenbuie/js4shiny/blob/main/tests/testthat/test-utils.R
 
 test_that("requires_pkg", {
   missing_pkg <- function() requires_pkg("flarf")

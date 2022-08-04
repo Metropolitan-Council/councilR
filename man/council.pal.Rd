@@ -2,7 +2,7 @@
 % Please edit documentation in R/scale_fill_council.R
 \name{council.pal}
 \alias{council.pal}
-\title{Council colors turned into palettes}
+\title{Council colors as palettes}
 \usage{
 council.pal(n, name)
 }
@@ -12,7 +12,7 @@ council.pal(n, name)
 \item{name}{character, starting color name. One of \code{councilR::colors}.}
 }
 \description{
-\code{scale_color_council()} and \code{scale_fill_council} will give
+\code{scale_color_council()} and \code{scale_fill_council} give
 a color palette starting with \code{councilBlue}, followed by \code{cdGreen} and \code{mtsRed},
 and then a couple other Council colors which will look
 decent afterwards (up to 8 levels).
@@ -31,7 +31,6 @@ Other aesthetics:
 \code{\link{blue_cascade}},
 \code{\link{colors}},
 \code{\link{council_pal2}()},
-\code{\link{council_theme}()},
 \code{\link{scale_color_council}()},
 \code{\link{scale_fill_council}()},
 \code{\link{theme_council}()}

@@ -6,7 +6,7 @@
 \alias{councilR-package}
 \title{councilR: Functions and Templates for the Metropolitan Council}
 \description{
-A collection of commonly used templates, color palettes, functions, and more!
+A collection of commonly used templates, color palettes, and functions for R users at the Metropolitan Council.
 }
 \seealso{
 Useful links:

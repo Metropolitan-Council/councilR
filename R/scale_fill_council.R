@@ -1,5 +1,5 @@
-#' @title Council colors turned into palettes
-#' @description `scale_color_council()` and `scale_fill_council` will give
+#' @title Council colors as palettes
+#' @description `scale_color_council()` and `scale_fill_council` give
 #'     a color palette starting with `councilBlue`, followed by `cdGreen` and `mtsRed`,
 #'     and then a couple other Council colors which will look
 #'     decent afterwards (up to 8 levels).

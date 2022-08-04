@@ -3,14 +3,21 @@
 #' @param query character, string with the database connection and feature class
 #' @param dbname character, database name. Default is `"GISLibrary"`.
 #'     Must match the database name in `query`.
-#' @param uid character, user ID. default is `getOption("councilR.uid")`
+#' @param uid character, user ID. Default is `getOption("councilR.uid")`
 #' @param pwd character, user password. Default is `getOption("councilR.pwd")`.
 #'
 #' @note See `vignette("Options")` to review package options.
-#'     You must be set up with the appropriate database drivers to use this function.
-#'     **Windows** users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
-#'     **Mac** users need `unixodbc` and `freetds`. See instructions in [`{MetroTransitR}`](https://github.com/Metropolitan-Council/MetroTransitR)
-#' @return an `sf` object
+#'     You must be set up with the appropriate database drivers
+#'     to use this function.
+#'     **Windows** users need ODBC with Microsoft SQL. 
+#'       Contact IS support for ODBC installation.
+#'     **Mac** users need `unixodbc` and `freetds`.
+#'       See instructions in the [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
+
+#'
+#'      This function relies on `[{rlang}]` internal functions.
+#'
+#' @return an [`sf`] object
 #' @export
 #' @examples \dontrun{
 #' library(councilR)
@@ -24,10 +31,16 @@
 #' @importFrom odbc odbc
 #' @importFrom DBI dbGetQuery dbDisconnect dbCanConnect dbConnect
 #' @importFrom tictoc tic toc
+#' @importFrom purrr map
 import_from_gis <- function(query,
                             dbname = "GISLibrary",
                             uid = getOption("councilR.uid"),
                             pwd = getOption("councilR.pwd")) {
+  purrr::map(
+    c(query, dbname, uid, pwd),
+    rlang:::check_string
+  )
+
   tictoc::tic()
   if (DBI::dbCanConnect(odbc::odbc(),
     # driver = "FreeTDS",
