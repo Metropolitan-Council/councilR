@@ -1,0 +1,54 @@
+---
+title: "Database connections"
+format: html
+editor: visual
+---
+
+# Mac-based database connections
+
+Connecting to the Council databases can be hard with a mac. All of these instructions assume that you have admin rights over your mac. If that's not the case, you may have other (bigger) problems.
+
+1.  Install freetds
+    -   [install Homebrew first](https://brew.sh/)
+        -   you'll probably copy-paste something like this in the terminal `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+    -   [use Homebrew to install FreeTDS](https://formulae.brew.sh/formula/freetds)
+        -   you'll probably copy-paste something like this in the terminal: `brew install freetds`
+2.  in terminal type: `odbcinst -j`
+    -   follow the file paths(s) to the system data sources
+    -   as a quick tip, you'll need to see the Mactintosh HD in a finder window (go to finder preferences to adjust if you don't see this already)
+    -   you'll also need to show hidden files on mac (press command shift period)
+3.  go to the odbcinst.ini and odbc.ini files (for me they are here: /usr/local/etc/odbc.ini)
+    -   you might have to save the odbcinst.ini or odbc.ini files to the desktop and then move them (and replace) in the right folder, make sure that textedit isn't adding an extension
+    -   modify the files so that they read:
+
+```{r, include = F, eval = F}
+[ODBC Drivers]
+Simba SQL Server ODBC Driver=Installed
+
+[Simba SQL Server ODBC Driver]
+Driver = /Library/simba/sqlserverodbc/lib/libsqlserverodbc_sbu.dylib
+
+[FreeTDS]
+Driver=/usr/local/lib/libtdsodbc.so
+Setup=/usr/local/lib/libtdsodbc.so
+UsageCount=1
+
+```
+
+4.  Then run the following in R:
+
+```{r}
+library(odbc)
+library(DBI)
+
+sort(unique(odbcListDrivers()[[1]])) #make sure that freetds appears here
+
+conn <- DBI::dbConnect(odbc::odbc(),
+                       Driver = "FreeTDS",
+                       Database = "CD_Emissions",
+                       Uid = "mc\\escheh",
+                       Pwd = "your password here",
+                       Server = "dbsqlcl11t.test.local,65414",
+                       TDS_Version=7.4)
+
+```
