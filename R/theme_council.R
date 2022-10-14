@@ -135,14 +135,23 @@ theme_council <- function(base_size = 11,
     }
 
 
-    files <- sysfonts::font_files()
+    # find font files for given families
+    font_locs <- subset(
+      sysfonts::font_files(),
+      family %in% c(
+        "HelveticaNeueLT Std Cn",
+        "HelveticaNeueLT Std Lt",
+        "Arial Narrow"
+      ) &
+        face == "Regular"
+    )
 
-    sysfonts::font_add("HelveticaNeueLT Std Cn", "HelveticaNeueLTStd-Cn.otf")
-    sysfonts::font_add("HelveticaNeueLT Std Lt", "HelveticaNeueLTStd-Lt.otf")
-    sysfonts::font_add("HelveticaNeueLT Std Med Cn", "HelveticaNeueLTStd-MdCn.otf")
-    sysfonts::font_add("Arial Narrow", "ARIALN.TTF")
-    sysfonts::font_add("Palatino Linotype", "pala.ttf")
-
+    # add each font to the sysfonts database
+    purrr::map2(
+      font_locs$family,
+      font_locs$file,
+      sysfonts::font_add
+    )
 
     font_families <-
       list(
