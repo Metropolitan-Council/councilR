@@ -30,20 +30,6 @@
 #'   - Arial Narrow
 #'   - Palatino Linotype
 #'   If you do not have the font files handy, contact a package author or your manager.
-#'
-#' 3. The font family and file names much match those listed below
-#'   - "HelveticaNeueLT Std Cn" = "HelveticaNeueLTStd-Cn.otf"
-#'   - "HelveticaNeueLT Std Lt" = "HelveticaNeueLTStd-Lt.otf"
-#'   - "Arial Narrow" ="ARIALN.TTF"
-#'   - "HelveticaNeueLT Std Med Cn" = "HelveticaNeueLTStd-MdCn.otf")
-#'   - "Palatino Linotype" = "pala.ttf"
-#'
-#' 4. Consider options for your OS
-#'   - On Windows, be sure that the fonts are installed for the entire system, not just a single user.
-#'     These are located in `C:/Windows/Fonts`.
-#'   - On Mac OSX, be sure that fonts are installed for the user. These are located in `~/Library/Fonts`.
-#'     Consider copying the entire system font directory (`/Library/Fonts`) to the user font directory for easy access.
-#'
 #' # Font size suggestions
 #'
 #'  Generally, font sizes should be no smaller than 11 point.

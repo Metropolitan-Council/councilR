@@ -5,7 +5,8 @@
 \alias{blue_cascade}
 \title{Council blue menu background and text colors}
 \format{
-A named list of 8 lists. Each item contains a named list of two items:
+A named list of 8 lists. Each item contains a named list
+of two items:
 - "background" is the background or fill color
 - "color" is the text or contrast color
 \describe{
