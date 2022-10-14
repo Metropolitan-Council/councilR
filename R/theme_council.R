@@ -83,7 +83,7 @@
 #' }
 #'
 #' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel %+replace%
-#' @importFrom purrr map
+#' @importFrom purrr map map2
 #'
 #'
 theme_council <- function(base_size = 11,
@@ -108,9 +108,7 @@ theme_council <- function(base_size = 11,
   )
 
   purrr::map(
-    c(
-      base_size
-    ),
+    c(base_size),
     rlang:::check_number
   )
 
@@ -122,6 +120,7 @@ theme_council <- function(base_size = 11,
 
     showtext::showtext_auto()
     if (grepl("mac", osVersion)) {
+      # if mac, search default font paths
       sysfonts::font_paths()
     } else {
       # if windows, add the user-level font files to font paths
@@ -161,7 +160,7 @@ theme_council <- function(base_size = 11,
         "axis_text" = "Arial Narrow",
         "legend_title" = "HelveticaNeueLT Std Cn",
         "legend_text" = "Arial Narrow",
-        "caption" = "Arial Narrow", # "Palatino Linotype",
+        "caption" = "Arial Narrow",
         "strip" = "Arial Narrow"
       )
   } else {
