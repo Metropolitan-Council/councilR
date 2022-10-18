@@ -7,7 +7,8 @@
 fetch_county_geo(core = TRUE, ...)
 }
 \arguments{
-\item{core}{logical, whether to include all counties in the MPO. Default is \code{TRUE}.}
+\item{core}{logical, whether to include all counties in the MPO.
+Default is \code{TRUE}.}
 
 \item{...}{Arguments passed to \verb{[tigris::counties]}}
 }

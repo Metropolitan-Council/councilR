@@ -30,20 +30,6 @@
 #'   - Arial Narrow
 #'   - Palatino Linotype
 #'   If you do not have the font files handy, contact a package author or your manager.
-#'
-#' 3. The font family and file names much match those listed below
-#'   - "HelveticaNeueLT Std Cn" = "HelveticaNeueLTStd-Cn.otf"
-#'   - "HelveticaNeueLT Std Lt" = "HelveticaNeueLTStd-Lt.otf"
-#'   - "Arial Narrow" ="ARIALN.TTF"
-#'   - "HelveticaNeueLT Std Med Cn" = "HelveticaNeueLTStd-MdCn.otf")
-#'   - "Palatino Linotype" = "pala.ttf"
-#'
-#' 4. Consider options for your OS
-#'   - On Windows, be sure that the fonts are installed for the entire system, not just a single user.
-#'     These are located in `C:/Windows/Fonts`.
-#'   - On Mac OSX, be sure that fonts are installed for the user. These are located in `~/Library/Fonts`.
-#'     Consider copying the entire system font directory (`/Library/Fonts`) to the user font directory for easy access.
-#'
 #' # Font size suggestions
 #'
 #'  Generally, font sizes should be no smaller than 11 point.
@@ -83,7 +69,7 @@
 #' }
 #'
 #' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel %+replace%
-#' @importFrom purrr map
+#' @importFrom purrr map map2
 #'
 #'
 theme_council <- function(base_size = 11,
@@ -108,9 +94,7 @@ theme_council <- function(base_size = 11,
   )
 
   purrr::map(
-    c(
-      base_size
-    ),
+    c(base_size),
     rlang:::check_number
   )
 
@@ -122,6 +106,7 @@ theme_council <- function(base_size = 11,
 
     showtext::showtext_auto()
     if (grepl("mac", osVersion)) {
+      # if mac, search default font paths
       sysfonts::font_paths()
     } else {
       # if windows, add the user-level font files to font paths
@@ -135,14 +120,23 @@ theme_council <- function(base_size = 11,
     }
 
 
-    files <- sysfonts::font_files()
+    # find font files for given families
+    font_locs <- subset(
+      sysfonts::font_files(),
+      family %in% c(
+        "HelveticaNeueLT Std Cn",
+        "HelveticaNeueLT Std Lt",
+        "Arial Narrow"
+      ) &
+        face == "Regular"
+    )
 
-    sysfonts::font_add("HelveticaNeueLT Std Cn", "HelveticaNeueLTStd-Cn.otf")
-    sysfonts::font_add("HelveticaNeueLT Std Lt", "HelveticaNeueLTStd-Lt.otf")
-    sysfonts::font_add("HelveticaNeueLT Std Med Cn", "HelveticaNeueLTStd-MdCn.otf")
-    sysfonts::font_add("Arial Narrow", "ARIALN.TTF")
-    sysfonts::font_add("Palatino Linotype", "pala.ttf")
-
+    # add each font to the sysfonts database
+    purrr::map2(
+      font_locs$family,
+      font_locs$file,
+      sysfonts::font_add
+    )
 
     font_families <-
       list(
@@ -152,7 +146,7 @@ theme_council <- function(base_size = 11,
         "axis_text" = "Arial Narrow",
         "legend_title" = "HelveticaNeueLT Std Cn",
         "legend_text" = "Arial Narrow",
-        "caption" = "Arial Narrow", # "Palatino Linotype",
+        "caption" = "Arial Narrow",
         "strip" = "Arial Narrow"
       )
   } else {

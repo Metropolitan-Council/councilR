@@ -1,3 +1,13 @@
+# v.0.1.4 (2022-10-14)
+
+## `theme_council()` font patch
+
+`theme_council()` now uses font family names on the machine to determine file names. 
+
+Previously, in order to use Council fonts like Helvetica Neue LT Std, the user must have installed the font family with a particular file name "HelveticaNeueLTStd-Cn.otf". Otherwise, if Helvetica Neue LT Std  was installed using another file name, like "HelveticaNeueLTStd-Cn_0.otf", `theme_council()` would throw an error. 
+
+This patch examines the available font families and determines the file name from there, instead of requiring a single precise file name.  
+
 # v.0.1.3 (2022-08-03)
 
 ## New features
