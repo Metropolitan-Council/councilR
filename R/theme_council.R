@@ -1,6 +1,6 @@
 #' @title Council ggplot2 theme
 #'
-#' @description The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatter plots or line graphs.
+#' @description The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatter plots or line graphs. For geospatial plots, `theme_council_geo()` may be useful to set some initial parameters.
 #'
 #' Please note that the y-axis text is horizontal, and long axis names will need to be wrapped;  [`stringr::str_wrap()`]() is useful for managing length.
 #'  For example, consider using this piece of code: `labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))`
@@ -80,9 +80,14 @@
 #'     use_showtext = TRUE,
 #'     use_manual_font_sizes = TRUE
 #'   )
+#'
+#'   fetch_ctu_geo() %>%
+#'   ggplot() +
+#'   geom_sf() +
+#'   theme_council_geo()
 #' }
 #'
-#' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel %+replace%
+#' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel %+replace% theme_void
 #' @importFrom purrr map
 #'
 #'
@@ -449,6 +454,22 @@ theme_council_open <- function(base_size = 11,
   )
 }
 
-#' @rdname theme_council_open
+#' @rdname theme_council
+#' @export
+#'
+theme_council_geo <- function() {
+  # Starts with theme_void and then modifies some parts
+
+  ggplot2::`%+replace%`(
+    theme_void(),
+    ggplot2::theme(
+      legend.title = element_text(size = 6),
+      legend.text = element_text(size = 6),
+      legend.key.size = unit(.75, "lines")
+    )
+  )
+}
+
+#' @rdname theme_council
 #' @export
 #'
