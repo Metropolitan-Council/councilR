@@ -2,27 +2,48 @@
 % Please edit documentation in R/fetch_county_geo.R
 \name{fetch_county_geo}
 \alias{fetch_county_geo}
-\title{Fetch standardized county geography}
+\alias{fetch_ctu_geo}
+\title{Fetch standardized geographies}
 \usage{
 fetch_county_geo(core = TRUE, ...)
+
+fetch_ctu_geo(core = TRUE, ...)
 }
 \arguments{
-\item{core}{logical, whether to include all counties in the MPO. Default is \code{TRUE}.}
+\item{core}{logical, whether to include all counties in the MPO.
+Default is \code{TRUE}.}
 
-\item{...}{Arguments passed to \verb{[tigris::counties]}}
+\item{...}{Arguments passed to \verb{[tigris]} functions}
 }
 \value{
-An \code{\link{sf}} object containing county geographies.
+An \code{\link{sf}} object containing specified geographies.
 }
 \description{
-Fetch standardized county geography
+The default \code{fetch_county_geo()} to return county outlines, plus a suite of other functions to return more niche geographies.
+
+To get city, township, and unorganized territory (CTU) boundaries, use \code{fetch_ctu_geo()}.
 }
 \note{
 This function relies on \verb{[\{rlang\}]} internal functions.
 }
 \examples{
 \dontrun{
-fetch_county_geo()
+library(ggplot2)
+
+fetch_county_geo() \%>\%
+  #  ggplot() +
+  #  geom_sf() +
+  #  theme_void()
+
+  fetch_ctu_geo() \%>\%
+  ggplot() +
+  geom_sf(fill = "grey90") +
+  theme_void() +
+  geom_sf_text(aes(label = CTU_NAME),
+    colour = "black",
+    check_overlap = F,
+    size = 2
+  )
 }
 
 }

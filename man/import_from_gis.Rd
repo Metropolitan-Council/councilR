@@ -29,9 +29,12 @@ Import a dataset from ArcCatalog
 }
 \note{
 See \code{vignette("Options")} to review package options.
-You must be set up with the appropriate database drivers to use this function.
-\strong{Windows} users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
-\strong{Mac} users need \code{unixodbc} and \code{freetds}. See instructions in the \href{https://furry-adventure-596f3adb.pages.github.io/database-connections.html}{onboarding guide}
+You must be set up with the appropriate database drivers
+to use this function.
+\strong{Windows} users need ODBC with Microsoft SQL.
+Contact IS support for ODBC installation.
+\strong{Mac} users need \code{unixodbc} and \code{freetds}.
+See instructions in the \href{https://furry-adventure-596f3adb.pages.github.io/database-connections.html}{onboarding guide}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{ This function relies on `[\{rlang\}]` internal functions.
 }\if{html}{\out{</div>}}

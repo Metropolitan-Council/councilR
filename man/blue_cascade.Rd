@@ -5,7 +5,8 @@
 \alias{blue_cascade}
 \title{Council blue menu background and text colors}
 \format{
-A named list of 8 lists. Each item contains a named list of two items:
+A named list of 8 lists. Each item contains a named list
+of two items:
 - "background" is the background or fill color
 - "color" is the text or contrast color
 \describe{
@@ -40,6 +41,7 @@ Other aesthetics:
 \code{\link{colors}},
 \code{\link{council.pal}()},
 \code{\link{council_pal2}()},
+\code{\link{map_council_continuous}()},
 \code{\link{scale_color_council}()},
 \code{\link{scale_fill_council}()},
 \code{\link{theme_council}()}
