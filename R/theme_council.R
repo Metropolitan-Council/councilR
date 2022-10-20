@@ -81,7 +81,7 @@
 #'     use_manual_font_sizes = TRUE
 #'   )
 #'
-#'   fetch_ctu_geo() %>%
+#' fetch_ctu_geo() %>%
 #'   ggplot() +
 #'   geom_sf() +
 #'   theme_council_geo()

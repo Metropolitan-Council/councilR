@@ -2,7 +2,7 @@
 #'
 #' @description Building on functionality for creating maps When mapping continuous data, `map_council_continuous()` could save some work.
 #'
-#'@param df The `sf` object to be mapped
+#' @param df The `sf` object to be mapped
 #' @param .fill For continuous data, the variable which should be used to fill polygons
 #' @param .lwd The line width of polygons, default setting is `0.5`.
 #' @param .low The color to fill the lowest number. Default is brown.
@@ -23,8 +23,7 @@
 #' library(councilR)
 #'
 #' fetch_ctu_geo() %>%
-#' map_council_continuous(.fill = ALAND, .midpoint = 5e7)
-#'
+#'   map_council_continuous(.fill = ALAND, .midpoint = 5e7)
 #' }
 #'
 #' @importFrom ggplot2 ggplot geom_sf scale_fill_gradient2 aes
@@ -38,9 +37,9 @@ map_council_continuous <- function(df,
                                    .low = "#8c510a",
                                    .mid = "white",
                                    .high = "#01665e",
-                                   .midpoint = 0){
+                                   .midpoint = 0) {
   df %>%
-    ggplot()+
+    ggplot() +
     geom_sf(aes(fill = !!enquo(.fill)), lwd = .lwd) +
     theme_council_geo() +
     scale_fill_gradient2(low = .low, mid = .mid, high = .high, midpoint = .midpoint) +
@@ -54,10 +53,10 @@ map_council_continuous <- function(df,
       style = north_arrow_fancy_orienteering(
         fill = c("grey40"),
         line_col = "grey20"
-      ))
+      )
+    )
 }
 
 #' @rdname map_council_continuous
 #' @export
 #'
-
