@@ -2,7 +2,7 @@ Type: Package
 Package: councilR
 Title: Functions and Templates for the Metropolitan Council
 Version: 0.1.3
-Date: 2022-08-01
+Date: 2022-10-20
 Authors@R: c(
     person("Metropolitan Council", role = "cph"),
     person("Liz", "Roten", , "liz.roten@metc.state.mn.us", role = c("cre", "aut"),
@@ -33,7 +33,9 @@ Imports:
     sf (>= 0.9.5),
     tictoc (>= 1.0),
     tigris (>= 1.6.1),
-    utils
+    utils,
+    ggspatial (>= 1.1.6),
+    dplyr (>= 1.0.10)
 Suggests: 
     citr (>= 0.3.2),
     cowplot (>= 1.1.1),
