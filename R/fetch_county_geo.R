@@ -13,10 +13,14 @@
 #' @family spatial helpers
 #' @examples
 #' \dontrun{
-#' fetch_county_geo()
-#'
 #' library(ggplot2)
-#' fetch_ctu_geo() %>%
+#'
+#' fetch_county_geo() %>%
+#   ggplot() +
+#   geom_sf() +
+#   theme_void()
+#'
+#'fetch_ctu_geo() %>%
 #' ggplot() +
 #' geom_sf(fill = "grey90") +
 #' theme_void() +
@@ -31,17 +35,9 @@
 #' @importFrom tigris counties
 #' @importFrom cli cli_abort
 #' @importFrom purrr map
+#' @importFrom dplyr case_when mutate transmute
 #'
-#' @examples
-#' \dontrun{
-# library(ggplot2)
-# library(councilR)
-#
-# fetch_county_geo() %>%
-#   ggplot() +
-#   geom_sf() +
-#   theme_void()
-#'}
+
 
 fetch_county_geo <- function(core = TRUE, ...) {
   rlang:::check_bool(core)
@@ -85,6 +81,7 @@ fetch_county_geo <- function(core = TRUE, ...) {
 
 fetch_ctu_geo <- function(core = TRUE, ...) {
   rlang:::check_bool(core)
+  NAME <- CTU_NAME <- ALAND <- AWATER <- NULL
 
   county_list <- if (core == TRUE) {
     c(
@@ -115,7 +112,7 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
     county = county_list,
     class = "sf"
   ) %>%
-    dplyr::mutate(NAME = dplyr::case_when(
+    mutate(NAME = case_when(
       LSAD == 44 ~ paste(NAME, "Twp."),
       LSAD == 46 ~ paste(NAME, "(unorg.)"),
       TRUE ~ NAME
@@ -137,7 +134,9 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
   #   # summarize(geometry = st_union(geom)) %>%
   #   arrange(NAME) %>%
   #   rename(GEO_NAME = NAME)
-  dplyr::transmute(CTU_NAME = NAME)
+  transmute(CTU_NAME = NAME,
+                   ALAND = ALAND,
+                   AWATER = AWATER)
 
 
   return(cities)
