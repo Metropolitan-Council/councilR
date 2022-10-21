@@ -70,25 +70,6 @@ and \href{https://github.com/yixuan/sysfonts}{\code{{sysfonts}}} packages instal
 \item Palatino Linotype
 If you do not have the font files handy, contact a package author or your manager.
 }
-\enumerate{
-\item The font family and file names much match those listed below
-}
-\itemize{
-\item "HelveticaNeueLT Std Cn" = "HelveticaNeueLTStd-Cn.otf"
-\item "HelveticaNeueLT Std Lt" = "HelveticaNeueLTStd-Lt.otf"
-\item "Arial Narrow" ="ARIALN.TTF"
-\item "HelveticaNeueLT Std Med Cn" = "HelveticaNeueLTStd-MdCn.otf")
-\item "Palatino Linotype" = "pala.ttf"
-}
-\enumerate{
-\item Consider options for your OS
-}
-\itemize{
-\item On Windows, be sure that the fonts are installed for the entire system, not just a single user.
-These are located in \verb{C:/Windows/Fonts}.
-\item On Mac OSX, be sure that fonts are installed for the user. These are located in \verb{~/Library/Fonts}.
-Consider copying the entire system font directory (\verb{/Library/Fonts}) to the user font directory for easy access.
-}
 }
 
 \section{Font size suggestions}{

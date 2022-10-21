@@ -16,7 +16,7 @@ testthat::skip_if(httr2::secret_has_key("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins"))
 testthat::test_that("airports spatial dataset", {
   airport <- import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("YXJZM6G8aHF-KTXwGiUx4Zm04qmRfERs", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("IMcfHFuibrH6IsuwIE_vd9oJmNTlOkpt", "COUNCILR_KEY"),
     query = "GISLibrary.dbo.AIRPORTS",
     dbname = "GISLibrary"
   )
