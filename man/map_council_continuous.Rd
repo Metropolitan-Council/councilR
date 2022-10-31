@@ -17,23 +17,28 @@ map_council_continuous(
 \arguments{
 \item{df}{The \code{sf} object to be mapped}
 
-\item{.fill}{For continuous data, the variable which should be used to fill polygons}
+\item{.fill}{For continuous data, the variable (column name) which
+should be used to fill polygons}
 
-\item{.lwd}{The line width of polygons, default setting is \code{0.5}.}
+\item{.lwd}{numeric, line width of polygons, default setting is \code{0.5}.}
 
-\item{.low}{The color to fill the lowest number. Default is brown.}
+\item{.low}{character, color name or hex code to fill the lowest number.
+Default is \code{"#8c510a"} (brown)}
 
-\item{.mid}{The color to fill the midpoint number. Default is white}
+\item{.mid}{character, color name or hex code to fill the midpoint number.
+Default is \code{"white"}}
 
-\item{.high}{The color to fill the highest number. Default is teal}
+\item{.high}{character,  color name or hex code to fill the highest number.
+Default is \code{"#01665e"} (teal)}
 
-\item{.midpoint}{The midpoint of a diverging color scheme. Default is \code{0}.}
+\item{.midpoint}{numeric, midpoint of a diverging color scheme.
+Default is \code{0}.}
 }
 \value{
 a \link{ggplot2} plot
 }
 \description{
-Building on functionality for creating maps When mapping continuous data, \code{map_council_continuous()} could save some work.
+Building on functionality for creating maps when mapping continuous data, \code{map_council_continuous()} could save some work.
 }
 \note{
 This function relies on \verb{[\{rlang\}]} internal functions.

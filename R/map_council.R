@@ -1,14 +1,19 @@
 #' @title Council map starters
 #'
-#' @description Building on functionality for creating maps When mapping continuous data, `map_council_continuous()` could save some work.
+#' @description Building on functionality for creating maps when mapping continuous data, `map_council_continuous()` could save some work.
 #'
 #' @param df The `sf` object to be mapped
-#' @param .fill For continuous data, the variable which should be used to fill polygons
-#' @param .lwd The line width of polygons, default setting is `0.5`.
-#' @param .low The color to fill the lowest number. Default is brown.
-#' @param .mid The color to fill the midpoint number. Default is white
-#' @param .high The color to fill the highest number. Default is teal
-#' @param .midpoint The midpoint of a diverging color scheme. Default is `0`.
+#' @param .fill For continuous data, the variable (column name) which
+#'     should be used to fill polygons
+#' @param .lwd numeric, line width of polygons, default setting is `0.5`.
+#' @param .low character, color name or hex code to fill the lowest number.
+#'     Default is `"#8c510a"` (brown)
+#' @param .mid character, color name or hex code to fill the midpoint number.
+#'     Default is `"white"`
+#' @param .high character,  color name or hex code to fill the highest number.
+#'     Default is `"#01665e"` (teal)
+#' @param .midpoint numeric, midpoint of a diverging color scheme.
+#'     Default is `0`.
 #'
 #' @return a [ggplot2] plot
 #' @export
