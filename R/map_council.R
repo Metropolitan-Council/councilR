@@ -48,7 +48,7 @@ map_council_continuous <- function(df,
     theme_council_geo() +
     ggplot2::scale_fill_gradient2(low = .low, mid = .mid,
                                   high = .high, midpoint = .midpoint) +
-    ggplot2::annotation_scale(
+    ggspatial::annotation_scale(
       location = "bl",
       bar_cols = c("grey60", "white")
     ) +
