@@ -334,7 +334,7 @@ theme_council <- function(base_size = 11,
     panel.background = ggplot2::element_blank(),
     panel.border = ggplot2::element_blank(),
     panel.grid = ggplot2::element_line(colour = "grey92"),
-    panel.grid.minor = element_blank(), # ggplot2::element_line(size = ggplot2::rel(0.5)),
+    panel.grid.minor = ggplot2::element_blank(), # ggplot2::element_line(size = ggplot2::rel(0.5)),
     panel.grid.major = ggplot2::element_line(size = ggplot2::rel(1)),
     panel.spacing = ggplot2::unit(half_line, "pt"),
     panel.spacing.x = NULL,
@@ -455,11 +455,11 @@ theme_council_geo <- function() {
   # Starts with theme_void and then modifies some parts
 
   ggplot2::`%+replace%`(
-    theme_void(),
+    ggplot2::theme_void(),
     ggplot2::theme(
-      legend.title = element_text(size = 6),
-      legend.text = element_text(size = 6),
-      legend.key.size = unit(.75, "lines")
+      legend.title = ggplot2::element_text(size = 6),
+      legend.text = ggplot2::element_text(size = 6),
+      legend.key.size = ggplot2::unit(.75, "lines")
     )
   )
 }

@@ -38,16 +38,21 @@ map_council_continuous <- function(df,
                                    .mid = "white",
                                    .high = "#01665e",
                                    .midpoint = 0) {
+
+  rlang:::check_number(.lwd)
+  rlang:::check_number(.midpoint)
+
   df %>%
-    ggplot() +
-    geom_sf(aes(fill = !!enquo(.fill)), lwd = .lwd) +
+    ggplot2::ggplot() +
+    ggplot2::geom_sf(aes(fill = !!enquo(.fill)), lwd = .lwd) +
     theme_council_geo() +
-    scale_fill_gradient2(low = .low, mid = .mid, high = .high, midpoint = .midpoint) +
-    annotation_scale(
+    ggplot2::scale_fill_gradient2(low = .low, mid = .mid,
+                                  high = .high, midpoint = .midpoint) +
+    ggplot2::annotation_scale(
       location = "bl",
       bar_cols = c("grey60", "white")
     ) +
-    annotation_north_arrow(
+    ggspatial::annotation_north_arrow(
       location = "tr", which_north = "true",
       # pad_x = unit(0.4, "in"), pad_y = unit(0.4, "in"),
       style = north_arrow_fancy_orienteering(
