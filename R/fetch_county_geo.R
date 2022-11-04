@@ -111,7 +111,8 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
   cities <- tigris::county_subdivisions(
     state = 27,
     county = county_list,
-    class = "sf"
+    class = "sf",
+    ...
   ) %>%
     mutate(NAME = case_when(
       LSAD == 44 ~ paste(NAME, "Twp."),
