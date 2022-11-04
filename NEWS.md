@@ -1,3 +1,14 @@
+# v.0.1.5 (2022-10-31)
+
+Geography and plotting function expansion
+
+- `fetch_ctu_geo()` fetches CTU geographies
+- `theme_council_geo()` provides a ggplot2 theme for maps
+- `map_council_continuous()` allows you to map a given geography using a specific variable/column.
+
+Significant improvements in testing.  
+
+
 # v.0.1.4 (2022-10-14)
 
 ## `theme_council()` font patch
