@@ -74,7 +74,9 @@ color_range_green <- colorRampPalette(c("#EEF3E5", colors$cdGreen))
 plot_example +
   scale_color_manual(values = color_range_green(5)) +
   theme_council(use_showtext = F) +
-  labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))
+  labs(y = stringr::str_wrap(
+    "Axis labels are now horizontal, but you still need to insert some code to wrap long labels",
+    width = 15))
 
 ```
 
@@ -123,4 +125,15 @@ plot_example +
   councilR:::scale_color_council() +
   theme_council_open(use_showtext = F) +
   labs(title = "This is theme_council_open()") 
+```
+
+`theme_council_geo()` is best for maps. 
+
+```{r plot-county, eval = TRUE}
+fetch_county_geo() %>% 
+  ggplot() +
+  aes(fill = ALAND) +
+  geom_sf() +
+  theme_council_geo() +
+  labs(title = "Counties")
 ```
