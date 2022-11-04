@@ -50,7 +50,7 @@ fetch_county_geo <- function(core = TRUE, ...) {
       "037",  # "Dakota",
       "053",  # "Hennepin",
       "123" , # "Ramsey",
-      "159",  # "Scott",
+      "139",  # "Scott",
       "163"   # "Washington"
     )
   } else if (core == FALSE) {
@@ -60,7 +60,7 @@ fetch_county_geo <- function(core = TRUE, ...) {
       "037",  # "Dakota",
       "053",  # "Hennepin",
       "123", # "Ramsey",
-      "159",  # "Scott",
+      "139",  # "Scott",
       "163",  # "Washington"
       "141",  # "Sherburne",
       "171"   # "Wright"
@@ -91,7 +91,7 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
       "037",  # "Dakota",
       "053",  # "Hennepin",
       "123" , # "Ramsey",
-      "159",  # "Scott",
+      "139",  # "Scott",
       "163"   # "Washington"
     )
   } else if (core == FALSE) {
@@ -100,8 +100,8 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
       "019",  # "Carver",
       "037",  # "Dakota",
       "053",  # "Hennepin",
-      "123", # "Ramsey",
-      "159",  # "Scott",
+      "123",  # "Ramsey",
+      "139",  # "Scott",
       "163",  # "Washington"
       "141",  # "Sherburne",
       "171"   # "Wright"
