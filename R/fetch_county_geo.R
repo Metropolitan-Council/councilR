@@ -114,13 +114,13 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
     class = "sf",
     ...
   ) %>%
-    mutate(NAME = case_when(
-      LSAD == 44 ~ paste(NAME, "Twp."),
-      LSAD == 46 ~ paste(NAME, "(unorg.)"),
-      TRUE ~ NAME
-    )) %>%
+    dplyr::mutate(
+      NAME = dplyr::case_when(
+        LSAD == 44 ~ paste(NAME, "Twp."),
+        LSAD == 46 ~ paste(NAME, "(unorg.)"),
+        TRUE ~ NAME
+      )) %>%
     dplyr::transmute(
-    transmute(
       CTU_NAME = NAME,
       ALAND = ALAND,
       AWATER = AWATER
