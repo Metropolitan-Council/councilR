@@ -45,7 +45,7 @@ Some datasets are maintained on [Minnesota Geospatial Commons](https://gisdata.m
 
 Pass this link to `import_from_gpkg()` to get the [sf]() object!
 
-```{r}
+```{r gpkg-query}
 regional_parks_commons <- import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
 
 head(regional_parks_commons)
@@ -53,14 +53,28 @@ head(regional_parks_commons)
 
 If you can access internal databases, use your Council login user ID and password to access data from the GIS Library. For seamless access, see `vignette("Options")` to review package options.
 
-```{r, eval = FALSE}
+```{r gis-query, eval = FALSE}
 regional_parks_db <- import_from_gis(query = "PARKSREGIONAL")
 
 head(regional_parks_db)
 ```
 
 A commonly fetched spatial dataset is the 7-county geography. `fetch_county_geo()` does just that.  
+You can also make a map quickly by using `map_council_continuous()`. This also adds a scale bar and cardinal indicator. 
 
-```{r, eval = FALSE}
-fetch_county_geo()
+
+```{r plot-county, eval = TRUE}
+fetch_county_geo() %>% 
+  map_council_continuous(.fill = ALAND) +
+  labs(title = "Counties")
+```
+
+
+You can also fetch CTUs. 
+
+
+```{r plot-city, eval = TRUE}
+fetch_ctu_geo() %>% 
+  map_council_continuous(.fill = ALAND) +
+  labs(title = "CTUs")
 ```
