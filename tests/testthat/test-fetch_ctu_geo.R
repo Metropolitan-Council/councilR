@@ -11,5 +11,5 @@ test_that("nrows correct", {
 test_that("nrows correct", {
   fetch_ctu_geo(core = FALSE, year = "2020") %>%
     nrow() %>%
-    testthat::expect_equal(245)
+    testthat::expect_equal(235)
 })
