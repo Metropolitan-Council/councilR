@@ -20,7 +20,6 @@
 #'
 #' @family aesthetics
 #'
-#' @note This function relies on `[{rlang}]` internal functions.
 #'
 #' @examples
 #' \dontrun{
@@ -44,8 +43,6 @@ map_council_continuous <- function(df,
                                    .high = "#01665e",
                                    .midpoint = 0) {
 
-  rlang:::check_number(.lwd)
-  rlang:::check_number(.midpoint)
 
   df %>%
     ggplot2::ggplot() +
