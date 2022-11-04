@@ -119,23 +119,7 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
       LSAD == 46 ~ paste(NAME, "(unorg.)"),
       TRUE ~ NAME
     )) %>%
-    ## if expanding to greater mn or another region, you do have to do some unions, and further cleaning.
-    #   group_by(NAME) %>%
-    #   mutate(n = n()) %>%
-    #   left_join(st_drop_geometry(county_outline) %>%
-    #               transmute(
-    #                 COUNTYFP = COUNTYFP,
-    #                 CONAME = NAME
-    #               )) %>%
-    #   mutate(NAME = case_when(
-    #     n > 1 & LSAD != 25 ~ paste0(NAME, " - ", CONAME, " Co."), # cities dont get merged
-    #     TRUE ~ NAME
-    #   )) %>%
-    #   group_by(NAME) %>%
-    #   summarise() %>%
-    #   # summarize(geometry = st_union(geom)) %>%
-    #   arrange(NAME) %>%
-    #   rename(GEO_NAME = NAME)
+    dplyr::transmute(
     transmute(
       CTU_NAME = NAME,
       ALAND = ALAND,
@@ -146,7 +130,3 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
   return(cities)
 }
 
-
-#' @rdname fetch_ctu_geo
-#' @export
-#'
