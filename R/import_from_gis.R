@@ -43,25 +43,25 @@ import_from_gis <- function(query,
     rlang:::check_string
   )
 
-  if(.quiet == FALSE){
+  if (.quiet == FALSE) {
     tictoc::tic()
   }
   if (DBI::dbCanConnect(odbc::odbc(),
-                        # driver = "FreeTDS",
-                        dbname,
-                        timeout = 10,
-                        Uid = uid,
-                        Pwd = pwd
+    # driver = "FreeTDS",
+    dbname,
+    timeout = 10,
+    Uid = uid,
+    Pwd = pwd
   ) != TRUE) {
     stop("Database could not connect.")
   }
 
   conn <- DBI::dbConnect(odbc::odbc(),
-                         # driver = "FreeTDS",
-                         dbname,
-                         timeout = 10,
-                         Uid = uid,
-                         Pwd = pwd
+    # driver = "FreeTDS",
+    dbname,
+    timeout = 10,
+    Uid = uid,
+    Pwd = pwd
   )
 
   que <- DBI::dbGetQuery(

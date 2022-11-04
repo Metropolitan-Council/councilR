@@ -27,23 +27,30 @@ requireNamespace("stringr", quietly = TRUE)
 requireNamespace("cowplot", quietly = TRUE)
 requireNamespace("tibble", quietly = TRUE)
 requireNamespace("showtext", quietly = TRUE)
-
 ```
 
 This package contains a set of Council brand colors. These are values pulled directly from the Council Brand Standards [document](https://www.metrotransit.org/Data/Sites/1/media/logos/brand_standards.pdf)
 
 ```{r, plot-color-preview}
-color_table <- tibble::tibble(name = names(colors),
-                              value = colors)
+color_table <- tibble::tibble(
+  name = names(colors),
+  value = colors
+)
 
-plots <- purrr::map(seq(1:length(colors)), function(x){
-  ggplot(mapping = aes(xmin = 0, xmax = 1,
-                       ymin = 0, ymax = 1 )) +
+plots <- purrr::map(seq(1:length(colors)), function(x) {
+  ggplot(mapping = aes(
+    xmin = 0, xmax = 1,
+    ymin = 0, ymax = 1
+  )) +
     geom_rect(fill = colors[x][[1]]) +
-    geom_label(aes(x = 0.5,
-                   y = 0.5),
-               label = color_table[1][x,],
-               size = 3) +
+    geom_label(
+      aes(
+        x = 0.5,
+        y = 0.5
+      ),
+      label = color_table[1][x, ],
+      size = 3
+    ) +
     theme_void()
 })
 cowplot::plot_grid(plotlist = plots)
@@ -55,8 +62,9 @@ cowplot::plot_grid(plotlist = plots)
 First, lets create an example plot.
 
 ```{r, plot-example}
-plot_example <- ggplot(datasets::airquality) + 
-  aes(Solar.R, Wind, color = as.factor(Month)) + geom_point()
+plot_example <- ggplot(datasets::airquality) +
+  aes(Solar.R, Wind, color = as.factor(Month)) +
+  geom_point()
 ```
 
 
@@ -66,7 +74,6 @@ color_range_blue <- colorRampPalette(c("#e0e3e8", colors$playDaBlue))
 plot_example +
   scale_color_manual(values = color_range_blue(5)) +
   theme_council(use_showtext = F)
-
 ```
 ```{r, color-range-green}
 color_range_green <- colorRampPalette(c("#EEF3E5", colors$cdGreen))
@@ -76,8 +83,8 @@ plot_example +
   theme_council(use_showtext = F) +
   labs(y = stringr::str_wrap(
     "Axis labels are now horizontal, but you still need to insert some code to wrap long labels",
-    width = 15))
-
+    width = 15
+  ))
 ```
 
 ## Blue cascade  
@@ -87,15 +94,21 @@ plot_example +
 ![Cascading menu on metrocouncil.org](blue_cascade_menu.png)
 
 ```{r, blue-plots}
-blue_plots <- map(seq(1:length(blue_cascade)), function(x){
-  ggplot(mapping = aes(xmin = 0, xmax = 1,
-                       ymin = 0, ymax = 1)) +
+blue_plots <- map(seq(1:length(blue_cascade)), function(x) {
+  ggplot(mapping = aes(
+    xmin = 0, xmax = 1,
+    ymin = 0, ymax = 1
+  )) +
     geom_rect(fill = blue_cascade[x][[1]][1]) +
-    geom_text(aes(x = 0.5,
-                  y = 0.5),
-              label = names(blue_cascade)[x],
-              color = blue_cascade[x][[1]][2],
-              size = 4) +
+    geom_text(
+      aes(
+        x = 0.5,
+        y = 0.5
+      ),
+      label = names(blue_cascade)[x],
+      color = blue_cascade[x][[1]][2],
+      size = 4
+    ) +
     theme_void()
 })
 
@@ -112,8 +125,7 @@ cowplot::plot_grid(plotlist = blue_plots)
 plot_example +
   councilR:::scale_color_council() +
   theme_council(use_showtext = F) +
-  labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15)) 
-
+  labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))
 ```
 
 ## Update to `theme_council()`
@@ -124,13 +136,13 @@ There is the traditional `theme_council()` but now also `theme_council_open()` w
 plot_example +
   councilR:::scale_color_council() +
   theme_council_open(use_showtext = F) +
-  labs(title = "This is theme_council_open()") 
+  labs(title = "This is theme_council_open()")
 ```
 
 `theme_council_geo()` is best for maps. 
 
 ```{r plot-county, eval = TRUE}
-fetch_county_geo() %>% 
+fetch_county_geo() %>%
   ggplot() +
   aes(fill = ALAND) +
   geom_sf() +

@@ -64,7 +64,7 @@ You can also make a map quickly by using `map_council_continuous()`. This also a
 
 
 ```{r plot-county, eval = TRUE}
-fetch_county_geo() %>% 
+fetch_county_geo() %>%
   map_council_continuous(.fill = ALAND) +
   labs(title = "Counties")
 ```
@@ -74,7 +74,7 @@ You can also fetch CTUs.
 
 
 ```{r plot-city, eval = TRUE}
-fetch_ctu_geo() %>% 
+fetch_ctu_geo() %>%
   map_council_continuous(.fill = ALAND) +
   labs(title = "CTUs")
 ```

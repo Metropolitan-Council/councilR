@@ -16,11 +16,11 @@
 #' library(ggplot2)
 #'
 #' fetch_county_geo() %>%
-#'     ggplot() +
-#'     geom_sf() +
-#'     theme_void()
+#'   ggplot() +
+#'   geom_sf() +
+#'   theme_void()
 #'
-#'   fetch_ctu_geo() %>%
+#' fetch_ctu_geo() %>%
 #'   ggplot() +
 #'   geom_sf(fill = "grey90") +
 #'   theme_void() +
@@ -45,30 +45,30 @@ fetch_county_geo <- function(core = TRUE, ...) {
 
   county_list <- if (core == TRUE) {
     c(
-      "003",  # "Anoka",
-      "019",  # "Carver",
-      "037",  # "Dakota",
-      "053",  # "Hennepin",
-      "123" , # "Ramsey",
-      "139",  # "Scott",
-      "163"   # "Washington"
+      "003", # "Anoka",
+      "019", # "Carver",
+      "037", # "Dakota",
+      "053", # "Hennepin",
+      "123", # "Ramsey",
+      "139", # "Scott",
+      "163" # "Washington"
     )
   } else if (core == FALSE) {
     c(
-      "003",  # "Anoka",
-      "019",  # "Carver",
-      "037",  # "Dakota",
-      "053",  # "Hennepin",
+      "003", # "Anoka",
+      "019", # "Carver",
+      "037", # "Dakota",
+      "053", # "Hennepin",
       "123", # "Ramsey",
-      "139",  # "Scott",
-      "163",  # "Washington"
-      "141",  # "Sherburne",
-      "171"   # "Wright"
+      "139", # "Scott",
+      "163", # "Washington"
+      "141", # "Sherburne",
+      "171" # "Wright"
     )
   }
 
   # fetch county geograp
-  mn_counties <- tigris::counties(state = 27,...)
+  mn_counties <- tigris::counties(state = 27, ...)
 
   county_sf <- mn_counties[mn_counties$COUNTYFP %in% county_list, ]
 
@@ -86,25 +86,25 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
 
   county_list <- if (core == TRUE) {
     c(
-      "003",  # "Anoka",
-      "019",  # "Carver",
-      "037",  # "Dakota",
-      "053",  # "Hennepin",
-      "123" , # "Ramsey",
-      "139",  # "Scott",
-      "163"   # "Washington"
+      "003", # "Anoka",
+      "019", # "Carver",
+      "037", # "Dakota",
+      "053", # "Hennepin",
+      "123", # "Ramsey",
+      "139", # "Scott",
+      "163" # "Washington"
     )
   } else if (core == FALSE) {
     c(
-      "003",  # "Anoka",
-      "019",  # "Carver",
-      "037",  # "Dakota",
-      "053",  # "Hennepin",
-      "123",  # "Ramsey",
-      "139",  # "Scott",
-      "163",  # "Washington"
-      "141",  # "Sherburne",
-      "171"   # "Wright"
+      "003", # "Anoka",
+      "019", # "Carver",
+      "037", # "Dakota",
+      "053", # "Hennepin",
+      "123", # "Ramsey",
+      "139", # "Scott",
+      "163", # "Washington"
+      "141", # "Sherburne",
+      "171" # "Wright"
     )
   }
 
@@ -119,7 +119,8 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
         LSAD == 44 ~ paste(NAME, "Twp."),
         LSAD == 46 ~ paste(NAME, "(unorg.)"),
         TRUE ~ NAME
-      )) %>%
+      )
+    ) %>%
     dplyr::transmute(
       CTU_NAME = NAME,
       ALAND = ALAND,
@@ -129,4 +130,3 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
 
   return(cities)
 }
-

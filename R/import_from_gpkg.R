@@ -36,7 +36,6 @@ import_from_gpkg <- function(link,
                              .crs = 4326,
                              keep_temp = FALSE,
                              .quiet = TRUE) {
-
   # check input types
   purrr::map(
     c(link),

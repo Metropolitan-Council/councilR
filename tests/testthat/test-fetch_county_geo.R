@@ -13,4 +13,3 @@ test_that("nrows correct", {
     nrow() %>%
     testthat::expect_equal(9)
 })
-

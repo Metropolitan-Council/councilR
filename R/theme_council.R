@@ -417,7 +417,6 @@ theme_council <- function(base_size = 11,
 #' @export
 #' @param ... arguments passed to `theme_council()`
 theme_council_open <- function(...) {
-
   # Starts with theme_council and then modifies some parts
   ggplot2::`%+replace%`(
     theme_council(...),
@@ -445,7 +444,6 @@ theme_council_geo <- function(...) {
     ggplot2::theme(
       line = ggplot2::element_blank(),
       rect = ggplot2::element_blank(),
-
       axis.title = ggplot2::element_blank(),
       axis.ticks.length = unit(0, "pt"),
       axis.ticks.length.x = NULL,
@@ -454,7 +452,6 @@ theme_council_geo <- function(...) {
       axis.ticks.length.y = NULL,
       axis.ticks.length.y.left = NULL,
       axis.ticks.length.y.right = NULL,
-
       axis.text = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_blank(),
       axis.text.x.bottom = ggplot2::element_blank(),
@@ -462,7 +459,6 @@ theme_council_geo <- function(...) {
       axis.text.y = ggplot2::element_blank(),
       axis.text.y.left = ggplot2::element_blank(),
       axis.text.y.right = ggplot2::element_blank(),
-
       panel.grid = ggplot2::element_blank(),
       panel.grid.major = ggplot2::element_blank(),
       panel.grid.minor = ggplot2::element_blank(),

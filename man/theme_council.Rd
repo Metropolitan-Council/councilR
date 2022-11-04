@@ -17,18 +17,9 @@ theme_council(
     legend_title = 14, legend_text = 10, caption = 8, strip = 14)
 )
 
-theme_council_open(
-  base_size = 11,
-  base_family = "",
-  base_line_size = base_size/22,
-  base_rect_size = base_size/22,
-  use_showtext = FALSE,
-  use_manual_font_sizes = FALSE,
-  font_sizes = list(title = 22, subtitle = 16, axis_title = 14, axis_text = 11,
-    legend_title = 14, legend_text = 10, caption = 8, strip = 14)
-)
+theme_council_open(...)
 
-theme_council_geo()
+theme_council_geo(...)
 }
 \arguments{
 \item{base_size}{numeric, base font size, given in pts. Default is \code{11}}
@@ -44,6 +35,8 @@ theme_council_geo()
 \item{use_manual_font_sizes}{logical, use supplied font sizes.}
 
 \item{font_sizes}{named list, font sizes. Only used if \code{use_manual_font_sizes} is \code{TRUE}}
+
+\item{...}{arguments passed to \code{theme_council()}}
 }
 \value{
 a \code{\link[ggplot2:theme]{ggplot2::theme()}} object
