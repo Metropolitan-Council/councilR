@@ -108,7 +108,7 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
     )
   }
 
-  cities <- tigris::county_subdivisions(
+  cities_geo <- tigris::county_subdivisions(
     state = 27,
     county = county_list,
     class = "sf",
@@ -120,12 +120,36 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
         LSAD == 46 ~ paste(NAME, "(unorg.)"),
         TRUE ~ NAME
       )
-    ) %>%
-    dplyr::transmute(
-      CTU_NAME = NAME,
-      ALAND = ALAND,
-      AWATER = AWATER
     )
+
+  cities <- if (core == TRUE) {
+    cities_geo %>%
+      dplyr::transmute(
+        CTU_NAME = NAME,
+        ALAND = ALAND,
+        AWATER = AWATER
+      )
+  } else if (core == FALSE) {
+    cities_geo %>%
+      dplyr::group_by(NAME) %>%
+      dplyr::mutate(n = dplyr::n()) %>%
+      dplyr::left_join(sf::st_drop_geometry(cities_geo) %>%
+        dplyr::transmute(
+          COUNTYFP = COUNTYFP,
+          CONAME = NAME
+        )) %>%
+      dplyr::mutate(CTU_NAME = dplyr::case_when(
+        n > 1 & LSAD != 25 ~ paste0(NAME, " - ", CONAME, " Co."), # cities dont get merged
+        TRUE ~ NAME
+      )) %>%
+      dplyr::group_by(CTU_NAME) %>%
+      dplyr::summarise(
+        geometry = sf::st_union(geometry),
+        ALAND = sum(ALAND, na.rm = T),
+        AWATER = sum(AWATER, na.rm = T)
+      ) %>%
+      dplyr::arrange(CTU_NAME)
+  }
 
 
   return(cities)
