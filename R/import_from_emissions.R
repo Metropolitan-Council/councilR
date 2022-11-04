@@ -50,7 +50,6 @@ import_from_emissions <- function(table_name,
                                   local = TRUE,
                                   serv = "dbsqlcl11t.test.local,65414",
                                   db = "CD_Emissions") {
-
   # check input types
   purrr::map(
     c(table_name, serv, uid, pwd, db),

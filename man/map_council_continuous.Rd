@@ -40,9 +40,6 @@ a \link{ggplot2} plot
 \description{
 Building on functionality for creating maps when mapping continuous data, \code{map_council_continuous()} could save some work.
 }
-\note{
-This function relies on \verb{[\{rlang\}]} internal functions.
-}
 \examples{
 \dontrun{
 library(ggplot2)

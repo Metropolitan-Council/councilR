@@ -16,11 +16,11 @@
 #' library(ggplot2)
 #'
 #' fetch_county_geo() %>%
-#'     ggplot() +
-#'     geom_sf() +
-#'     theme_void()
+#'   ggplot() +
+#'   geom_sf() +
+#'   theme_void()
 #'
-#'   fetch_ctu_geo() %>%
+#' fetch_ctu_geo() %>%
 #'   ggplot() +
 #'   geom_sf(fill = "grey90") +
 #'   theme_void() +
@@ -45,32 +45,32 @@ fetch_county_geo <- function(core = TRUE, ...) {
 
   county_list <- if (core == TRUE) {
     c(
-      "Anoka",
-      "Carver",
-      "Dakota",
-      "Hennepin",
-      "Ramsey",
-      "Scott",
-      "Washington"
+      "003", # "Anoka",
+      "019", # "Carver",
+      "037", # "Dakota",
+      "053", # "Hennepin",
+      "123", # "Ramsey",
+      "139", # "Scott",
+      "163" # "Washington"
     )
   } else if (core == FALSE) {
     c(
-      "Anoka",
-      "Carver",
-      "Dakota",
-      "Hennepin",
-      "Ramsey",
-      "Scott",
-      "Sherburne",
-      "Washington",
-      "Wright"
+      "003", # "Anoka",
+      "019", # "Carver",
+      "037", # "Dakota",
+      "053", # "Hennepin",
+      "123", # "Ramsey",
+      "139", # "Scott",
+      "163", # "Washington"
+      "141", # "Sherburne",
+      "171" # "Wright"
     )
   }
 
   # fetch county geograp
-  mn_counties <- tigris::counties(state = "MN", ...)
+  mn_counties <- tigris::counties(state = 27, ...)
 
-  county_sf <- mn_counties[mn_counties$NAME %in% county_list, ]
+  county_sf <- mn_counties[mn_counties$COUNTYFP %in% county_list, ]
 
 
   return(county_sf)
@@ -86,66 +86,72 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
 
   county_list <- if (core == TRUE) {
     c(
-      "Anoka",
-      "Carver",
-      "Dakota",
-      "Hennepin",
-      "Ramsey",
-      "Scott",
-      "Washington"
+      "003", # "Anoka",
+      "019", # "Carver",
+      "037", # "Dakota",
+      "053", # "Hennepin",
+      "123", # "Ramsey",
+      "139", # "Scott",
+      "163" # "Washington"
     )
   } else if (core == FALSE) {
     c(
-      "Anoka",
-      "Carver",
-      "Dakota",
-      "Hennepin",
-      "Ramsey",
-      "Scott",
-      "Sherburne",
-      "Washington",
-      "Wright"
+      "003", # "Anoka",
+      "019", # "Carver",
+      "037", # "Dakota",
+      "053", # "Hennepin",
+      "123", # "Ramsey",
+      "139", # "Scott",
+      "163", # "Washington"
+      "141", # "Sherburne",
+      "171" # "Wright"
     )
   }
 
-  cities <- tigris::county_subdivisions(
-    state = "MN",
+  cities_geo <- tigris::county_subdivisions(
+    state = 27,
     county = county_list,
-    class = "sf"
+    class = "sf",
+    ...
   ) %>%
-    mutate(NAME = case_when(
-      LSAD == 44 ~ paste(NAME, "Twp."),
-      LSAD == 46 ~ paste(NAME, "(unorg.)"),
-      TRUE ~ NAME
-    )) %>%
-    ## if expanding to greater mn or another region, you do have to do some unions, and further cleaning.
-    #   group_by(NAME) %>%
-    #   mutate(n = n()) %>%
-    #   left_join(st_drop_geometry(county_outline) %>%
-    #               transmute(
-    #                 COUNTYFP = COUNTYFP,
-    #                 CONAME = NAME
-    #               )) %>%
-    #   mutate(NAME = case_when(
-    #     n > 1 & LSAD != 25 ~ paste0(NAME, " - ", CONAME, " Co."), # cities dont get merged
-    #     TRUE ~ NAME
-    #   )) %>%
-    #   group_by(NAME) %>%
-    #   summarise() %>%
-    #   # summarize(geometry = st_union(geom)) %>%
-    #   arrange(NAME) %>%
-    #   rename(GEO_NAME = NAME)
-    transmute(
-      CTU_NAME = NAME,
-      ALAND = ALAND,
-      AWATER = AWATER
+    dplyr::mutate(
+      NAME = dplyr::case_when(
+        LSAD == 44 ~ paste(NAME, "Twp."),
+        LSAD == 46 ~ paste(NAME, "(unorg.)"),
+        TRUE ~ NAME
+      )
     )
+
+  cities <- if (core == TRUE) {
+    cities_geo %>%
+      dplyr::transmute(
+        CTU_NAME = NAME,
+        ALAND = ALAND,
+        AWATER = AWATER
+      )
+  } else if (core == FALSE) {
+    cities_geo %>%
+      dplyr::group_by(NAME) %>%
+      dplyr::mutate(n = dplyr::n()) %>%
+      dplyr::left_join(sf::st_drop_geometry(cities_geo) %>%
+        dplyr::transmute(
+          COUNTYFP = COUNTYFP,
+          CONAME = NAME
+        )) %>%
+      dplyr::mutate(CTU_NAME = dplyr::if_else(
+        n > 1 & LSAD != 25,
+        paste0(NAME, " - ", CONAME, " Co."), # cities dont get merged
+        NAME
+      )) %>%
+      dplyr::group_by(CTU_NAME) %>%
+      dplyr::summarise(
+        geometry = sf::st_union(geometry),
+        ALAND = sum(ALAND, na.rm = T),
+        AWATER = sum(AWATER, na.rm = T)
+      ) %>%
+      dplyr::arrange(CTU_NAME)
+  }
 
 
   return(cities)
 }
-
-
-#' @rdname fetch_ctu_geo
-#' @export
-#'

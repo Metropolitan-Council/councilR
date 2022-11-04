@@ -185,7 +185,7 @@ theme_council <- function(base_size = 11,
 
 
   half_line <- base_size / 2
-  t <- theme(
+  t <- ggplot2::theme(
 
     # SETUP -----
     line = ggplot2::element_line(
@@ -249,7 +249,7 @@ theme_council <- function(base_size = 11,
     ),
 
     ## ticks ----
-    axis.ticks = element_line(color = "grey92"),
+    axis.ticks = ggplot2::element_line(color = "grey92"),
     axis.ticks.length = ggplot2::unit(half_line / 2, "pt"),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
@@ -334,7 +334,7 @@ theme_council <- function(base_size = 11,
     panel.background = ggplot2::element_blank(),
     panel.border = ggplot2::element_blank(),
     panel.grid = ggplot2::element_line(colour = "grey92"),
-    panel.grid.minor = ggplot2::element_blank(), # ggplot2::element_line(size = ggplot2::rel(0.5)),
+    panel.grid.minor = ggplot2::element_blank(),
     panel.grid.major = ggplot2::element_line(size = ggplot2::rel(1)),
     panel.spacing = ggplot2::unit(half_line, "pt"),
     panel.spacing.x = NULL,
@@ -415,27 +415,11 @@ theme_council <- function(base_size = 11,
 
 #' @rdname theme_council
 #' @export
-#'
-theme_council_open <- function(base_size = 11,
-                               base_family = "",
-                               base_line_size = base_size / 22,
-                               base_rect_size = base_size / 22,
-                               use_showtext = FALSE,
-                               use_manual_font_sizes = FALSE,
-                               font_sizes = list(
-                                 "title" = 22,
-                                 "subtitle" = 16,
-                                 "axis_title" = 14,
-                                 "axis_text" = 11,
-                                 "legend_title" = 14,
-                                 "legend_text" = 10,
-                                 "caption" = 8,
-                                 "strip" = 14
-                               )) {
-
+#' @param ... arguments passed to `theme_council()`
+theme_council_open <- function(...) {
   # Starts with theme_council and then modifies some parts
   ggplot2::`%+replace%`(
-    theme_council(),
+    theme_council(...),
     ggplot2::theme(
       # remove grid lines
       panel.grid.minor = ggplot2::element_blank(),
@@ -451,19 +435,38 @@ theme_council_open <- function(base_size = 11,
 #' @rdname theme_council
 #' @export
 #'
-theme_council_geo <- function() {
-  # Starts with theme_void and then modifies some parts
+theme_council_geo <- function(...) {
+  # Starts with theme_council() then modifies
+  # to match theme_void()
 
   ggplot2::`%+replace%`(
-    ggplot2::theme_void(),
+    theme_council(...),
     ggplot2::theme(
-      legend.title = ggplot2::element_text(size = 6),
-      legend.text = ggplot2::element_text(size = 6),
-      legend.key.size = ggplot2::unit(.75, "lines")
+      line = ggplot2::element_blank(),
+      rect = ggplot2::element_blank(),
+      axis.title = ggplot2::element_blank(),
+      axis.ticks.length = unit(0, "pt"),
+      axis.ticks.length.x = NULL,
+      axis.ticks.length.x.top = NULL,
+      axis.ticks.length.x.bottom = NULL,
+      axis.ticks.length.y = NULL,
+      axis.ticks.length.y.left = NULL,
+      axis.ticks.length.y.right = NULL,
+      axis.text = ggplot2::element_blank(),
+      axis.text.x = ggplot2::element_blank(),
+      axis.text.x.bottom = ggplot2::element_blank(),
+      axis.text.x.top = ggplot2::element_blank(),
+      axis.text.y = ggplot2::element_blank(),
+      axis.text.y.left = ggplot2::element_blank(),
+      axis.text.y.right = ggplot2::element_blank(),
+      panel.grid = ggplot2::element_blank(),
+      panel.grid.major = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+
+      # legend.title = ggplot2::element_text(size = 6),
+      # legend.text = ggplot2::element_text(size = 6),
+      legend.key.size = ggplot2::unit(.75, "lines"),
+      complete = TRUE
     )
   )
 }
-
-#' @rdname theme_council
-#' @export
-#'

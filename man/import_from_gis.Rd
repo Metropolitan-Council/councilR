@@ -8,7 +8,8 @@ import_from_gis(
   query,
   dbname = "GISLibrary",
   uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd")
+  pwd = getOption("councilR.pwd"),
+  .quiet = FALSE
 )
 }
 \arguments{
@@ -20,6 +21,8 @@ Must match the database name in \code{query}.}
 \item{uid}{character, user ID. Default is \code{getOption("councilR.uid")}}
 
 \item{pwd}{character, user password. Default is \code{getOption("councilR.pwd")}.}
+
+\item{.quiet}{logical, whether to print time elapsed message.}
 }
 \value{
 an \code{\link{sf}} object

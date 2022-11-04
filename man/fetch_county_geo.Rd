@@ -31,11 +31,11 @@ This function relies on \verb{[\{rlang\}]} internal functions.
 library(ggplot2)
 
 fetch_county_geo() \%>\%
-    ggplot() +
-    geom_sf() +
-    theme_void()
+  ggplot() +
+  geom_sf() +
+  theme_void()
 
-  fetch_ctu_geo() \%>\%
+fetch_ctu_geo() \%>\%
   ggplot() +
   geom_sf(fill = "grey90") +
   theme_void() +

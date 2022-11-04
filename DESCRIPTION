@@ -2,16 +2,16 @@ Type: Package
 Package: councilR
 Title: Functions and Templates for the Metropolitan Council
 Version: 0.1.5
-Date: 2022-10-31
+Date: 2022-11-04
 Authors@R: c(
     person("Metropolitan Council", role = "cph"),
     person("Liz", "Roten", , "liz.roten@metc.state.mn.us", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-5346-3549")),
-    person("Garrick", "Aden-Buie", , "garrick@adenbuie.com", role = "ctb",
-           comment = c(ORCID = "0000-0002-7111-0077")),
     person("Ellen", "Esch", , "ellen.esch@metc.state.mn.us", role = "ctb",
            comment = c(ORCID = "0000-0002-4253-0910")),
-    person("Mauricio", "León", , "mauricio.leon@metc.state.mn.us", role = "ctb")
+    person("Mauricio", "León", , "mauricio.leon@metc.state.mn.us", role = "ctb"),
+    person("Garrick", "Aden-Buie", , "garrick@adenbuie.com", role = "ctb",
+           comment = c(ORCID = "0000-0002-7111-0077"))
   )
 Description: A collection of commonly used templates, color palettes, and
     functions for R users at the Metropolitan Council.
@@ -22,8 +22,10 @@ Depends:
 Imports: 
     cli (>= 3.3.0),
     DBI (>= 1.1.0),
+    dplyr (>= 1.0.10),
     fs (>= 1.4),
     ggplot2 (>= 3.3.0),
+    ggspatial (>= 1.1.6),
     glue (>= 1.4.0),
     magrittr (>= 1.5),
     odbc (>= 1.2.2),
@@ -33,9 +35,7 @@ Imports:
     sf (>= 0.9.5),
     tictoc (>= 1.0),
     tigris (>= 1.6.1),
-    utils,
-    ggspatial (>= 1.1.6),
-    dplyr (>= 1.0.10)
+    utils
 Suggests: 
     citr (>= 0.3.2),
     cowplot (>= 1.1.1),

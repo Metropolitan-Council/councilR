@@ -5,6 +5,7 @@
 #'     Must match the database name in `query`.
 #' @param uid character, user ID. Default is `getOption("councilR.uid")`
 #' @param pwd character, user password. Default is `getOption("councilR.pwd")`.
+#' @param .quiet logical, whether to print time elapsed message.
 #'
 #' @note See `vignette("Options")` to review package options.
 #'     You must be set up with the appropriate database drivers
@@ -35,13 +36,16 @@
 import_from_gis <- function(query,
                             dbname = "GISLibrary",
                             uid = getOption("councilR.uid"),
-                            pwd = getOption("councilR.pwd")) {
+                            pwd = getOption("councilR.pwd"),
+                            .quiet = FALSE) {
   purrr::map(
     c(query, dbname, uid, pwd),
     rlang:::check_string
   )
 
-  tictoc::tic()
+  if (.quiet == FALSE) {
+    tictoc::tic()
+  }
   if (DBI::dbCanConnect(odbc::odbc(),
     # driver = "FreeTDS",
     dbname,

@@ -20,7 +20,6 @@
 #'
 #' @family aesthetics
 #'
-#' @note This function relies on `[{rlang}]` internal functions.
 #'
 #' @examples
 #' \dontrun{
@@ -43,16 +42,14 @@ map_council_continuous <- function(df,
                                    .mid = "white",
                                    .high = "#01665e",
                                    .midpoint = 0) {
-
-  rlang:::check_number(.lwd)
-  rlang:::check_number(.midpoint)
-
   df %>%
     ggplot2::ggplot() +
     ggplot2::geom_sf(aes(fill = !!enquo(.fill)), lwd = .lwd) +
     theme_council_geo() +
-    ggplot2::scale_fill_gradient2(low = .low, mid = .mid,
-                                  high = .high, midpoint = .midpoint) +
+    ggplot2::scale_fill_gradient2(
+      low = .low, mid = .mid,
+      high = .high, midpoint = .midpoint
+    ) +
     ggspatial::annotation_scale(
       location = "bl",
       bar_cols = c("grey60", "white")
