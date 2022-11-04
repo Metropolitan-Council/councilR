@@ -138,9 +138,10 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
           COUNTYFP = COUNTYFP,
           CONAME = NAME
         )) %>%
-      dplyr::mutate(CTU_NAME = dplyr::case_when(
-        n > 1 & LSAD != 25 ~ paste0(NAME, " - ", CONAME, " Co."), # cities dont get merged
-        TRUE ~ NAME
+      dplyr::mutate(CTU_NAME = dplyr::if_else(
+        n > 1 & LSAD != 25,
+        paste0(NAME, " - ", CONAME, " Co."), # cities dont get merged
+        NAME
       )) %>%
       dplyr::group_by(CTU_NAME) %>%
       dplyr::summarise(
