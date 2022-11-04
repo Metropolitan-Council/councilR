@@ -185,7 +185,7 @@ theme_council <- function(base_size = 11,
 
 
   half_line <- base_size / 2
-  t <- theme(
+  t <- ggplot2::theme(
 
     # SETUP -----
     line = ggplot2::element_line(
@@ -249,7 +249,7 @@ theme_council <- function(base_size = 11,
     ),
 
     ## ticks ----
-    axis.ticks = element_line(color = "grey92"),
+    axis.ticks = ggplot2::element_line(color = "grey92"),
     axis.ticks.length = ggplot2::unit(half_line / 2, "pt"),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
@@ -334,7 +334,7 @@ theme_council <- function(base_size = 11,
     panel.background = ggplot2::element_blank(),
     panel.border = ggplot2::element_blank(),
     panel.grid = ggplot2::element_line(colour = "grey92"),
-    panel.grid.minor = ggplot2::element_blank(), # ggplot2::element_line(size = ggplot2::rel(0.5)),
+    panel.grid.minor = ggplot2::element_blank(),
     panel.grid.major = ggplot2::element_line(size = ggplot2::rel(1)),
     panel.spacing = ggplot2::unit(half_line, "pt"),
     panel.spacing.x = NULL,
