@@ -451,19 +451,41 @@ theme_council_open <- function(base_size = 11,
 #' @rdname theme_council
 #' @export
 #'
-theme_council_geo <- function() {
-  # Starts with theme_void and then modifies some parts
+theme_council_geo <- function(...) {
+  # Starts with theme_council() then modifies
+  # to match theme_void()
 
   ggplot2::`%+replace%`(
-    ggplot2::theme_void(),
+    theme_council(...),
     ggplot2::theme(
-      legend.title = ggplot2::element_text(size = 6),
-      legend.text = ggplot2::element_text(size = 6),
-      legend.key.size = ggplot2::unit(.75, "lines")
+      line = ggplot2::element_blank(),
+      rect = ggplot2::element_blank(),
+
+      axis.title = ggplot2::element_blank(),
+      axis.ticks.length = unit(0, "pt"),
+      axis.ticks.length.x = NULL,
+      axis.ticks.length.x.top = NULL,
+      axis.ticks.length.x.bottom = NULL,
+      axis.ticks.length.y = NULL,
+      axis.ticks.length.y.left = NULL,
+      axis.ticks.length.y.right = NULL,
+
+      axis.text = ggplot2::element_blank(),
+      axis.text.x = ggplot2::element_blank(),
+      axis.text.x.bottom = ggplot2::element_blank(),
+      axis.text.x.top = ggplot2::element_blank(),
+      axis.text.y = ggplot2::element_blank(),
+      axis.text.y.left = ggplot2::element_blank(),
+      axis.text.y.right = ggplot2::element_blank(),
+
+      panel.grid = ggplot2::element_blank(),
+      panel.grid.major = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+
+      # legend.title = ggplot2::element_text(size = 6),
+      # legend.text = ggplot2::element_text(size = 6),
+      legend.key.size = ggplot2::unit(.75, "lines"),
+      complete = TRUE
     )
   )
 }
-
-#' @rdname theme_council
-#' @export
-#'
