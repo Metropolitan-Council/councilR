@@ -415,27 +415,12 @@ theme_council <- function(base_size = 11,
 
 #' @rdname theme_council
 #' @export
-#'
-theme_council_open <- function(base_size = 11,
-                               base_family = "",
-                               base_line_size = base_size / 22,
-                               base_rect_size = base_size / 22,
-                               use_showtext = FALSE,
-                               use_manual_font_sizes = FALSE,
-                               font_sizes = list(
-                                 "title" = 22,
-                                 "subtitle" = 16,
-                                 "axis_title" = 14,
-                                 "axis_text" = 11,
-                                 "legend_title" = 14,
-                                 "legend_text" = 10,
-                                 "caption" = 8,
-                                 "strip" = 14
-                               )) {
+#' @param ... arguments passed to `theme_council()`
+theme_council_open <- function(...) {
 
   # Starts with theme_council and then modifies some parts
   ggplot2::`%+replace%`(
-    theme_council(),
+    theme_council(...),
     ggplot2::theme(
       # remove grid lines
       panel.grid.minor = ggplot2::element_blank(),
