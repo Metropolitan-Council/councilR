@@ -45,32 +45,32 @@ fetch_county_geo <- function(core = TRUE, ...) {
 
   county_list <- if (core == TRUE) {
     c(
-      "Anoka",
-      "Carver",
-      "Dakota",
-      "Hennepin",
-      "Ramsey",
-      "Scott",
-      "Washington"
+      "003",  # "Anoka",
+      "019",  # "Carver",
+      "037",  # "Dakota",
+      "053",  # "Hennepin",
+      "123" , # "Ramsey",
+      "159",  # "Scott",
+      "163"   # "Washington"
     )
   } else if (core == FALSE) {
     c(
-      "Anoka",
-      "Carver",
-      "Dakota",
-      "Hennepin",
-      "Ramsey",
-      "Scott",
-      "Sherburne",
-      "Washington",
-      "Wright"
+      "003",  # "Anoka",
+      "019",  # "Carver",
+      "037",  # "Dakota",
+      "053",  # "Hennepin",
+      "123", # "Ramsey",
+      "159",  # "Scott",
+      "163",  # "Washington"
+      "141",  # "Sherburne",
+      "171"   # "Wright"
     )
   }
 
   # fetch county geograp
-  mn_counties <- tigris::counties(state = "MN", ...)
+  mn_counties <- tigris::counties(state = 27,...)
 
-  county_sf <- mn_counties[mn_counties$NAME %in% county_list, ]
+  county_sf <- mn_counties[mn_counties$COUNTYFP %in% county_list, ]
 
 
   return(county_sf)
@@ -86,30 +86,30 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
 
   county_list <- if (core == TRUE) {
     c(
-      "Anoka",
-      "Carver",
-      "Dakota",
-      "Hennepin",
-      "Ramsey",
-      "Scott",
-      "Washington"
+      "003",  # "Anoka",
+      "019",  # "Carver",
+      "037",  # "Dakota",
+      "053",  # "Hennepin",
+      "123" , # "Ramsey",
+      "159",  # "Scott",
+      "163"   # "Washington"
     )
   } else if (core == FALSE) {
     c(
-      "Anoka",
-      "Carver",
-      "Dakota",
-      "Hennepin",
-      "Ramsey",
-      "Scott",
-      "Sherburne",
-      "Washington",
-      "Wright"
+      "003",  # "Anoka",
+      "019",  # "Carver",
+      "037",  # "Dakota",
+      "053",  # "Hennepin",
+      "123", # "Ramsey",
+      "159",  # "Scott",
+      "163",  # "Washington"
+      "141",  # "Sherburne",
+      "171"   # "Wright"
     )
   }
 
   cities <- tigris::county_subdivisions(
-    state = "MN",
+    state = 27,
     county = county_list,
     class = "sf"
   ) %>%
