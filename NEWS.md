@@ -1,4 +1,4 @@
-# v.0.1.5 (2022-10-31)
+# v.0.1.5 (2022-11-04)
 
 Geography and plotting function expansion
 
