@@ -121,7 +121,6 @@ cowplot::plot_grid(plotlist = blue_plots)
 `scale_color_council()` and `scale_fill_council` will give a color palette starting with `councilBlue`, followed by `cdGreen` and and `mtsRed` and then a couple other council colors which will look decent afterwards (up to 8 levels).
 
 ```{r, color-councilpalette}
-
 plot_example +
   councilR:::scale_color_council() +
   theme_council(use_showtext = F) +
