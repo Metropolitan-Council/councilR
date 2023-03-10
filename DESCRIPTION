@@ -10,6 +10,7 @@ Authors@R: c(
     person("Ellen", "Esch", , "ellen.esch@metc.state.mn.us", role = "ctb",
            comment = c(ORCID = "0000-0002-4253-0910")),
     person("Mauricio", "León", , "mauricio.leon@metc.state.mn.us", role = "ctb"),
+    person("Brandon", "Whited", , "brandon.whited@metc.state.mn.us", role = "ctb"),
     person("Garrick", "Aden-Buie", , "garrick@adenbuie.com", role = "ctb",
            comment = c(ORCID = "0000-0002-7111-0077"))
   )

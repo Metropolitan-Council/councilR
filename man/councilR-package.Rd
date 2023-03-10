@@ -21,9 +21,10 @@ Useful links:
 Other contributors:
 \itemize{
   \item Metropolitan Council [copyright holder]
-  \item Garrick Aden-Buie \email{garrick@adenbuie.com} (\href{https://orcid.org/0000-0002-7111-0077}{ORCID}) [contributor]
   \item Ellen Esch \email{ellen.esch@metc.state.mn.us} (\href{https://orcid.org/0000-0002-4253-0910}{ORCID}) [contributor]
   \item Mauricio León \email{mauricio.leon@metc.state.mn.us} [contributor]
+  \item Brandon Whited \email{brandon.whited@metc.state.mn.us} [contributor]
+  \item Garrick Aden-Buie \email{garrick@adenbuie.com} (\href{https://orcid.org/0000-0002-7111-0077}{ORCID}) [contributor]
 }
 
 }

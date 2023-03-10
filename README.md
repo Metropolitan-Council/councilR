@@ -33,5 +33,6 @@ or another
 [@ashleyasmus](https://github.com/ashleyasmus),
 [@ehesch](https://github.com/ehesch),
 [@eroten](https://github.com/eroten),
-[@velicknd](https://github.com/velicknd), and
+[@velicknd](https://github.com/velicknd),
+[@Brandon-Whited](https://github.com/Brandon-Whited), and
 [@leonx075](https://github.com/leonx075).
