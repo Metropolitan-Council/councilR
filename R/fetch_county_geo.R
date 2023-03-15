@@ -44,26 +44,26 @@ fetch_county_geo <- function(core = TRUE, ...) {
   rlang:::check_bool(core)
 
   county_list <- if (core == TRUE) {
-    c(
-      "003", # "Anoka",
-      "019", # "Carver",
-      "037", # "Dakota",
-      "053", # "Hennepin",
-      "123", # "Ramsey",
-      "139", # "Scott",
-      "163" # "Washington"
+    list(
+      "Anoka County" = "003", # "Anoka",
+      "Carver County" = "019", # "Carver",
+      "Dakota County" = "037", # "Dakota",
+      "Hennepin County"  = "053", # "Hennepin",
+      "Ramsey County" = "123", # "Ramsey",
+      "Scott County" = "139", # "Scott",
+      "Washington County" = "163" # "Washington"
     )
   } else if (core == FALSE) {
-    c(
-      "003", # "Anoka",
-      "019", # "Carver",
-      "037", # "Dakota",
-      "053", # "Hennepin",
-      "123", # "Ramsey",
-      "139", # "Scott",
-      "163", # "Washington"
-      "141", # "Sherburne",
-      "171" # "Wright"
+    list(
+      "Anoka County" = "003", # "Anoka",
+      "Carver County" = "019", # "Carver",
+      "Dakota County" = "037", # "Dakota",
+      "Hennepin County"  = "053", # "Hennepin",
+      "Ramsey County" = "123", # "Ramsey",
+      "Scott County" = "139", # "Scott",
+      "Washington County" = "163", # "Washington"
+      "Sherburne County" = "141", # "Sherburne",
+      "Wright County" = "171" # "Wright"
     )
   }
 
@@ -85,26 +85,26 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
   NAME <- CTU_NAME <- ALAND <- AWATER <- NULL
 
   county_list <- if (core == TRUE) {
-    c(
-      "003", # "Anoka",
-      "019", # "Carver",
-      "037", # "Dakota",
-      "053", # "Hennepin",
-      "123", # "Ramsey",
-      "139", # "Scott",
-      "163" # "Washington"
+    list(
+      "Anoka County" = "003", # "Anoka",
+      "Carver County" = "019", # "Carver",
+      "Dakota County" = "037", # "Dakota",
+      "Hennepin County"  = "053", # "Hennepin",
+      "Ramsey County" = "123", # "Ramsey",
+      "Scott County" = "139", # "Scott",
+      "Washington County" = "163" # "Washington"
     )
   } else if (core == FALSE) {
-    c(
-      "003", # "Anoka",
-      "019", # "Carver",
-      "037", # "Dakota",
-      "053", # "Hennepin",
-      "123", # "Ramsey",
-      "139", # "Scott",
-      "163", # "Washington"
-      "141", # "Sherburne",
-      "171" # "Wright"
+    list(
+      "Anoka County" = "003", # "Anoka",
+      "Carver County" = "019", # "Carver",
+      "Dakota County" = "037", # "Dakota",
+      "Hennepin County"  = "053", # "Hennepin",
+      "Ramsey County" = "123", # "Ramsey",
+      "Scott County" = "139", # "Scott",
+      "Washington County" = "163", # "Washington"
+      "Sherburne County" = "141", # "Sherburne",
+      "Wright County" = "171" # "Wright"
     )
   }
 
