@@ -25,6 +25,7 @@
 #'
 #' @rdname look
 #' @export
+#' @importFrom cli cli_inform
 #'
 look <- function(var, n = 1, unique = TRUE) {
   argname <- sys.call()[2]
@@ -37,6 +38,6 @@ look <- function(var, n = 1, unique = TRUE) {
   } else {
     sampleVar <- sample(var, n)
   }
-  message(argname, " = ", paste(sampleVar, collapse = " • "))
+  cli::cli_inform(c(argname, " = ", paste(sampleVar, collapse = " • ")))
   var %in% sampleVar
 }

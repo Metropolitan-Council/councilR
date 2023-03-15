@@ -24,7 +24,7 @@ testthat::skip_if(httr2::secret_has_key("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins"))
 testthat::test_that("Residential electricity data is returned", {
   electric_residential <- import_from_emissions(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("IMcfHFuibrH6IsuwIE_vd9oJmNTlOkpt", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY"),
     table_name = "metro_energy.vw_electricity_residential_ctu"
   )
 
