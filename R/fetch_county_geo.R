@@ -38,8 +38,6 @@
 #' @importFrom purrr map
 #' @importFrom dplyr case_when mutate transmute
 #'
-
-
 fetch_county_geo <- function(core = TRUE, ...) {
   rlang:::check_bool(core)
 
@@ -48,7 +46,7 @@ fetch_county_geo <- function(core = TRUE, ...) {
       "Anoka County" = "003", # "Anoka",
       "Carver County" = "019", # "Carver",
       "Dakota County" = "037", # "Dakota",
-      "Hennepin County"  = "053", # "Hennepin",
+      "Hennepin County" = "053", # "Hennepin",
       "Ramsey County" = "123", # "Ramsey",
       "Scott County" = "139", # "Scott",
       "Washington County" = "163" # "Washington"
@@ -58,7 +56,7 @@ fetch_county_geo <- function(core = TRUE, ...) {
       "Anoka County" = "003", # "Anoka",
       "Carver County" = "019", # "Carver",
       "Dakota County" = "037", # "Dakota",
-      "Hennepin County"  = "053", # "Hennepin",
+      "Hennepin County" = "053", # "Hennepin",
       "Ramsey County" = "123", # "Ramsey",
       "Scott County" = "139", # "Scott",
       "Washington County" = "163", # "Washington"
@@ -89,7 +87,7 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
       "Anoka County" = "003", # "Anoka",
       "Carver County" = "019", # "Carver",
       "Dakota County" = "037", # "Dakota",
-      "Hennepin County"  = "053", # "Hennepin",
+      "Hennepin County" = "053", # "Hennepin",
       "Ramsey County" = "123", # "Ramsey",
       "Scott County" = "139", # "Scott",
       "Washington County" = "163" # "Washington"
@@ -99,7 +97,7 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
       "Anoka County" = "003", # "Anoka",
       "Carver County" = "019", # "Carver",
       "Dakota County" = "037", # "Dakota",
-      "Hennepin County"  = "053", # "Hennepin",
+      "Hennepin County" = "053", # "Hennepin",
       "Ramsey County" = "123", # "Ramsey",
       "Scott County" = "139", # "Scott",
       "Washington County" = "163", # "Washington"
@@ -120,6 +118,12 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
         LSAD == 46 ~ paste(NAME, "(unorg.)"),
         TRUE ~ NAME
       )
+    ) %>%
+    dplyr::left_join(mn_fips_codes,
+      by = c(
+        "COUNTYFP" = "county_code",
+        "STATEFP" = "state_code"
+      )
     )
 
   cities <- if (core == TRUE) {
@@ -133,21 +137,16 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
     cities_geo %>%
       dplyr::group_by(NAME) %>%
       dplyr::mutate(n = dplyr::n()) %>%
-      dplyr::left_join(sf::st_drop_geometry(cities_geo) %>%
-        dplyr::transmute(
-          COUNTYFP = COUNTYFP,
-          CONAME = NAME
-        )) %>%
       dplyr::mutate(CTU_NAME = dplyr::if_else(
         n > 1 & LSAD != 25,
-        paste0(NAME, " - ", CONAME, " Co."), # cities dont get merged
+        paste0(NAME, " - ", county, " Co."), # cities dont get merged
         NAME
       )) %>%
       dplyr::group_by(CTU_NAME) %>%
       dplyr::summarise(
         geometry = sf::st_union(geometry),
-        ALAND = sum(ALAND, na.rm = T),
-        AWATER = sum(AWATER, na.rm = T)
+        ALAND = sum(ALAND, na.rm = TRUE),
+        AWATER = sum(AWATER, na.rm = TRUE)
       ) %>%
       dplyr::arrange(CTU_NAME)
   }
