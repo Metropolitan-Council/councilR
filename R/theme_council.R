@@ -100,7 +100,7 @@ theme_council <- function(base_size = 11,
 
   purrr::map(
     c(base_size),
-    rlang:::check_number
+    rlang:::check_number_decimal
   )
 
   rlang:::check_string(base_family)
@@ -190,14 +190,14 @@ theme_council <- function(base_size = 11,
     # SETUP -----
     line = ggplot2::element_line(
       colour = colors$suppBlack,
-      size = base_line_size,
+      linewidth = base_line_size,
       linetype = 1,
       lineend = "butt"
     ),
     rect = ggplot2::element_rect(
       fill = colors$suppWhite,
       colour = colors$suppBlack,
-      size = base_rect_size,
+      linewidth = base_rect_size,
       linetype = 1
     ),
     text = ggplot2::element_text(
@@ -335,7 +335,7 @@ theme_council <- function(base_size = 11,
     panel.border = ggplot2::element_blank(),
     panel.grid = ggplot2::element_line(colour = "grey92"),
     panel.grid.minor = ggplot2::element_blank(),
-    panel.grid.major = ggplot2::element_line(size = ggplot2::rel(1)),
+    panel.grid.major = ggplot2::element_line(linewidth = ggplot2::rel(1)),
     panel.spacing = ggplot2::unit(half_line, "pt"),
     panel.spacing.x = NULL,
     panel.spacing.y = NULL,
