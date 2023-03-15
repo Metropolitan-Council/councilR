@@ -1,4 +1,4 @@
-test_that("non T/F core fails", {
+test_that("non TRUE/FALSE core fails", {
   testthat::expect_error(fetch_ctu_geo(core = "foo"))
 })
 
