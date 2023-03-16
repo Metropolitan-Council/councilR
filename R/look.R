@@ -38,6 +38,7 @@ look <- function(var, n = 1, unique = TRUE) {
   } else {
     sampleVar <- sample(var, n)
   }
-  cli::cli_inform(paste0(argname, " = ", paste(sampleVar, collapse = " • ")))
+  cli::cli_inform(style_underline(style_bold(col_green(paste0(argname, " = (", paste(sampleVar, collapse = ", "), ")")))))
   var %in% sampleVar
 }
+
