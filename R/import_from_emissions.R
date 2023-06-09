@@ -6,7 +6,7 @@
 #' @param pwd character, your network password.
 #'     Default is `getOption("councilR.pwd")`. For example, `"my_password"`
 #' @param serv character, database server.
-#'     Default is `"dbsqlcl11t.test.local,65414"` (the test database).
+#'     Default is `"sqldb-cdemiss-p-c1-01.database.windows.net"` (the test database).
 #' @param db character, database name. Default is `"CD_Emissions"`
 #' @param local logical, whether to pull from the onsite database or Azure.
 #'     Default is `TRUE`
@@ -31,7 +31,7 @@
 #'
 #' # set options if you haven't already
 #' options(
-#'   councilR.uid = "mc\\myuid",
+#'   councilR.uid = "name.lastname@metc.state.mn.us",
 #'   councilR.pwd = "mypwd"
 #' )
 #'
@@ -48,7 +48,7 @@ import_from_emissions <- function(table_name,
                                   uid = getOption("councilR.uid"),
                                   pwd = getOption("councilR.pwd"),
                                   local = TRUE,
-                                  serv = "dbsqlcl11t.test.local,65414",
+                                  serv = "sqldb-cdemiss-p-c1-01.database.windows.net",
                                   db = "CD_Emissions") {
   # check input types
   purrr::map(
