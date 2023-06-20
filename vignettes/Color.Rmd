@@ -141,7 +141,7 @@ plot_example +
 `theme_council_geo()` is best for maps. 
 
 ```{r plot-county, eval = TRUE}
-fetch_county_geo() %>%
+fetch_county_geo(progress_bar = FALSE) %>%
   ggplot() +
   aes(fill = ALAND) +
   geom_sf() +
