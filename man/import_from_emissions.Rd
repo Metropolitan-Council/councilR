@@ -9,33 +9,32 @@ import_from_emissions(
   uid = getOption("councilR.uid"),
   pwd = getOption("councilR.pwd"),
   local = TRUE,
-  serv = "dbsqlcl11t.test.local,65414",
   db = "CD_Emissions"
 )
 }
 \arguments{
 \item{table_name}{character, which table to pull.}
 
-\item{uid}{character, your network id.
-Default is \code{getOption("councilR.uid")}. For example, \code{"mc\\\\rotenle"}}
+\item{uid}{character, your network ID.
+Default is \code{getOption("councilR.uid")}. If you are accessing Azure,
+this value should be your full email address.}
 
 \item{pwd}{character, your network password.
 Default is \code{getOption("councilR.pwd")}. For example, \code{"my_password"}}
 
 \item{local}{logical, whether to pull from the onsite database or Azure.
-Default is \code{TRUE}}
+Default is \code{TRUE}.}
 
-\item{serv}{character, database server.
-Default is \code{"dbsqlcl11t.test.local,65414"} (the test database).}
-
-\item{db}{character, database name. Default is \code{"CD_Emissions"}}
+\item{db}{character, database name. Default is \code{"CD_Emissions"}.}
 }
 \value{
 Requested table
 }
 \description{
-WARNING: Function error may results in RStudio crash.
-Requires a password for access to the database.
+Import data table from greenhouse gas emissions scenario planning database
+}
+\details{
+To access Azure, your IP address must be approved. Contact Sean Molloy.
 }
 \note{
 See \code{vignette("Options")} to review package options.
@@ -53,11 +52,13 @@ library(councilR)
 
 # set options if you haven't already
 options(
-  councilR.uid = "mc\\\\myuid",
+  councilR.uid = "mc\\\\you",
   councilR.pwd = "mypwd"
 )
 
-t_electricity_residential_ctu <- import_from_emissions(table_name = "metro_energy.vw_electricity_residential_ctu")
-t_eia_energy_consumption_state <- import_from_emissions(table_name = "state_energy.eia_energy_consumption_state")
+t_electricity_residential_ctu <- import_from_emissions(
+  table_name = "metro_energy.vw_electricity_residential_ctu")
+t_eia_energy_consumption_state <- import_from_emissions(
+  table_name = "state_energy.eia_energy_consumption_state")
 }
 }
