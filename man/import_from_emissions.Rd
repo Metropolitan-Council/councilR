@@ -57,8 +57,11 @@ options(
 )
 
 t_electricity_residential_ctu <- import_from_emissions(
-  table_name = "metro_energy.vw_electricity_residential_ctu")
+  table_name = "metro_energy.vw_electricity_residential_ctu"
+)
 t_eia_energy_consumption_state <- import_from_emissions(
-  table_name = "state_energy.eia_energy_consumption_state")
+  table_name = "state_energy.eia_energy_consumption_state"
+)
+  table_name = "metro_energy.vw_utility_natural_gas_by_ctu")
 }
 }

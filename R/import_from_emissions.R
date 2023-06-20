@@ -41,7 +41,7 @@
 #'   table_name = "state_energy.eia_energy_consumption_state"
 #' )
 # t_utility_natural_gas_by_ctu <- import_from_emissions(
-#' #  table_name = "metro_energy.vw_utility_natural_gas_by_ctu")
+#'   table_name = "metro_energy.vw_utility_natural_gas_by_ctu")
 #' }
 #' @importFrom DBI dbCanConnect dbGetQuery dbConnect dbDisconnect
 #' @importFrom odbc odbc
