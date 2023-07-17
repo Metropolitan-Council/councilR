@@ -1,4 +1,4 @@
-#' @title Import data table from greenhouse gas emissions scenario planning database
+#' @title Import data table from FRED (main CD Research database) data stored on SQL Server
 #'
 #' @param table_name character, which table to pull.
 #' @param uid character, your network ID.
