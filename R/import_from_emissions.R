@@ -1,18 +1,17 @@
 #' @title Import data table from greenhouse gas emissions scenario planning database
 #'
 #' @param table_name character, which table to pull.
-#' @param uid character, your network id.
-#'     Default is `getOption("councilR.uid")`. For example, `"mc\\rotenle"`
+#' @param uid character, your network ID.
+#'     Default is `getOption("councilR.uid")`. If you are accessing Azure,
+#'     this value should be your full email address.
 #' @param pwd character, your network password.
 #'     Default is `getOption("councilR.pwd")`. For example, `"my_password"`
-#' @param serv character, database server.
-#'     Default is `"dbsqlcl11t.test.local,65414"` (the test database).
-#' @param db character, database name. Default is `"CD_Emissions"`
+#' @param db character, database name. Default is `"CD_Emissions"`.
 #' @param local logical, whether to pull from the onsite database or Azure.
-#'     Default is `TRUE`
+#'     Default is `TRUE`.
 #'
-#' @description WARNING: Function error may results in RStudio crash.
-#'     Requires a password for access to the database.
+#' @details
+#'  To access Azure, your IP address must be approved. Contact Sean Molloy.
 #'
 #' @note See `vignette("Options")` to review package options.
 #'     You must be set up with the appropriate database drivers to use this function.
@@ -31,29 +30,31 @@
 #'
 #' # set options if you haven't already
 #' options(
-#'   councilR.uid = "mc\\myuid",
+#'   councilR.uid = "mc\\you",
 #'   councilR.pwd = "mypwd"
 #' )
 #'
-#' t_electricity_residential_ctu <- import_from_emissions(table_name = "metro_energy.vw_electricity_residential_ctu")
-#' t_eia_energy_consumption_state <- import_from_emissions(table_name = "state_energy.eia_energy_consumption_state")
-# t_utility_natural_gas_by_ctu <- import_from_emissions(table_name = "metro_energy.vw_utility_natural_gas_by_ctu")
+#' t_electricity_residential_ctu <- import_from_emissions(
+#'   table_name = "metro_energy.vw_electricity_residential_ctu"
+#' )
+#' t_eia_energy_consumption_state <- import_from_emissions(
+#'   table_name = "state_energy.eia_energy_consumption_state"
+#' )
+# t_utility_natural_gas_by_ctu <- import_from_emissions(
+#'   table_name = "metro_energy.vw_utility_natural_gas_by_ctu")
 #' }
 #' @importFrom DBI dbCanConnect dbGetQuery dbConnect dbDisconnect
 #' @importFrom odbc odbc
 #' @importFrom utils osVersion
 #' @importFrom purrr map
-#'
 import_from_emissions <- function(table_name,
                                   uid = getOption("councilR.uid"),
                                   pwd = getOption("councilR.pwd"),
                                   local = TRUE,
-                                  serv = "dbsqlcl11t.test.local,65414",
                                   db = "CD_Emissions") {
-
   # check input types
   purrr::map(
-    c(table_name, serv, uid, pwd, db),
+    c(table_name, uid, pwd, db),
     rlang:::check_string
   )
   purrr::map(
@@ -61,13 +62,15 @@ import_from_emissions <- function(table_name,
     rlang:::check_bool
   )
 
-  # browser()
-  # decide which driver to use based on OS
 
+  # decide which server to use based on local
   if (local == FALSE) {
-    stop("Non-local isn't ready yet!")
+    serv <- "sqldb-cdemiss-p-c1-01.database.windows.net"
+  } else if (local == TRUE) {
+    serv <- "dbsqlcl11t.test.local,65414"
   }
 
+  # decide which driver to use based on OS
   drv <- if (grepl("mac", osVersion)) {
     "FreeTDS"
   } else {

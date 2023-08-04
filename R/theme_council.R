@@ -1,6 +1,6 @@
 #' @title Council ggplot2 theme
 #'
-#' @description The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatter plots or line graphs.
+#' @description The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatter plots or line graphs. For geospatial plots, `theme_council_geo()` may be useful to set some initial parameters.
 #'
 #' Please note that the y-axis text is horizontal, and long axis names will need to be wrapped;  [`stringr::str_wrap()`]() is useful for managing length.
 #'  For example, consider using this piece of code: `labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))`
@@ -30,20 +30,6 @@
 #'   - Arial Narrow
 #'   - Palatino Linotype
 #'   If you do not have the font files handy, contact a package author or your manager.
-#'
-#' 3. The font family and file names much match those listed below
-#'   - "HelveticaNeueLT Std Cn" = "HelveticaNeueLTStd-Cn.otf"
-#'   - "HelveticaNeueLT Std Lt" = "HelveticaNeueLTStd-Lt.otf"
-#'   - "Arial Narrow" ="ARIALN.TTF"
-#'   - "HelveticaNeueLT Std Med Cn" = "HelveticaNeueLTStd-MdCn.otf")
-#'   - "Palatino Linotype" = "pala.ttf"
-#'
-#' 4. Consider options for your OS
-#'   - On Windows, be sure that the fonts are installed for the entire system, not just a single user.
-#'     These are located in `C:/Windows/Fonts`.
-#'   - On Mac OSX, be sure that fonts are installed for the user. These are located in `~/Library/Fonts`.
-#'     Consider copying the entire system font directory (`/Library/Fonts`) to the user font directory for easy access.
-#'
 #' # Font size suggestions
 #'
 #'  Generally, font sizes should be no smaller than 11 point.
@@ -80,10 +66,15 @@
 #'     use_showtext = TRUE,
 #'     use_manual_font_sizes = TRUE
 #'   )
+#'
+#' fetch_ctu_geo() %>%
+#'   ggplot() +
+#'   geom_sf() +
+#'   theme_council_geo()
 #' }
 #'
-#' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel %+replace%
-#' @importFrom purrr map
+#' @importFrom ggplot2 theme element_text element_blank element_rect element_line margin unit rel %+replace% theme_void
+#' @importFrom purrr map map2
 #'
 #'
 theme_council <- function(base_size = 11,
@@ -108,10 +99,8 @@ theme_council <- function(base_size = 11,
   )
 
   purrr::map(
-    c(
-      base_size
-    ),
-    rlang:::check_number
+    c(base_size),
+    rlang:::check_number_decimal
   )
 
   rlang:::check_string(base_family)
@@ -122,6 +111,7 @@ theme_council <- function(base_size = 11,
 
     showtext::showtext_auto()
     if (grepl("mac", osVersion)) {
+      # if mac, search default font paths
       sysfonts::font_paths()
     } else {
       # if windows, add the user-level font files to font paths
@@ -135,14 +125,23 @@ theme_council <- function(base_size = 11,
     }
 
 
-    files <- sysfonts::font_files()
+    # find font files for given families
+    font_locs <- subset(
+      sysfonts::font_files(),
+      family %in% c(
+        "HelveticaNeueLT Std Cn",
+        "HelveticaNeueLT Std Lt",
+        "Arial Narrow"
+      ) &
+        face == "Regular"
+    )
 
-    sysfonts::font_add("HelveticaNeueLT Std Cn", "HelveticaNeueLTStd-Cn.otf")
-    sysfonts::font_add("HelveticaNeueLT Std Lt", "HelveticaNeueLTStd-Lt.otf")
-    sysfonts::font_add("HelveticaNeueLT Std Med Cn", "HelveticaNeueLTStd-MdCn.otf")
-    sysfonts::font_add("Arial Narrow", "ARIALN.TTF")
-    sysfonts::font_add("Palatino Linotype", "pala.ttf")
-
+    # add each font to the sysfonts database
+    purrr::map2(
+      font_locs$family,
+      font_locs$file,
+      sysfonts::font_add
+    )
 
     font_families <-
       list(
@@ -152,7 +151,7 @@ theme_council <- function(base_size = 11,
         "axis_text" = "Arial Narrow",
         "legend_title" = "HelveticaNeueLT Std Cn",
         "legend_text" = "Arial Narrow",
-        "caption" = "Arial Narrow", # "Palatino Linotype",
+        "caption" = "Arial Narrow",
         "strip" = "Arial Narrow"
       )
   } else {
@@ -186,19 +185,19 @@ theme_council <- function(base_size = 11,
 
 
   half_line <- base_size / 2
-  t <- theme(
+  t <- ggplot2::theme(
 
     # SETUP -----
     line = ggplot2::element_line(
       colour = colors$suppBlack,
-      size = base_line_size,
+      linewidth = base_line_size,
       linetype = 1,
       lineend = "butt"
     ),
     rect = ggplot2::element_rect(
       fill = colors$suppWhite,
       colour = colors$suppBlack,
-      size = base_rect_size,
+      linewidth = base_rect_size,
       linetype = 1
     ),
     text = ggplot2::element_text(
@@ -250,7 +249,7 @@ theme_council <- function(base_size = 11,
     ),
 
     ## ticks ----
-    axis.ticks = element_line(color = "grey92"),
+    axis.ticks = ggplot2::element_line(color = "grey92"),
     axis.ticks.length = ggplot2::unit(half_line / 2, "pt"),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
@@ -335,8 +334,8 @@ theme_council <- function(base_size = 11,
     panel.background = ggplot2::element_blank(),
     panel.border = ggplot2::element_blank(),
     panel.grid = ggplot2::element_line(colour = "grey92"),
-    panel.grid.minor = element_blank(), # ggplot2::element_line(size = ggplot2::rel(0.5)),
-    panel.grid.major = ggplot2::element_line(size = ggplot2::rel(1)),
+    panel.grid.minor = ggplot2::element_blank(),
+    panel.grid.major = ggplot2::element_line(linewidth = ggplot2::rel(1)),
     panel.spacing = ggplot2::unit(half_line, "pt"),
     panel.spacing.x = NULL,
     panel.spacing.y = NULL,
@@ -416,27 +415,11 @@ theme_council <- function(base_size = 11,
 
 #' @rdname theme_council
 #' @export
-#'
-theme_council_open <- function(base_size = 11,
-                               base_family = "",
-                               base_line_size = base_size / 22,
-                               base_rect_size = base_size / 22,
-                               use_showtext = FALSE,
-                               use_manual_font_sizes = FALSE,
-                               font_sizes = list(
-                                 "title" = 22,
-                                 "subtitle" = 16,
-                                 "axis_title" = 14,
-                                 "axis_text" = 11,
-                                 "legend_title" = 14,
-                                 "legend_text" = 10,
-                                 "caption" = 8,
-                                 "strip" = 14
-                               )) {
-
+#' @param ... arguments passed to `theme_council()`
+theme_council_open <- function(...) {
   # Starts with theme_council and then modifies some parts
   ggplot2::`%+replace%`(
-    theme_council(),
+    theme_council(...),
     ggplot2::theme(
       # remove grid lines
       panel.grid.minor = ggplot2::element_blank(),
@@ -449,6 +432,41 @@ theme_council_open <- function(base_size = 11,
   )
 }
 
-#' @rdname theme_council_open
+#' @rdname theme_council
 #' @export
 #'
+theme_council_geo <- function(...) {
+  # Starts with theme_council() then modifies
+  # to match theme_void()
+
+  ggplot2::`%+replace%`(
+    theme_council(...),
+    ggplot2::theme(
+      line = ggplot2::element_blank(),
+      rect = ggplot2::element_blank(),
+      axis.title = ggplot2::element_blank(),
+      axis.ticks.length = unit(0, "pt"),
+      axis.ticks.length.x = NULL,
+      axis.ticks.length.x.top = NULL,
+      axis.ticks.length.x.bottom = NULL,
+      axis.ticks.length.y = NULL,
+      axis.ticks.length.y.left = NULL,
+      axis.ticks.length.y.right = NULL,
+      axis.text = ggplot2::element_blank(),
+      axis.text.x = ggplot2::element_blank(),
+      axis.text.x.bottom = ggplot2::element_blank(),
+      axis.text.x.top = ggplot2::element_blank(),
+      axis.text.y = ggplot2::element_blank(),
+      axis.text.y.left = ggplot2::element_blank(),
+      axis.text.y.right = ggplot2::element_blank(),
+      panel.grid = ggplot2::element_blank(),
+      panel.grid.major = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+
+      # legend.title = ggplot2::element_text(size = 6),
+      # legend.text = ggplot2::element_text(size = 6),
+      legend.key.size = ggplot2::unit(.75, "lines"),
+      complete = TRUE
+    )
+  )
+}

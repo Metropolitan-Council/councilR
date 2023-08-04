@@ -35,6 +35,7 @@ Other aesthetics:
 \code{\link{colors}},
 \code{\link{council.pal}()},
 \code{\link{council_pal2}()},
+\code{\link{map_council_continuous}()},
 \code{\link{scale_fill_council}()},
 \code{\link{theme_council}()}
 }

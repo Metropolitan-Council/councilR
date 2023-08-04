@@ -3,6 +3,7 @@
 \name{theme_council}
 \alias{theme_council}
 \alias{theme_council_open}
+\alias{theme_council_geo}
 \title{Council ggplot2 theme}
 \usage{
 theme_council(
@@ -16,16 +17,9 @@ theme_council(
     legend_title = 14, legend_text = 10, caption = 8, strip = 14)
 )
 
-theme_council_open(
-  base_size = 11,
-  base_family = "",
-  base_line_size = base_size/22,
-  base_rect_size = base_size/22,
-  use_showtext = FALSE,
-  use_manual_font_sizes = FALSE,
-  font_sizes = list(title = 22, subtitle = 16, axis_title = 14, axis_text = 11,
-    legend_title = 14, legend_text = 10, caption = 8, strip = 14)
-)
+theme_council_open(...)
+
+theme_council_geo(...)
 }
 \arguments{
 \item{base_size}{numeric, base font size, given in pts. Default is \code{11}}
@@ -41,12 +35,14 @@ theme_council_open(
 \item{use_manual_font_sizes}{logical, use supplied font sizes.}
 
 \item{font_sizes}{named list, font sizes. Only used if \code{use_manual_font_sizes} is \code{TRUE}}
+
+\item{...}{arguments passed to \code{theme_council()}}
 }
 \value{
 a \code{\link[ggplot2:theme]{ggplot2::theme()}} object
 }
 \description{
-The default \code{theme_council()} plus a more simple \code{theme_council_open()} for making MetCouncil figures. \code{theme_council()} will be appropriate in most cases while \code{theme_council_open()} is appropriate for single scatter plots or line graphs.
+The default \code{theme_council()} plus a more simple \code{theme_council_open()} for making MetCouncil figures. \code{theme_council()} will be appropriate in most cases while \code{theme_council_open()} is appropriate for single scatter plots or line graphs. For geospatial plots, \code{theme_council_geo()} may be useful to set some initial parameters.
 
 Please note that the y-axis text is horizontal, and long axis names will need to be wrapped;  \url{stringr::str_wrap()} is useful for managing length.
 For example, consider using this piece of code: \code{labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))}
@@ -66,25 +62,6 @@ and \href{https://github.com/yixuan/sysfonts}{\code{{sysfonts}}} packages instal
 \item Arial Narrow
 \item Palatino Linotype
 If you do not have the font files handy, contact a package author or your manager.
-}
-\enumerate{
-\item The font family and file names much match those listed below
-}
-\itemize{
-\item "HelveticaNeueLT Std Cn" = "HelveticaNeueLTStd-Cn.otf"
-\item "HelveticaNeueLT Std Lt" = "HelveticaNeueLTStd-Lt.otf"
-\item "Arial Narrow" ="ARIALN.TTF"
-\item "HelveticaNeueLT Std Med Cn" = "HelveticaNeueLTStd-MdCn.otf")
-\item "Palatino Linotype" = "pala.ttf"
-}
-\enumerate{
-\item Consider options for your OS
-}
-\itemize{
-\item On Windows, be sure that the fonts are installed for the entire system, not just a single user.
-These are located in \verb{C:/Windows/Fonts}.
-\item On Mac OSX, be sure that fonts are installed for the user. These are located in \verb{~/Library/Fonts}.
-Consider copying the entire system font directory (\verb{/Library/Fonts}) to the user font directory for easy access.
 }
 }
 
@@ -122,6 +99,11 @@ ggplot(datasets::iris) +
     use_showtext = TRUE,
     use_manual_font_sizes = TRUE
   )
+
+fetch_ctu_geo() \%>\%
+  ggplot() +
+  geom_sf() +
+  theme_council_geo()
 }
 
 }
@@ -131,6 +113,7 @@ Other aesthetics:
 \code{\link{colors}},
 \code{\link{council.pal}()},
 \code{\link{council_pal2}()},
+\code{\link{map_council_continuous}()},
 \code{\link{scale_color_council}()},
 \code{\link{scale_fill_council}()}
 }

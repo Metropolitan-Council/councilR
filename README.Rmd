@@ -39,7 +39,7 @@ Please see our contribution guidelines [here](.github/CONTRIBUTING.md).
 Thanks to all the folks who have contributed to this project in one way or another
 
 [&#x0040;ashleyasmus](https://github.com/ashleyasmus), [&#x0040;ehesch](https://github.com/ehesch), [&#x0040;eroten](https://github.com/eroten),
-[&#x0040;velicknd](https://github.com/velicknd), and [&#x0040;leonx075](https://github.com/leonx075).
+[&#x0040;velicknd](https://github.com/velicknd),  [&#x0040;Brandon-Whited](https://github.com/Brandon-Whited), and [&#x0040;leonx075](https://github.com/leonx075).
 
 
 

@@ -22,8 +22,9 @@ library(councilR)
 `{councilR}` has a few `options()` that can help the package run more smoothly. 
 
 ```{r}
-options(councilR.uid = "mc\\myuuid", # your user id
-        councilR.pwd = keyring::key_get("MetC") # your password
+options(
+  councilR.uid = "mc\\myuuid", # your user id
+  councilR.pwd = keyring::key_get("MetC") # your password
 )
 ```
 

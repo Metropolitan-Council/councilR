@@ -36,7 +36,6 @@ import_from_gpkg <- function(link,
                              .crs = 4326,
                              keep_temp = FALSE,
                              .quiet = TRUE) {
-
   # check input types
   purrr::map(
     c(link),
@@ -47,7 +46,7 @@ import_from_gpkg <- function(link,
     rlang:::check_bool
   )
   rlang:::check_string(save_path)
-  rlang:::check_number(.crs)
+  rlang:::check_number_whole(.crs)
 
   # download to a temp file
   temp <- tempfile()
