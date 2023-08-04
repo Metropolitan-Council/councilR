@@ -20,10 +20,9 @@ testthat::test_that("group quarters dataset", {
     pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY")
   )
 
-  # test that all airports are included
-  # there should be 14 airports
-  testthat::expect_equal(nrow(gq), 14)
+  # test that data is returned from gq unit table, currently 11837 rows
+  testthat::expect_equal(nrow(gq), 11837)
 
-  # test that object returned is an sf object
-  testthat::expect_equal(class(gq)[[1]], "dataframe")
+  # test that object returned is a data.frame
+  testthat::expect_equal(class(gq)[[1]], "data.frame")
 })
