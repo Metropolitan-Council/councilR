@@ -31,17 +31,19 @@
 #'   councilR.pwd = "mypwd"
 #' )
 #'
+#' import_from_FRED(table_name = "GQ_UNIT", prod = FALSE)
+#'
 #' }
 #' @importFrom DBI dbCanConnect dbGetQuery dbConnect dbDisconnect
 #' @importFrom odbc odbc
 #' @importFrom utils osVersion
 #' @importFrom purrr map
 import_from_FRED <- function(table_name,
-                                  uid = getOption("councilR.uid"),
-                                  pwd = getOption("councilR.pwd"),
-                                  local = TRUE,
-                                  db = "CD_RESEARCH_WEB",
-                                  prod = TRUE) {
+                             uid = getOption("councilR.uid"),
+                             pwd = getOption("councilR.pwd"),
+                             local = TRUE,
+                             db = "CD_RESEARCH_WEB",
+                             prod = TRUE) {
   # check input types
   purrr::map(
     c(table_name, uid, pwd, db),

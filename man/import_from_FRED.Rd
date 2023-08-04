@@ -53,5 +53,7 @@ options(
   councilR.pwd = "mypwd"
 )
 
+import_from_FRED(table_name = "GQ_UNIT", prod = FALSE)
+
 }
 }
