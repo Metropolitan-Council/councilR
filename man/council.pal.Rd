@@ -30,6 +30,7 @@ show_col(council_pal2())
 Other aesthetics: 
 \code{\link{blue_cascade}},
 \code{\link{colors}},
+\code{\link{council_layout}()},
 \code{\link{council_pal2}()},
 \code{\link{map_council_continuous}()},
 \code{\link{scale_color_council}()},

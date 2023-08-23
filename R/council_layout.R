@@ -35,7 +35,7 @@
 #'   y = ~Sepal.Width,
 #'   color = ~Species,
 #'   hoverinfo = "text",
-#'   hovertext = ~paste0(
+#'   hovertext = ~ paste0(
 #'     Species, "<br>",
 #'     "Sepal Length: ", Sepal.Length, "<br>",
 #'     "Sepal Width: ", Sepal.Width
@@ -43,17 +43,16 @@
 #'   marker = list(
 #'     size = 10,
 #'     opacity = 0.8
-#'   )) %>%
+#'   )
+#' ) %>%
 #'   plotly_layout(
 #'     main_title = "Iris",
 #'     subtitle = "Sepal characteristics",
 #'     x_title = "Sepal Length",
 #'     y_title = "Sepal Width",
 #'     legend_title = "Species",
-#'     legend = list(orientation  = "h")
+#'     legend = list(orientation = "h")
 #'   )
-#'
-#'
 #' }
 council_layout <- function(a_plotly,
                            main_title = "",
@@ -61,7 +60,7 @@ council_layout <- function(a_plotly,
                            x_title = "",
                            y_title = "",
                            legend_title = "",
-                           ...){
+                           ...) {
   requireNamespace("rlang", quietly = TRUE)
   purrr::map(
     list(x_title, y_title, main_title, subtitle, legend_title),
@@ -257,17 +256,17 @@ council_layout <- function(a_plotly,
       )
     ) %>%
     # configuration -----
-  plotly::config(
-    displaylogo = FALSE,
-    modeBarButtonsToRemove = c(
-      "drawopenpath",
-      "lasso",
-      "editInChartStudio",
-      "sendDataToCloud",
-      "zoom2d",
-      "pan2d"
+    plotly::config(
+      displaylogo = FALSE,
+      modeBarButtonsToRemove = c(
+        "drawopenpath",
+        "lasso",
+        "editInChartStudio",
+        "sendDataToCloud",
+        "zoom2d",
+        "pan2d"
+      )
     )
-  )
 
   return(do.call(plotly::layout, list(p, ...)))
 }
@@ -277,5 +276,3 @@ council_layout <- function(a_plotly,
 #' @rdname council_layout
 #' @export
 plotly_layout <- council_layout
-
-

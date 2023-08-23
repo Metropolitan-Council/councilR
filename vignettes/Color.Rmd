@@ -163,10 +163,12 @@ plotly::plot_ly(
   y = ~Sepal.Width,
   color = ~Species,
   hoverinfo = "text",
-  colors = c(colors$councilBlue,
-             colors$metrostatsDaPurp,
-             colors$metroOrange),
-  hovertext = ~paste0(
+  colors = c(
+    colors$councilBlue,
+    colors$metrostatsDaPurp,
+    colors$metroOrange
+  ),
+  hovertext = ~ paste0(
     Species, "<br>",
     "Sepal Length: ", Sepal.Length, "<br>",
     "Sepal Width: ", Sepal.Width
@@ -174,30 +176,36 @@ plotly::plot_ly(
   marker = list(
     size = 10,
     opacity = 0.8
-  )) %>%
+  )
+) %>%
   council_layout(
     main_title = "Iris",
     subtitle = "Sepal characteristics",
     x_title = "Sepal Length",
     y_title = "Sepal Width",
     legend_title = "Species",
-    legend = list(orientation  = "h")
+    legend = list(orientation = "h")
   )
-
 ```
 
 Here is the same plot, but created using ggplot2. 
 
 ```{r ggplot-iris}
 ggplot(data = iris) +
-  aes(x = Sepal.Length,
-      y = Sepal.Width,
-      color = Species) +
-  geom_point(size = 5,
-             alpha = 0.8) +
-  scale_color_manual(values = c(colors$councilBlue,
-                                colors$metrostatsDaPurp,
-                                colors$metroOrange)) +
+  aes(
+    x = Sepal.Length,
+    y = Sepal.Width,
+    color = Species
+  ) +
+  geom_point(
+    size = 5,
+    alpha = 0.8
+  ) +
+  scale_color_manual(values = c(
+    colors$councilBlue,
+    colors$metrostatsDaPurp,
+    colors$metroOrange
+  )) +
   labs(
     title = "Iris",
     subtitle = "Sepal characteristics",
@@ -206,7 +214,9 @@ ggplot(data = iris) +
     legend = "Species"
   ) +
   theme_council() +
-  theme(legend.position = "bottom",
-        legend.justification = c(0,1))
+  theme(
+    legend.position = "bottom",
+    legend.justification = c(0, 1)
+  )
 ```
 
