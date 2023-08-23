@@ -1,25 +1,68 @@
-#' Council
+#' @title Council plotly formatting
 #'
 #' @param a_plotly [plotly::plot_ly()] object
-#' @param main_title character
-#' @param subtitle character
-#' @param x_title character
-#' @param y_title character
-#' @param legend_title character
+#' @param main_title character, plot title
+#' @param subtitle character, plot subtitle
+#' @param x_title character, x-axis title
+#' @param y_title character y-axis title
+#' @param legend_title character, legend title
 #' @param ... additional parameters passed to [plotly::layout()]
-#' @return
+#'
+#'
+#' @note
+#'   Further examples in `vignette("Color")`.
+#'
+#'   The `subtitle` returned is an annotation, and so cannot be further modified.
+#'   If you want to modify the subtitle aesthetics, leave `subtitle = ""` and
+#'   add a subtitle using `plotly::layout(annotations = list(...))`.
+#'
+#' @return [plotly::plot_ly()] object with Council styling
 #' @export
 #' @importFrom plotly layout
+#' @importFrom purrr map
 #' @family aesthetics
 #' @examples
+#' \dontrun{
+#'
+#' library(plotly)
+#' library(councilR)
+#'
+#' plotly::plot_ly(
+#'   type = "scatter",
+#'   mode = "markers",
+#'   data = iris,
+#'   x = ~Sepal.Length,
+#'   y = ~Sepal.Width,
+#'   color = ~Species,
+#'   hoverinfo = "text",
+#'   hovertext = ~paste0(
+#'     Species, "<br>",
+#'     "Sepal Length: ", Sepal.Length, "<br>",
+#'     "Sepal Width: ", Sepal.Width
+#'   ),
+#'   marker = list(
+#'     size = 10,
+#'     opacity = 0.8
+#'   )) %>%
+#'   plotly_layout(
+#'     main_title = "Iris",
+#'     subtitle = "Sepal characteristics",
+#'     x_title = "Sepal Length",
+#'     y_title = "Sepal Width",
+#'     legend_title = "Species",
+#'     legend = list(orientation  = "h")
+#'   )
+#'
+#'
+#' }
 council_layout <- function(a_plotly,
                            main_title = "",
                            subtitle = "",
                            x_title = "",
                            y_title = "",
                            legend_title = "",
-                           layout_args = list()){
-  browser()
+                           ...){
+  requireNamespace("rlang", quietly = TRUE)
   purrr::map(
     list(x_title, y_title, main_title, subtitle, legend_title),
     rlang:::check_character
@@ -33,7 +76,7 @@ council_layout <- function(a_plotly,
     pad = 0.5
   )
 
-  a_plotly %>%
+  p <- a_plotly %>%
     plotly::layout(
       margin = plotly_margin,
       barmode = "group",
@@ -78,7 +121,8 @@ council_layout <- function(a_plotly,
         font = list(
           family = "Arial Narrow",
           size = 14
-        )
+        ),
+        orientation = "v"
       ),
       # yaxis -----
       yaxis = list(
@@ -212,15 +256,20 @@ council_layout <- function(a_plotly,
         padding = list(l = 5, r = 5, b = 5, t = 5)
       )
     ) %>%
-    plotly::layout(...) %>%
-    plotly::config(
-      displaylogo = FALSE,
-      modeBarButtonsToRemove = c(
-        "drawopenpath", "lasso",
-        "editInChartStudio", "sendDataToCloud",
-        "zoom2d", "pan2d"
-      )
+    # configuration -----
+  plotly::config(
+    displaylogo = FALSE,
+    modeBarButtonsToRemove = c(
+      "drawopenpath",
+      "lasso",
+      "editInChartStudio",
+      "sendDataToCloud",
+      "zoom2d",
+      "pan2d"
     )
+  )
+
+  return(do.call(plotly::layout, list(p, ...)))
 }
 
 
@@ -230,39 +279,3 @@ council_layout <- function(a_plotly,
 plotly_layout <- council_layout
 
 
-
-pkgload::load_all()
-library(plotly)
-library(dplyr)
-library(palmerpenguins)
-
-penguins <- palmerpenguins::penguins
-
-plot_ly(
-  type = "scatter",
-  mode = "markers",
-  data = penguins,
-  x  = ~flipper_length_mm,
-  y = ~body_mass_g/100,
-  color = ~species,
-  hoverinfo = "text",
-  hovertext = ~paste0(
-    species, " observed on ", island,  "<br>",
-    "Flipper length: ", flipper_length_mm, " mm<br>",
-    "Body mass: ", scales::comma(body_mass_g/100), " kg"
-  ),
-  marker = list(
-    size = 10,
-    opacity = 0.8
-  )) %>%
-  plotly_layout(
-    main_title = "Palmer penguins",
-    subtitle = "",
-    x_title = "Flipper Length (mm)",
-    y_title = "Body Mass (kg)",
-    legend_title = "Species",
-    layout_args = list(
-      legend = list(
-        orientation = "h"
-      ))
-  )
