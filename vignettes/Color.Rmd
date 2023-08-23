@@ -148,3 +148,65 @@ fetch_county_geo(progress_bar = FALSE) %>%
   theme_council_geo() +
   labs(title = "Counties")
 ```
+
+## Council plotly theme
+
+Increasingly, Council folks are using Plotly for interactive visualizations. You can apply appropriate font families and sizes using `council_layout()`.
+
+```{r plotly-iris}
+library(plotly)
+plotly::plot_ly(
+  type = "scatter",
+  mode = "markers",
+  data = iris,
+  x = ~Sepal.Length,
+  y = ~Sepal.Width,
+  color = ~Species,
+  hoverinfo = "text",
+  colors = c(colors$councilBlue,
+             colors$metrostatsDaPurp,
+             colors$metroOrange),
+  hovertext = ~paste0(
+    Species, "<br>",
+    "Sepal Length: ", Sepal.Length, "<br>",
+    "Sepal Width: ", Sepal.Width
+  ),
+  marker = list(
+    size = 10,
+    opacity = 0.8
+  )) %>%
+  council_layout(
+    main_title = "Iris",
+    subtitle = "Sepal characteristics",
+    x_title = "Sepal Length",
+    y_title = "Sepal Width",
+    legend_title = "Species",
+    legend = list(orientation  = "h")
+  )
+
+```
+
+Here is the same plot, but created using ggplot2. 
+
+```{r ggplot-iris}
+ggplot(data = iris) +
+  aes(x = Sepal.Length,
+      y = Sepal.Width,
+      color = Species) +
+  geom_point(size = 5,
+             alpha = 0.8) +
+  scale_color_manual(values = c(colors$councilBlue,
+                                colors$metrostatsDaPurp,
+                                colors$metroOrange)) +
+  labs(
+    title = "Iris",
+    subtitle = "Sepal characteristics",
+    x = "Sepal Length",
+    y = "Sepal Width",
+    legend = "Species"
+  ) +
+  theme_council() +
+  theme(legend.position = "bottom",
+        legend.justification = c(0,1))
+```
+
