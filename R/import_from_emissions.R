@@ -52,6 +52,7 @@ import_from_emissions <- function(table_name,
                                   pwd = getOption("councilR.pwd"),
                                   local = TRUE,
                                   db = "CD_Emissions") {
+  requireNamespace("rlang", quietly = TRUE)
   # check input types
   purrr::map(
     c(table_name, uid, pwd, db),

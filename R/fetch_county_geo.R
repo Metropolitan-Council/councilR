@@ -39,6 +39,7 @@
 #' @importFrom dplyr case_when mutate transmute
 #'
 fetch_county_geo <- function(core = TRUE, ...) {
+  requireNamespace("rlang", quietly = TRUE)
   rlang:::check_bool(core)
 
   county_list <- if (core == TRUE) {

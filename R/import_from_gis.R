@@ -38,6 +38,9 @@ import_from_gis <- function(query,
                             uid = getOption("councilR.uid"),
                             pwd = getOption("councilR.pwd"),
                             .quiet = FALSE) {
+
+  requireNamespace("rlang", quietly = TRUE)
+
   purrr::map(
     c(query, dbname, uid, pwd),
     rlang:::check_string

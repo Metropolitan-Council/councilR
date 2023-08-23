@@ -93,6 +93,8 @@ theme_council <- function(base_size = 11,
                             "caption" = 8,
                             "strip" = 14
                           )) {
+
+  requireNamespace("rlang", quietly = TRUE)
   purrr::map(
     c(use_showtext, use_manual_font_sizes),
     rlang:::check_bool
