@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r chunk-opts, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r, setup}
+```{r setup}
 library(councilR)
 library(ggplot2)
 library(purrr)
@@ -31,7 +31,7 @@ requireNamespace("showtext", quietly = TRUE)
 
 This package contains a set of Council brand colors. These are values pulled directly from the Council Brand Standards [document](https://www.metrotransit.org/Data/Sites/1/media/logos/brand_standards.pdf)
 
-```{r, plot-color-preview}
+```{r plot-color-preview}
 color_table <- tibble::tibble(
   name = names(colors),
   value = colors
@@ -61,21 +61,21 @@ cowplot::plot_grid(plotlist = plots)
 
 First, lets create an example plot.
 
-```{r, plot-example}
+```{r plot-example}
 plot_example <- ggplot(datasets::airquality) +
   aes(Solar.R, Wind, color = as.factor(Month)) +
   geom_point()
 ```
 
 
-```{r, color-range-blue}
+```{r color-range-blue}
 color_range_blue <- colorRampPalette(c("#e0e3e8", colors$playDaBlue))
 
 plot_example +
   scale_color_manual(values = color_range_blue(5)) +
   theme_council(use_showtext = F)
 ```
-```{r, color-range-green}
+```{r color-range-green}
 color_range_green <- colorRampPalette(c("#EEF3E5", colors$cdGreen))
 
 plot_example +
@@ -93,7 +93,7 @@ plot_example +
 
 ![Cascading menu on metrocouncil.org](blue_cascade_menu.png)
 
-```{r, blue-plots}
+```{r blue-plots}
 blue_plots <- map(seq(1:length(blue_cascade)), function(x) {
   ggplot(mapping = aes(
     xmin = 0, xmax = 1,
@@ -120,7 +120,7 @@ cowplot::plot_grid(plotlist = blue_plots)
 
 `scale_color_council()` and `scale_fill_council` will give a color palette starting with `councilBlue`, followed by `cdGreen` and and `mtsRed` and then a couple other council colors which will look decent afterwards (up to 8 levels).
 
-```{r, color-councilpalette}
+```{r color-councilpalette}
 plot_example +
   councilR:::scale_color_council() +
   theme_council(use_showtext = F) +

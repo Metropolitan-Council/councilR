@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r chunk-opts, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -30,7 +30,7 @@ Once you have installed snippets using `councilR::snippets_install()`, you will 
   - `counties`, vector of county  names for the seven core counties serviced by the Metropolitan Council 
   - `counties_mpo`, county names for all counties included in the Metropolitan Planning Organization (MPO) area. 
 
-```{r, eval=FALSE}
+```{r snippets, eval=FALSE}
 metro_crs
 #> 26915
 
