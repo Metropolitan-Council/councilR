@@ -52,6 +52,7 @@
 #'
 #'
 #' @note This function relies on `[{rlang}]` internal functions.
+#'   Further examples in `vignette("Color")`.
 #'
 #' @examples
 #' \dontrun{
