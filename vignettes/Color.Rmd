@@ -22,11 +22,9 @@ library(councilR)
 library(ggplot2)
 library(purrr)
 library(grDevices)
-
-requireNamespace("stringr", quietly = TRUE)
-requireNamespace("cowplot", quietly = TRUE)
-requireNamespace("tibble", quietly = TRUE)
-requireNamespace("showtext", quietly = TRUE)
+library(stringr)
+library(cowplot)
+library(tibble)
 ```
 
 This package contains a set of Council brand colors. These are values pulled directly from the Council Brand Standards [document](https://www.metrotransit.org/Data/Sites/1/media/logos/brand_standards.pdf)
@@ -63,7 +61,9 @@ First, lets create an example plot.
 
 ```{r plot-example}
 plot_example <- ggplot(datasets::airquality) +
-  aes(Solar.R, Wind, color = as.factor(Month)) +
+  aes(x = Solar.R,
+      y = Wind,
+      color = as.factor(Month)) +
   geom_point()
 ```
 
@@ -158,20 +158,16 @@ library(plotly)
 plotly::plot_ly(
   type = "scatter",
   mode = "markers",
-  data = iris,
-  x = ~Sepal.Length,
-  y = ~Sepal.Width,
-  color = ~Species,
+  data = datasets::airquality,
+  x = ~Solar.R,
+  y = ~Wind,
+  color = ~month.name[Month],
   hoverinfo = "text",
-  colors = c(
-    colors$councilBlue,
-    colors$metrostatsDaPurp,
-    colors$metroOrange
-  ),
+  colors = unlist(unname(colors)),
   hovertext = ~ paste0(
-    Species, "<br>",
-    "Sepal Length: ", Sepal.Length, "<br>",
-    "Sepal Width: ", Sepal.Width
+    month.name[Month], "<br>",
+    "Solar R: ", Solar.R, "<br>",
+    "Wind: ", Wind, " mph"
   ),
   marker = list(
     size = 10,
@@ -179,44 +175,17 @@ plotly::plot_ly(
   )
 ) %>%
   council_layout(
-    main_title = "Iris",
-    subtitle = "Sepal characteristics",
-    x_title = "Sepal Length",
-    y_title = "Sepal Width",
-    legend_title = "Species",
-    legend = list(orientation = "h")
-  )
-```
-
-Here is the same plot, but created using ggplot2. 
-
-```{r ggplot-iris}
-ggplot(data = iris) +
-  aes(
-    x = Sepal.Length,
-    y = Sepal.Width,
-    color = Species
-  ) +
-  geom_point(
-    size = 5,
-    alpha = 0.8
-  ) +
-  scale_color_manual(values = c(
-    colors$councilBlue,
-    colors$metrostatsDaPurp,
-    colors$metroOrange
-  )) +
-  labs(
-    title = "Iris",
-    subtitle = "Sepal characteristics",
-    x = "Sepal Length",
-    y = "Sepal Width",
-    legend = "Species"
-  ) +
-  theme_council() +
-  theme(
-    legend.position = "bottom",
-    legend.justification = c(0, 1)
+    main_title = "Air Quality",
+    subtitle = "Wind and solar",
+    x_title = "Solar R",
+    y_title = "Wind (mph)",
+    legend_title = "Month",
+    # additional arguments passed directly to plotly::layout()
+    legend = list(orientation = "h",
+                  x = 0,
+                  y = -0.3,
+                  xref = "paper",
+                  yref = "paper")
   )
 ```
 
