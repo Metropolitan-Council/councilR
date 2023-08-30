@@ -153,7 +153,7 @@ fetch_county_geo(progress_bar = FALSE) %>%
 
 Increasingly, Council folks are using Plotly for interactive visualizations. You can apply appropriate font families and sizes using `council_layout()`.
 
-```{r plotly-iris}
+```{r plotly-aq}
 library(plotly)
 plotly::plot_ly(
   type = "scatter",
