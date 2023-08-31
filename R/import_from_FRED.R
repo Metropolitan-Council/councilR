@@ -1,10 +1,11 @@
-#' @title Import data table from FRED (main CD Research database) data stored on SQL Server
+#' @title Import data table from FRED (main CD Research database) data stored
+#'  Azure SQL Server
 #'
 #' @param table_name character, which table to pull.
 #' @param uid character, your network ID.
 #'     Default is `getOption("councilR.uid")`.
 #' @param pwd character, your network password.
-#'     Default is `getOption("councilR.pwd")`. For example, `"my_password"`
+#'     Default is `getOption("councilR.pwd")`. For example, `"mypwd"`
 #' @param db character, database name. Default is `"CD_RESEARCH_WEB"`.
 #' @param prod logical, whether to pull from the test or production db.
 #'     Default is `TRUE`.
@@ -13,8 +14,10 @@
 #' @note See `vignette("Options")` to review package options.
 #'     You must be set up with the appropriate database drivers to use this function.
 #'     **Windows** users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
-#'     **Mac** users need `unixodbc` and `freetds`. See instructions in the
+#'     **Mac** users need `unixodbc`, `freetds`, and properly configured `odbc.ini`.
+#'     See instructions in the
 #'     [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
+#'     and contact package maintainer for assistance.
 #'
 #'     This function relies on `[{rlang}]` internal functions.
 #'
@@ -41,7 +44,6 @@
 import_from_FRED <- function(table_name,
                              uid = getOption("councilR.uid"),
                              pwd = getOption("councilR.pwd"),
-                             local = TRUE,
                              db = "CD_RESEARCH_WEB",
                              prod = TRUE) {
   # check input types
@@ -50,16 +52,15 @@ import_from_FRED <- function(table_name,
     rlang:::check_string
   )
   purrr::map(
-    c(local),
+    c(prod),
     rlang:::check_bool
   )
 
-
   # decide which server to use based on local
-  if (prod == FALSE) {
-    serv <- "azdbsqlcl11t.test.local"
+  serv <- if (prod == FALSE) {
+    "azdbsqlcl11t.test.local"
   } else if (prod == TRUE) {
-    serv <- "azdbsqlcl11.mc.local"
+    "azdbsqlcl11.mc.local"
   }
 
   # decide which driver to use based on OS
@@ -69,17 +70,24 @@ import_from_FRED <- function(table_name,
     "SQL Server"
   }
 
+  # if on Mac, you need  to specify which database name
+  # based on prod
+  db_name <- if(prod){
+    "CD_RESEARCH_WEB_PROD"
+  } else{
+    "CD_RESEARCH_WEB_TEST"
+  }
+
   # check that DB connection works
   if (drv == "FreeTDS") {
     if (
       DBI::dbCanConnect(
         odbc::odbc(),
-        Driver = drv,
-        Database = db,
+        DSN = db_name,
         Uid = uid,
-        Pwd = pwd,
-        Server = serv
-      ) == FALSE) {
+        Pwd = pwd
+      )
+      == FALSE) {
       stop("Database failed to connect")
     }
   } else if (drv == "SQL Server") {
@@ -103,11 +111,9 @@ import_from_FRED <- function(table_name,
     if (drv == "FreeTDS") {
       DBI::dbConnect(
         odbc::odbc(),
-        Driver = drv,
-        Database = db,
+        DSN = db_name,
         Uid = uid,
-        Pwd = pwd,
-        Server = serv
+        Pwd = pwd
       )
     } else if (drv == "SQL Server") {
       DBI::dbConnect(

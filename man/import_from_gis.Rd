@@ -25,28 +25,28 @@ Must match the database name in \code{query}.}
 \item{.quiet}{logical, whether to print time elapsed message.}
 }
 \value{
-an \code{\link{sf}} object
+An \code{\link{sf}} object
 }
 \description{
 Import a dataset from ArcCatalog
 }
 \note{
 See \code{vignette("Options")} to review package options.
-You must be set up with the appropriate database drivers
-to use this function.
-\strong{Windows} users need ODBC with Microsoft SQL.
-Contact IS support for ODBC installation.
-\strong{Mac} users need \code{unixodbc} and \code{freetds}.
-See instructions in the \href{https://furry-adventure-596f3adb.pages.github.io/database-connections.html}{onboarding guide}
+You must be set up with the appropriate database drivers to use this function.
+\strong{Windows} users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
+\strong{Mac} users need \code{unixodbc}, \code{freetds}, and properly configured \code{odbc.ini}.
+See instructions in the
+\href{https://furry-adventure-596f3adb.pages.github.io/database-connections.html}{onboarding guide}
+and contact package maintainer for assistance.
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ This function relies on `[\{rlang\}]` internal functions.
-}\if{html}{\out{</div>}}
+This function relies on \verb{[\{rlang\}]} internal functions.
 }
 \examples{
 \dontrun{
 library(councilR)
 
-options(councilR.uid = "mc\\\\uid", councilR.pwd = "pwd")
+options(councilR.uid = "mc\\\\uid",
+        councilR.pwd = "mypwd")
 
 # query db name matches
 import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")

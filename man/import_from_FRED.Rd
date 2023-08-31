@@ -2,13 +2,13 @@
 % Please edit documentation in R/import_from_FRED.R
 \name{import_from_FRED}
 \alias{import_from_FRED}
-\title{Import data table from FRED (main CD Research database) data stored on SQL Server}
+\title{Import data table from FRED (main CD Research database) data stored
+Azure SQL Server}
 \usage{
 import_from_FRED(
   table_name,
   uid = getOption("councilR.uid"),
   pwd = getOption("councilR.pwd"),
-  local = TRUE,
   db = "CD_RESEARCH_WEB",
   prod = TRUE
 )
@@ -20,7 +20,7 @@ import_from_FRED(
 Default is \code{getOption("councilR.uid")}.}
 
 \item{pwd}{character, your network password.
-Default is \code{getOption("councilR.pwd")}. For example, \code{"my_password"}}
+Default is \code{getOption("councilR.pwd")}. For example, \code{"mypwd"}}
 
 \item{db}{character, database name. Default is \code{"CD_RESEARCH_WEB"}.}
 
@@ -31,14 +31,17 @@ Default is \code{TRUE}.}
 Requested table
 }
 \description{
-Import data table from FRED (main CD Research database) data stored on SQL Server
+Import data table from FRED (main CD Research database) data stored
+Azure SQL Server
 }
 \note{
 See \code{vignette("Options")} to review package options.
 You must be set up with the appropriate database drivers to use this function.
 \strong{Windows} users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
-\strong{Mac} users need \code{unixodbc} and \code{freetds}. See instructions in the
+\strong{Mac} users need \code{unixodbc}, \code{freetds}, and properly configured \code{odbc.ini}.
+See instructions in the
 \href{https://furry-adventure-596f3adb.pages.github.io/database-connections.html}{onboarding guide}
+and contact package maintainer for assistance.
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{This function relies on `[\{rlang\}]` internal functions.
 }\if{html}{\out{</div>}}
