@@ -8,22 +8,22 @@
 #' @param .quiet logical, whether to print time elapsed message.
 #'
 #' @note See `vignette("Options")` to review package options.
-#'     You must be set up with the appropriate database drivers
-#'     to use this function.
-#'     **Windows** users need ODBC with Microsoft SQL.
-#'       Contact IS support for ODBC installation.
-#'     **Mac** users need `unixodbc` and `freetds`.
-#'       See instructions in the [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
-
+#'     You must be set up with the appropriate database drivers to use this function.
+#'     **Windows** users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
+#'     **Mac** users need `unixodbc`, `freetds`, and properly configured `odbc.ini`.
+#'     See instructions in the
+#'     [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
+#'     and contact package maintainer for assistance.
 #'
-#'      This function relies on `[{rlang}]` internal functions.
+#'    This function relies on `[{rlang}]` internal functions.
 #'
-#' @return an [`sf`] object
+#' @return An [`sf`] object
 #' @export
 #' @examples \dontrun{
 #' library(councilR)
 #'
-#' options(councilR.uid = "mc\\uid", councilR.pwd = "pwd")
+#' options(councilR.uid = "mc\\uid",
+#'         councilR.pwd = "mypwd")
 #'
 #' # query db name matches
 #' import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
@@ -48,8 +48,9 @@ import_from_gis <- function(query,
   if (.quiet == FALSE) {
     tictoc::tic()
   }
-  if (DBI::dbCanConnect(odbc::odbc(),
-    # driver = "FreeTDS",
+
+  if (DBI::dbCanConnect(
+    odbc::odbc(),
     dbname,
     timeout = 10,
     Uid = uid,
@@ -58,8 +59,8 @@ import_from_gis <- function(query,
     stop("Database could not connect.")
   }
 
-  conn <- DBI::dbConnect(odbc::odbc(),
-    # driver = "FreeTDS",
+  conn <- DBI::dbConnect(
+    odbc::odbc(),
     dbname,
     timeout = 10,
     Uid = uid,
