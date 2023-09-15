@@ -135,3 +135,10 @@ import_from_FRED <- function(table_name,
 
   return(db_sp_table)
 }
+
+
+
+#' @rdname import_from_FRED
+#' @export
+import_from_fred <- import_from_FRED
+
