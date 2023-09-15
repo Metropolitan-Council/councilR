@@ -61,9 +61,11 @@ First, lets create an example plot.
 
 ```{r plot-example}
 plot_example <- ggplot(datasets::airquality) +
-  aes(x = Solar.R,
-      y = Wind,
-      color = as.factor(Month)) +
+  aes(
+    x = Solar.R,
+    y = Wind,
+    color = as.factor(Month)
+  ) +
   geom_point()
 ```
 
@@ -161,7 +163,7 @@ plotly::plot_ly(
   data = datasets::airquality,
   x = ~Solar.R,
   y = ~Wind,
-  color = ~month.name[Month],
+  color = ~ month.name[Month],
   hoverinfo = "text",
   colors = unlist(unname(colors)),
   hovertext = ~ paste0(
@@ -181,11 +183,13 @@ plotly::plot_ly(
     y_title = "Wind (mph)",
     legend_title = "Month",
     # additional arguments passed directly to plotly::layout()
-    legend = list(orientation = "h",
-                  x = 0,
-                  y = -0.3,
-                  xref = "paper",
-                  yref = "paper")
+    legend = list(
+      orientation = "h",
+      x = 0,
+      y = -0.3,
+      xref = "paper",
+      yref = "paper"
+    )
   )
 ```
 

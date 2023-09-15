@@ -22,8 +22,10 @@
 #' @examples \dontrun{
 #' library(councilR)
 #'
-#' options(councilR.uid = "mc\\uid",
-#'         councilR.pwd = "mypwd")
+#' options(
+#'   councilR.uid = "mc\\uid",
+#'   councilR.pwd = "mypwd"
+#' )
 #'
 #' # query db name matches
 #' import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
