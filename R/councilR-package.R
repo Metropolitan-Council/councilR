@@ -11,5 +11,6 @@ globalVariables(c("colors"))
 #' @importFrom data.table .NGRP
 #' @importFrom data.table .SD
 #' @importFrom data.table data.table
+#' @importFrom stats family
 ## usethis namespace: end
 NULL

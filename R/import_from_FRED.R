@@ -35,7 +35,6 @@
 #' )
 #'
 #' import_from_FRED(table_name = "GQ_UNIT", prod = FALSE)
-#'
 #' }
 #' @importFrom DBI dbCanConnect dbGetQuery dbConnect dbDisconnect
 #' @importFrom odbc odbc
@@ -72,9 +71,9 @@ import_from_FRED <- function(table_name,
 
   # if on Mac, you need  to specify which database name
   # based on prod
-  db_name <- if(prod){
+  db_name <- if (prod) {
     "CD_RESEARCH_WEB_PROD"
-  } else{
+  } else {
     "CD_RESEARCH_WEB_TEST"
   }
 
@@ -136,3 +135,10 @@ import_from_FRED <- function(table_name,
 
   return(db_sp_table)
 }
+
+
+
+#' @rdname import_from_FRED
+#' @export
+import_from_fred <- import_from_FRED
+

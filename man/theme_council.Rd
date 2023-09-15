@@ -44,11 +44,12 @@ a \code{\link[ggplot2:theme]{ggplot2::theme()}} object
 \description{
 The default \code{theme_council()} plus a more simple \code{theme_council_open()} for making MetCouncil figures. \code{theme_council()} will be appropriate in most cases while \code{theme_council_open()} is appropriate for single scatter plots or line graphs. For geospatial plots, \code{theme_council_geo()} may be useful to set some initial parameters.
 
-Please note that the y-axis text is horizontal, and long axis names will need to be wrapped;  \url{stringr::str_wrap()} is useful for managing length.
+Please note that the y-axis text is horizontal, and long axis names will need to be wrapped;  \code{\link[stringr:str_wrap]{stringr::str_wrap()}} is useful for managing length.
 For example, consider using this piece of code: \code{labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))}
 }
 \note{
 This function relies on \verb{[\{rlang\}]} internal functions.
+Further examples in \code{vignette("Color")}.
 }
 \section{Council fonts}{
 There are a few requirements needed if you want to use Council font families.
@@ -112,6 +113,7 @@ Other aesthetics:
 \code{\link{blue_cascade}},
 \code{\link{colors}},
 \code{\link{council.pal}()},
+\code{\link{council_layout}()},
 \code{\link{council_pal2}()},
 \code{\link{map_council_continuous}()},
 \code{\link{scale_color_council}()},

@@ -21,7 +21,7 @@ library(councilR)
 
 `{councilR}` has a few `options()` that can help the package run more smoothly. 
 
-```{r}
+```{r set-opts}
 options(
   councilR.uid = "mc\\myuuid", # your user id
   councilR.pwd = keyring::key_get("MetC") # your password
@@ -30,14 +30,14 @@ options(
 
 If you'd like to have these options loaded when you start up RStudio, edit your `.Rprofile`. An easy way to accomplish this is with `usethis::edit_r_profile()`.
 
-```{r}
+```{r edit-rprof}
 usethis::edit_r_profile()
 ```
 
 This will open your `.Rprofile`.
 
 Then, add `councilR.uid` and `councilR.pwd` to the list of options. 
-```{r, eval=FALSE}
+```{r add-to-rprof, eval=FALSE}
 options(
   ...,
   counciR.uid = "mc\\myuuid",

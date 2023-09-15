@@ -22,8 +22,10 @@
 #' @examples \dontrun{
 #' library(councilR)
 #'
-#' options(councilR.uid = "mc\\uid",
-#'         councilR.pwd = "mypwd")
+#' options(
+#'   councilR.uid = "mc\\uid",
+#'   councilR.pwd = "mypwd"
+#' )
 #'
 #' # query db name matches
 #' import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
@@ -38,6 +40,8 @@ import_from_gis <- function(query,
                             uid = getOption("councilR.uid"),
                             pwd = getOption("councilR.pwd"),
                             .quiet = FALSE) {
+  requireNamespace("rlang", quietly = TRUE)
+
   purrr::map(
     c(query, dbname, uid, pwd),
     rlang:::check_string

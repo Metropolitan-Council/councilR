@@ -15,26 +15,27 @@ sysfonts::font_add("Palatino Linotype", "pala.ttf")
 
 print(
   sticker(
-  subplot = "data-raw/Metropolitan Council Mark White.png",
-  package = "councilR",
-  p_size = 27,
-  p_color = "white",
-  h_fill = councilR::colors$councilBlue,
-  s_x = 1,
-  s_y = 0.85,
-  s_height = 0.45,
-  s_width = 0.45 * 1.1,
-  white_around_sticker = FALSE,
-  h_size = 3,
-  h_color = councilR::blue_cascade$level1$background,
-  p_x = 1,
-  p_y = 1.45,
-  p_family = "HelveticaNeueLT Std Thin",
-  url = "github.com/Metropolitan-Council/councilR",
-  u_color = "gray85",
-  u_family = "Palatino Linotype",
-  u_size = 3.5,
-  dpi = 300
-))
+    subplot = "data-raw/Metropolitan Council Mark White.png",
+    package = "councilR",
+    p_size = 27,
+    p_color = "white",
+    h_fill = councilR::colors$councilBlue,
+    s_x = 1,
+    s_y = 0.85,
+    s_height = 0.45,
+    s_width = 0.45 * 1.1,
+    white_around_sticker = FALSE,
+    h_size = 3,
+    h_color = councilR::blue_cascade$level1$background,
+    p_x = 1,
+    p_y = 1.45,
+    p_family = "HelveticaNeueLT Std Thin",
+    url = "github.com/Metropolitan-Council/councilR",
+    u_color = "gray85",
+    u_family = "Palatino Linotype",
+    u_size = 3.5,
+    dpi = 300
+  )
+)
 
 # saved manually at 518 x 600

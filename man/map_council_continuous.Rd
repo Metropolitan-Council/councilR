@@ -55,6 +55,7 @@ Other aesthetics:
 \code{\link{blue_cascade}},
 \code{\link{colors}},
 \code{\link{council.pal}()},
+\code{\link{council_layout}()},
 \code{\link{council_pal2}()},
 \code{\link{scale_color_council}()},
 \code{\link{scale_fill_council}()},

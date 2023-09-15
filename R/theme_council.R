@@ -2,7 +2,7 @@
 #'
 #' @description The default `theme_council()` plus a more simple `theme_council_open()` for making MetCouncil figures. `theme_council()` will be appropriate in most cases while `theme_council_open()` is appropriate for single scatter plots or line graphs. For geospatial plots, `theme_council_geo()` may be useful to set some initial parameters.
 #'
-#' Please note that the y-axis text is horizontal, and long axis names will need to be wrapped;  [`stringr::str_wrap()`]() is useful for managing length.
+#' Please note that the y-axis text is horizontal, and long axis names will need to be wrapped;  [stringr::str_wrap()] is useful for managing length.
 #'  For example, consider using this piece of code: `labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))`
 #'
 #' @param base_size numeric, base font size, given in pts. Default is `11`
@@ -52,6 +52,7 @@
 #'
 #'
 #' @note This function relies on `[{rlang}]` internal functions.
+#'   Further examples in `vignette("Color")`.
 #'
 #' @examples
 #' \dontrun{
@@ -93,6 +94,7 @@ theme_council <- function(base_size = 11,
                             "caption" = 8,
                             "strip" = 14
                           )) {
+  requireNamespace("rlang", quietly = TRUE)
   purrr::map(
     c(use_showtext, use_manual_font_sizes),
     rlang:::check_bool

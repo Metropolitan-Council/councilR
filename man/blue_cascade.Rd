@@ -40,6 +40,7 @@ blue_cascade$level2$color
 Other aesthetics: 
 \code{\link{colors}},
 \code{\link{council.pal}()},
+\code{\link{council_layout}()},
 \code{\link{council_pal2}()},
 \code{\link{map_council_continuous}()},
 \code{\link{scale_color_council}()},

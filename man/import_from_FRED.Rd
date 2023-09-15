@@ -2,10 +2,19 @@
 % Please edit documentation in R/import_from_FRED.R
 \name{import_from_FRED}
 \alias{import_from_FRED}
+\alias{import_from_fred}
 \title{Import data table from FRED (main CD Research database) data stored
 Azure SQL Server}
 \usage{
 import_from_FRED(
+  table_name,
+  uid = getOption("councilR.uid"),
+  pwd = getOption("councilR.pwd"),
+  db = "CD_RESEARCH_WEB",
+  prod = TRUE
+)
+
+import_from_fred(
   table_name,
   uid = getOption("councilR.uid"),
   pwd = getOption("councilR.pwd"),
@@ -57,6 +66,5 @@ options(
 )
 
 import_from_FRED(table_name = "GQ_UNIT", prod = FALSE)
-
 }
 }

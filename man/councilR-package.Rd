@@ -6,6 +6,8 @@
 \alias{councilR-package}
 \title{councilR: Functions and Templates for the Metropolitan Council}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 A collection of commonly used templates, color palettes, and functions for R users at the Metropolitan Council.
 }
 \seealso{
@@ -24,6 +26,7 @@ Other contributors:
   \item Ellen Esch \email{ellen.esch@metc.state.mn.us} (\href{https://orcid.org/0000-0002-4253-0910}{ORCID}) [contributor]
   \item Mauricio León \email{mauricio.leon@metc.state.mn.us} [contributor]
   \item Brandon Whited \email{brandon.whited@metc.state.mn.us} [contributor]
+  \item Laine McNamara \email{laine.mcnamara@metc.state.mn.us} [reviewer]
   \item Garrick Aden-Buie \email{garrick@adenbuie.com} (\href{https://orcid.org/0000-0002-7111-0077}{ORCID}) [contributor]
 }
 

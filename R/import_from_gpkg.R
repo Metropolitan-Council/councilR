@@ -36,6 +36,7 @@ import_from_gpkg <- function(link,
                              .crs = 4326,
                              keep_temp = FALSE,
                              .quiet = TRUE) {
+  requireNamespace("rlang", quietly = TRUE)
   # check input types
   purrr::map(
     c(link),

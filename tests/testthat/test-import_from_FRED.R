@@ -12,7 +12,6 @@ testthat::skip_if(httr2::secret_has_key("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins"))
 
 
 testthat::test_that("group quarters dataset", {
-
   gq <- import_from_FRED(
     table_name = "GQ_UNIT",
     prod = FALSE,
