@@ -6,6 +6,8 @@
 \alias{councilR-package}
 \title{councilR: Functions and Templates for the Metropolitan Council}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 A collection of commonly used templates, color palettes, and functions for R users at the Metropolitan Council.
 }
 \seealso{
