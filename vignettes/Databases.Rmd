@@ -1,0 +1,74 @@
+---
+title: "Databases"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Databases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(councilR)
+library(DBI)
+```
+
+See `r vignette("Options", package = "councilR")` to review package options that make these functions run more smoothly.
+
+## FRED
+
+FRED contains most of CD Research's data tables, including tables for regional parks use estimates, population estimates, group quarters, and much more. Once you have the connection, you can use SQL queries to fetch only the data you need. 
+
+```{r}
+fred <- fred_connection()
+
+DBI::dbIsValid(fred)
+DBI::dbListTables(fred, )[1:20]
+
+head(DBI::dbGetQuery(fred, "SELECT * FROM GQ_UNIT WHERE UNIT_ZIP = 55104"))
+
+DBI::dbDisconnect(fred)
+```
+
+
+If you know the name of the table you need, you can pull it directly with `import_from_fred()`. This uses SQL `SELECT * FROM ___`. 
+
+
+```{r}
+head(import_from_FRED(table_name = "GQ_UNIT", prod = FALSE))
+```
+
+
+## GISLibrary
+
+```{r}
+gis <- gis_connection()
+DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.AIRPORTS where APNAME ='Flying Cloud'")
+DBI::dbDisconnect(gis)
+```
+
+```{r}
+airport <- import_from_gis(
+  query = "GISLibrary.dbo.AIRPORTS",
+  .quiet = TRUE
+) 
+```
+
+## Emissions
+
+```{r}
+emissions <- emissions_connection()
+DBI::dbGetQuery(emissions, "SELECT * FROM metro_energy.vw_electricity_residential_ctu")
+DBI::dbDisconnect(emissions)
+```
+
+```{r}
+import_from_emissions("metro_energy.vw_electricity_residential_ctu")
+```
+
