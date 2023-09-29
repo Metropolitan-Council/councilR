@@ -23,17 +23,17 @@ councilR_file <- function(...) {
 requires_pkg <- function(pkg) {
   calling_function <- deparse(sys.calls()[[sys.nframe() - 1]])
   if (!requireNamespace(pkg, quietly = TRUE)) {
-    stop(glue("{calling_function} requires the `{pkg}` package"), call. = FALSE)
+    cli::cli_abort(glue("{calling_function} requires the `{pkg}` package"), call. = FALSE)
   }
 }
 
 requires_pkg_version <- function(pkg, version) {
   calling_function <- deparse(sys.calls()[[sys.nframe() - 1]])
   tryCatch(requires_pkg(pkg), error = function(e) {
-    stop(glue("{calling_function} requires the `{pkg}` package"), call. = FALSE)
+    cli::cli_abort(glue("{calling_function} requires the `{pkg}` package"), call. = FALSE)
   })
   if (utils::packageVersion(pkg) < package_version(version)) {
-    stop(
+    cli::cli_abort(
       glue("{calling_function} requires `{pkg}` version {version} or later."),
       call. = FALSE
     )
@@ -58,11 +58,11 @@ with_rstudio <- function(fn, ..., stopifnot = FALSE) {
   if (rstudioapi::hasFun(fn)) {
     rstudio_fun <- get(fn, asNamespace("rstudioapi"))
     tryCatch(do.call(rstudio_fun, list(...)), error = function(e) {
-      stop(glue("Error in rstudioapi::{fn}(): {e$message}"), call. = FALSE)
+      cli::cli_abort(glue("Error in rstudioapi::{fn}(): {e$message}"), call. = FALSE)
     })
   } else {
-    if (stopifnot) {
-      stop(glue(
+    if (cli::cli_abortifnot) {
+      cli::cli_abort(glue(
         "Your version of RStudio does not support this function: {fn}"
       ), call. = FALSE)
     }
@@ -71,8 +71,8 @@ with_rstudio <- function(fn, ..., stopifnot = FALSE) {
 
 has_rstudio <- function(fn, stopifnot = FALSE) {
   has <- rstudioapi::hasFun(fn)
-  if (!has && stopifnot) {
-    stop(glue(
+  if (!has && cli::cli_abortifnot) {
+    cli::cli_abort(glue(
       "Your version of RStudio does not support this function: {fn}"
     ), call. = FALSE)
   }

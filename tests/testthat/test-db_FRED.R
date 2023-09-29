@@ -14,7 +14,7 @@ testthat::skip_if(httr2::secret_has_key("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins"))
 testthat::test_that("group quarters dataset", {
   gq <- import_from_FRED(
     table_name = "GQ_UNIT",
-    prod = FALSE,
+    prod = TRUE,
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
     pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY"),
     db = "CD_RESEARCH_WEB"
