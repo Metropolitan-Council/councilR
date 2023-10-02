@@ -78,3 +78,7 @@ import_from_gpkg <- function(link,
 
   return(out_sf)
 }
+
+#' @rdname import_from_gpkg
+#' @export
+import_gpkg <- import_from_gpkg

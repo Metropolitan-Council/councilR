@@ -2,9 +2,19 @@
 % Please edit documentation in R/import_from_gpkg.R
 \name{import_from_gpkg}
 \alias{import_from_gpkg}
+\alias{import_gpkg}
 \title{Import an \code{sf} object using a geopackage URL}
 \usage{
 import_from_gpkg(
+  link,
+  save_file = FALSE,
+  save_path = getwd(),
+  .crs = 4326,
+  keep_temp = FALSE,
+  .quiet = TRUE
+)
+
+import_gpkg(
   link,
   save_file = FALSE,
   save_path = getwd(),
