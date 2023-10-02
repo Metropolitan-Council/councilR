@@ -39,6 +39,34 @@ DBI::dbDisconnect(fred)
 ```
 
 
+The database connection is also useful if you want to pull multiple tables from a single connection with `{purrr}`. 
+
+```{r fred-purrr}
+library(purrr)
+library(dplyr)
+
+fred <- fred_connection()
+
+park_tables <- purrr::map(
+  # park table names
+  list(
+    "PARK_UNIT",
+    "PARK_TYPE",
+    "PARK_IMPL_AGENCY"
+  ),
+  function(x) {
+    # for each table name, locate and collect data
+    dplyr::tbl(fred, x) %>%
+      dplyr::collect()
+  }
+)
+
+park_tables
+
+DBI::dbDisconnect(fred)
+```
+
+
 If you know the name of the table you need, you can pull it directly with `import_from_fred()`. This uses SQL `SELECT * FROM ___`. 
 
 
@@ -57,7 +85,7 @@ Generally, if the Council has published a dataset on [Minnesota Geospatial Commo
 # create connection
 gis <- gis_connection()
 
-# fetch with SQL 
+# fetch with SQL
 DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.AIRPORTS where APNAME ='Flying Cloud'")
 
 # remember to disconnect!
@@ -69,7 +97,7 @@ DBI::dbDisconnect(gis)
 airport <- import_from_gis(
   query = "GISLibrary.dbo.AIRPORTS",
   .quiet = TRUE
-) 
+)
 ```
 
 ## Emissions
