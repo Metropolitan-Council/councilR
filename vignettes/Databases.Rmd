@@ -17,7 +17,6 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(councilR)
-library(DBI)
 ```
 
 Database connections are a critical part of the work we do at the Metropolitan Council. 
@@ -28,7 +27,8 @@ See `vignette("Options", package = "councilR")` to review package options that m
 
 FRED contains most of CD Research's data tables, including tables for regional parks use estimates, population estimates, group quarters, and much more. Once you have the connection, you can use SQL queries to fetch only the data you need. 
 
-```{r fred-sql}
+```{r fred-sql, eval=FALSE}
+library(DBI)
 fred <- fred_connection()
 
 DBI::dbListTables(fred, )[1:20]
@@ -41,7 +41,7 @@ DBI::dbDisconnect(fred)
 
 The database connection is also useful if you want to pull multiple tables from a single connection with `{purrr}`. 
 
-```{r fred-purrr}
+```{r fred-purrr, eval=FALSE}
 library(purrr)
 library(dplyr)
 
@@ -70,7 +70,7 @@ DBI::dbDisconnect(fred)
 If you know the name of the table you need, you can pull it directly with `import_from_fred()`. This uses SQL `SELECT * FROM ___`. 
 
 
-```{r fred-table}
+```{r fred-table, eval=FALSE}
 head(import_from_FRED(table_name = "GQ_UNIT", prod = FALSE))
 ```
 
@@ -81,7 +81,7 @@ GISLibrary is an ESRI SQL database that contains essential geospatial datasets.
 
 Generally, if the Council has published a dataset on [Minnesota Geospatial Commons](https://gisdata.mn.gov/), it is available in GISLibrary. 
 
-```{r gis-sql}
+```{r gis-sql, eval=FALSE}
 # create connection
 gis <- gis_connection()
 
@@ -92,7 +92,7 @@ DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.AIRP
 DBI::dbDisconnect(gis)
 ```
 
-```{r gis-table}
+```{r gis-table, eval=FALSE}
 # import a specific table as an sf object, with no additional SQL
 airport <- import_from_gis(
   query = "GISLibrary.dbo.AIRPORTS",
@@ -104,7 +104,7 @@ airport <- import_from_gis(
 
 The emissions database is used for GHG inventory and scenario planning projects. 
 
-```{r emissions-sql}
+```{r emissions-sql, eval=FALSE}
 # create connection
 emissions <- emissions_connection()
 
@@ -115,7 +115,7 @@ DBI::dbGetQuery(emissions, "SELECT * FROM metro_energy.vw_electricity_residentia
 DBI::dbDisconnect(emissions)
 ```
 
-```{r emissions-table}
+```{r emissions-table, eval=FALSE}
 # import a specific table with no additional SWL
 import_from_emissions("metro_energy.vw_electricity_residential_ctu")
 ```
