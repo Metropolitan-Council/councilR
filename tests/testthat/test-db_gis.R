@@ -11,7 +11,6 @@ testthat::skip_if(
 testthat::skip_if(httr2::secret_has_key("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins"))
 
 testthat::test_that("GIS connection returns connection object", {
-
   test_conn <- gis_connection(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
     pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY")
@@ -24,8 +23,6 @@ testthat::test_that("GIS connection returns connection object", {
   testthat::expect_equal(nrow(airp_test), 4)
 
   DBI::dbDisconnect(test_conn)
-
-
 })
 
 

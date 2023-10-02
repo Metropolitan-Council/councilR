@@ -12,7 +12,6 @@ test_that("When local == FALSE, return an error message", {
 
 # skip on GH Actions
 testthat::skip_on_ci()
-testthat::skip_on_cran()
 
 # skip if not connected to VPN
 testthat::skip_if(
@@ -24,7 +23,6 @@ testthat::skip_if(httr2::secret_has_key("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins"))
 
 
 testthat::test_that("emissions connection returns connection object", {
-
   test_conn <- emissions_connection(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
     pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY")
@@ -37,8 +35,6 @@ testthat::test_that("emissions connection returns connection object", {
   testthat::expect_equal(nrow(ctu_test), 186)
 
   DBI::dbDisconnect(test_conn)
-
-
 })
 
 
