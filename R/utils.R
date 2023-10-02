@@ -61,7 +61,7 @@ with_rstudio <- function(fn, ..., stopifnot = FALSE) {
       cli::cli_abort(glue("Error in rstudioapi::{fn}(): {e$message}"), call. = FALSE)
     })
   } else {
-    if (cli::cli_abortifnot) {
+    if (stopifnot) {
       cli::cli_abort(glue(
         "Your version of RStudio does not support this function: {fn}"
       ), call. = FALSE)
@@ -71,7 +71,7 @@ with_rstudio <- function(fn, ..., stopifnot = FALSE) {
 
 has_rstudio <- function(fn, stopifnot = FALSE) {
   has <- rstudioapi::hasFun(fn)
-  if (!has && cli::cli_abortifnot) {
+  if (!has && stopifnot) {
     cli::cli_abort(glue(
       "Your version of RStudio does not support this function: {fn}"
     ), call. = FALSE)
