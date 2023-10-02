@@ -31,14 +31,15 @@ Default is \code{FALSE}.}
 \item{.quiet}{logical, suppress messages. Default is \code{TRUE}.}
 }
 \value{
-an \code{\link{sf}} object
+\code{\link[sf:sf]{sf::sf()}} object
 }
 \description{
-Particularly useful for importing data from Minnesota Geospatial Commons
-when access to the internal GIS database is unavailable.
+This function is particularly useful for importing data from
+\href{https://gisdata.mn.gov/}{Minnesota Geospatial Commons}
+when access to GISLibrary is unavailable.
 }
 \note{
-This function relies on \verb{[\{rlang\}]} internal functions.
+This function relies on \code{{rlang}} internal functions.
 }
 \examples{
 

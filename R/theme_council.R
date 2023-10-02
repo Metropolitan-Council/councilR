@@ -51,7 +51,7 @@
 #'  a pull request.
 #'
 #'
-#' @note This function relies on `[{rlang}]` internal functions.
+#' @note This function relies on `{rlang}` internal functions.
 #'   Further examples in `vignette("Color")`.
 #'
 #' @examples

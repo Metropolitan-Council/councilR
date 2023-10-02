@@ -68,7 +68,7 @@ gis <- gis_connection()
 
 # pull table using SQL and convert to sf
 DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.AIRPORTS where APNAME ='Flying Cloud'") \%>\%
-st_as_sf(wkt = "wkt", crs = 26915)
+  st_as_sf(wkt = "wkt", crs = 26915)
 
 # disconnect
 DBI::dbDisconnect(gis)
@@ -76,7 +76,6 @@ DBI::dbDisconnect(gis)
 # import a specific table, with no additional SQL logic
 import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
 }
-
 
 }
 \seealso{

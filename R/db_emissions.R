@@ -19,15 +19,15 @@
 #'     **Mac** users need `unixodbc` and `freetds`. See instructions in the
 #'     [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
 #'
-#'     These functions rely on `[{rlang}]` internal functions.
+#'     These functions rely on `{rlang}` internal functions.
 #'
 #' @return Requested table
 #' @export
 #' @family database functions
 #' @rdname emissions
 #'
-#' @examples
-#' \dontrun{
+#' @examples \dontrun{
+#'
 #' library(councilR)
 #' library(DBI)
 #'
@@ -49,18 +49,22 @@
 #' # get specific tables
 #' t_electricity_residential_ctu <- import_from_emissions(
 #'   table_name = "metro_energy.vw_electricity_residential_ctu"
-#' )
+#'   )
+#'
 #' t_eia_energy_consumption_state <- import_from_emissions(
 #'   table_name = "state_energy.eia_energy_consumption_state"
-#' )
+#'   )
+#'
 # t_utility_natural_gas_by_ctu <- import_from_emissions(
 #'   table_name = "metro_energy.vw_utility_natural_gas_by_ctu"
 #'   )
 #' }
+#'
 #' @importFrom DBI dbCanConnect dbConnect
 #' @importFrom odbc odbc
 #' @importFrom utils osVersion
 #' @importFrom purrr map
+#' @importFrom cli cli_abort
 emissions_connection <- function(
     uid = getOption("councilR.uid"),
     pwd = getOption("councilR.pwd"),

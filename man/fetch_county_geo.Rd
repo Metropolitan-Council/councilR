@@ -24,7 +24,7 @@ The default \code{fetch_county_geo()} to return county outlines, plus a suite of
 To get city, township, and unorganized territory (CTU) boundaries, use \code{fetch_ctu_geo()}.
 }
 \note{
-This function relies on \verb{[\{rlang\}]} internal functions.
+This function relies on \code{{rlang}} internal functions.
 }
 \examples{
 \dontrun{

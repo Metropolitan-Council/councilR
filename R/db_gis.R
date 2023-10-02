@@ -39,7 +39,7 @@
 #'
 #' # pull table using SQL and convert to sf
 #' DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.AIRPORTS where APNAME ='Flying Cloud'") %>%
-#' st_as_sf(wkt = "wkt", crs = 26915)
+#'   st_as_sf(wkt = "wkt", crs = 26915)
 #'
 #' # disconnect
 #' DBI::dbDisconnect(gis)
@@ -48,7 +48,6 @@
 #' import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
 #' }
 #'
-#'
 #' @return `gis_connection()` - A S4 Microsoft SQL Server object
 #'
 #' @family database functions
@@ -56,9 +55,10 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_abort
 #' @importFrom odbc odbc
-gis_connection <- function(dbname = "GISLibrary",
-                           uid = getOption("councilR.uid"),
-                           pwd = getOption("councilR.pwd")){
+gis_connection <- function(
+    dbname = "GISLibrary",
+    uid = getOption("councilR.uid"),
+    pwd = getOption("councilR.pwd")) {
   purrr::map(
     c(dbname, uid, pwd),
     rlang:::check_string
@@ -81,8 +81,6 @@ gis_connection <- function(dbname = "GISLibrary",
     Uid = uid,
     Pwd = pwd
   )
-
-
 }
 
 #' @param query character, string with the database connection and feature class
@@ -100,14 +98,15 @@ import_from_gis <- function(query,
                             uid = getOption("councilR.uid"),
                             pwd = getOption("councilR.pwd"),
                             .quiet = FALSE) {
-
   if (.quiet == FALSE) {
     tictoc::tic()
   }
 
-  conn <- gis_connection(dbname = dbname,
-                         uid = uid,
-                         pwd = pwd)
+  conn <- gis_connection(
+    dbname = dbname,
+    uid = uid,
+    pwd = pwd
+  )
 
   que <- DBI::dbGetQuery(
     conn,

@@ -68,11 +68,12 @@
 #' @importFrom odbc odbc
 #' @importFrom utils osVersion
 #' @importFrom purrr map
+#' @importFrom cli cli_abort
 FRED_connection <- function(
-                            uid = getOption("councilR.uid"),
-                            pwd = getOption("councilR.pwd"),
-                            db = "CD_RESEARCH_WEB",
-                            prod = TRUE) {
+    uid = getOption("councilR.uid"),
+    pwd = getOption("councilR.pwd"),
+    db = "CD_RESEARCH_WEB",
+    prod = TRUE) {
   # check input types
   purrr::map(
     c(uid, pwd, db),
@@ -185,10 +186,12 @@ import_from_FRED <- function(table_name,
     rlang:::check_bool
   )
 
-  conn <- fred_connection(uid = uid,
-                  pwd = pwd,
-                  db = db,
-                  prod = prod)
+  conn <- fred_connection(
+    uid = uid,
+    pwd = pwd,
+    db = db,
+    prod = prod
+  )
 
   db_sp_table <- DBI::dbGetQuery(
     conn,
@@ -205,5 +208,3 @@ import_from_FRED <- function(table_name,
 #' @rdname fred
 #' @export
 import_from_fred <- import_from_FRED
-
-

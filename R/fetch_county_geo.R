@@ -31,7 +31,7 @@
 #'   )
 #' }
 #'
-#' @note This function relies on `[{rlang}]` internal functions.
+#' @note This function relies on `{rlang}` internal functions.
 #'
 #' @importFrom tigris counties
 #' @importFrom cli cli_abort
