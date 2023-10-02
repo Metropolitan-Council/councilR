@@ -54,7 +54,7 @@ testthat::test_that("lowercase park unit via SQL", {
 
   testthat::expect_s4_class(fred, "Microsoft SQL Server")
 
-  park_unit  <- DBI::dbGetQuery(fred, "SELECT * FROM PARK_UNIT WHERE PARK_UNIT_ID_CURRENT = '094'")
+  park_unit <- DBI::dbGetQuery(fred, "SELECT * FROM PARK_UNIT WHERE PARK_UNIT_ID_CURRENT = '094'")
 
   # test that data is returned from gq unit table, currently 11837 rows
   testthat::expect_gte(nrow(park_unit), 1)
@@ -75,7 +75,7 @@ testthat::test_that("uppercase park unit via SQL", {
 
   testthat::expect_s4_class(fred, "Microsoft SQL Server")
 
-  park_unit  <- DBI::dbGetQuery(fred, "SELECT * FROM PARK_UNIT WHERE PARK_UNIT_ID_CURRENT = '094'")
+  park_unit <- DBI::dbGetQuery(fred, "SELECT * FROM PARK_UNIT WHERE PARK_UNIT_ID_CURRENT = '094'")
 
   # test that data is returned from gq unit table, currently 11837 rows
   testthat::expect_gte(nrow(park_unit), 1)
@@ -83,5 +83,3 @@ testthat::test_that("uppercase park unit via SQL", {
   # test that object returned is a data.frame
   testthat::expect_equal(class(park_unit)[[1]], "data.frame")
 })
-
-
