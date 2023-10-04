@@ -1,6 +1,6 @@
 # basic testing
 
-test_that("When local == FALSE, return an error message", {
+testthat::test_that("When local == FALSE, return an error message", {
   testthat::expect_error(
     mod_2 <- import_from_emissions(
       local = FALSE,

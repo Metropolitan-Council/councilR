@@ -64,23 +64,62 @@ gis_connection <- function(
     rlang:::check_string
   )
 
-  if (DBI::dbCanConnect(
-    odbc::odbc(),
-    dbname,
-    timeout = 10,
-    Uid = uid,
-    Pwd = pwd
-  ) != TRUE) {
-    cli::cli_abort("Database could not connect.")
+  serv <- "azdbsqlcl10.mc.local"
+
+  # decide which driver to use based on OS
+  drv <- if (grepl("mac", osVersion)) {
+    "FreeTDS"
+  } else {
+    "SQL Server"
   }
 
-  conn <- DBI::dbConnect(
-    odbc::odbc(),
-    dbname,
-    timeout = 10,
-    Uid = uid,
-    Pwd = pwd
-  )
+  # check that DB connection works
+  if (drv == "FreeTDS") {
+    if (
+      DBI::dbCanConnect(
+        odbc::odbc(),
+        DSN = dbname,
+        Uid = uid,
+        Pwd = pwd
+      )
+      == FALSE) {
+      cli::cli_abort("Database failed to connect")
+    }
+  } else if (drv == "SQL Server") {
+    if (
+      DBI::dbCanConnect(
+        odbc::odbc(),
+        Driver = drv,
+        Database = dbname,
+        Uid = uid,
+        Pwd = pwd,
+        Server = serv,
+        Trusted_Connection = "yes"
+      ) == FALSE) {
+      cli::cli_abort("Database failed to connect")
+    }
+  }
+
+
+  conn <-
+    if (drv == "FreeTDS") {
+      DBI::dbConnect(
+        odbc::odbc(),
+        DSN = dbname,
+        Uid = uid,
+        Pwd = pwd
+      )
+    } else if (drv == "SQL Server") {
+      DBI::dbConnect(
+        odbc::odbc(),
+        Driver = drv,
+        Database = dbname,
+        Uid = uid,
+        Pwd = pwd,
+        Server = serv,
+        Trusted_Connection = "yes"
+      )
+    }
 }
 
 #' @param query character, string with the database connection and feature class
