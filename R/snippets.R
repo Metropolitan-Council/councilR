@@ -108,7 +108,7 @@ snippets_warn_mask <- function(new, old = NULL, warn = FALSE) {
   }
 
   if (!identical(file_new, file_old)) {
-    stop("Not a good idea to compare different snippets")
+    cli::cli_abort("Not a good idea to compare different snippets")
   }
 
   snp <-

@@ -1,0 +1,122 @@
+---
+title: "Databases"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Databases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+```{r setup}
+library(councilR)
+```
+
+Database connections are a critical part of the work we do at the Metropolitan Council. 
+
+See `vignette("Options", package = "councilR")` to review package options that make these functions run more smoothly. All `uid` and `pwd` parameters are `getOption("councilR.uid")` and `getOption("councilR.pwd")`. 
+
+## FRED
+
+FRED contains most of CD Research's data tables, including tables for regional parks use estimates, population estimates, group quarters, and much more. Once you have the connection, you can use SQL queries to fetch only the data you need. 
+
+```{r fred-sql, eval=FALSE}
+library(DBI)
+fred <- fred_connection()
+
+DBI::dbListTables(fred, )[1:20]
+
+head(DBI::dbGetQuery(fred, "SELECT * FROM GQ_UNIT WHERE UNIT_ZIP = 55104"))
+
+DBI::dbDisconnect(fred)
+```
+
+
+The database connection is also useful if you want to pull multiple tables from a single connection with `{purrr}`. 
+
+```{r fred-purrr, eval=FALSE}
+library(purrr)
+library(dplyr)
+
+fred <- fred_connection()
+
+park_tables <- purrr::map(
+  # park table names
+  list(
+    "PARK_UNIT",
+    "PARK_TYPE",
+    "PARK_IMPL_AGENCY"
+  ),
+  function(x) {
+    # for each table name, locate and collect data
+    dplyr::tbl(fred, x) %>%
+      dplyr::collect()
+  }
+)
+
+park_tables
+
+DBI::dbDisconnect(fred)
+```
+
+
+If you know the name of the table you need, you can pull it directly with `import_from_fred()`. This uses SQL `SELECT * FROM ___`. 
+
+
+```{r fred-table, eval=FALSE}
+head(import_from_FRED(table_name = "GQ_UNIT", prod = FALSE))
+```
+
+
+## GISLibrary
+
+GISLibrary is an ESRI SQL database that contains essential geospatial datasets. 
+
+Generally, if the Council has published a dataset on [Minnesota Geospatial Commons](https://gisdata.mn.gov/), it is available in GISLibrary. 
+
+```{r gis-sql, eval=FALSE}
+# create connection
+gis <- gis_connection()
+
+# fetch with SQL
+DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.AIRPORTS where APNAME ='Flying Cloud'")
+
+# remember to disconnect!
+DBI::dbDisconnect(gis)
+```
+
+```{r gis-table, eval=FALSE}
+# import a specific table as an sf object, with no additional SQL
+airport <- import_from_gis(
+  query = "GISLibrary.dbo.AIRPORTS",
+  .quiet = TRUE
+)
+```
+
+## Emissions
+
+The emissions database is used for GHG inventory and scenario planning projects. 
+
+```{r emissions-sql, eval=FALSE}
+# create connection
+emissions <- emissions_connection()
+
+# fetch with SQL
+DBI::dbGetQuery(emissions, "SELECT * FROM metro_energy.vw_electricity_residential_ctu")
+
+# remember to disconnect!
+DBI::dbDisconnect(emissions)
+```
+
+```{r emissions-table, eval=FALSE}
+# import a specific table with no additional SWL
+import_from_emissions("metro_energy.vw_electricity_residential_ctu")
+```
+

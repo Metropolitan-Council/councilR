@@ -11,13 +11,14 @@
 #'     Default is `FALSE`.
 #' @param .quiet logical, suppress messages. Default is `TRUE`.
 #'
-#' @return an [`sf`] object
+#' @return [sf::sf()] object
 #' @export
 #'
-#' @description Particularly useful for importing data from Minnesota Geospatial Commons
-#'     when access to the internal GIS database is unavailable.
+#' @description This function is particularly useful for importing data from
+#'     [Minnesota Geospatial Commons](https://gisdata.mn.gov/)
+#'     when access to GISLibrary is unavailable.
 #'
-#' @note This function relies on `[{rlang}]` internal functions.
+#' @note This function relies on `{rlang}` internal functions.
 #'
 #' @importFrom sf read_sf st_transform
 #' @importFrom fs file_delete
@@ -77,3 +78,7 @@ import_from_gpkg <- function(link,
 
   return(out_sf)
 }
+
+#' @rdname import_from_gpkg
+#' @export
+import_gpkg <- import_from_gpkg
