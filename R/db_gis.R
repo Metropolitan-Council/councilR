@@ -11,7 +11,9 @@
 #'     care to use [DBI::dbDisconnect()] once you are done.
 #'  - `import_from_gis()` imports a given table from GISLibrary and
 #'     converts it into a [sf::sf()] object. The connection will
-#'     be automatically closed after the table is imported.
+#'     be automatically closed after the table is imported. If the table
+#'     does not have any spatial data, the table will be returned as a
+#'     data.frame.
 #'
 #'  Further examples can be found in `vignette("Databases", package = "councilR")`.
 #'
@@ -127,11 +129,13 @@ gis_connection <- function(
 #'
 #' @rdname gis
 #'
-#' @return `import_from_gis()` - A [sf::sf()] object
+#' @return `import_from_gis()` - A [sf::sf()] object or a data frame
 #' @export
 #' @importFrom sf st_as_sf
 #' @importFrom DBI dbGetQuery dbDisconnect
 #' @importFrom tictoc tic toc
+#' @importFrom magrittr extract2
+#' @importFrom dplyr filter
 import_from_gis <- function(query,
                             dbname = "GISLibrary",
                             uid = getOption("councilR.uid"),
@@ -147,15 +151,43 @@ import_from_gis <- function(query,
     pwd = pwd
   )
 
-  que <- DBI::dbGetQuery(
+  # fetch query table column names
+  column_names <- DBI::dbGetQuery(
     conn,
-    paste0("SELECT *, Shape.STAsText() as wkt FROM ", query)
+    paste0(
+      "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '",
+      # remove GISLibrary.dbo. to get just the table name
+      gsub(pattern = "GISLibrary.dbo.", replacement = "", x = query), "'"
+    )
   )
 
-  sf_df <- sf::st_as_sf(
-    que,
-    wkt = "wkt", crs = 26915
-  )
+  # if there are any geometry columns,
+  # pull as wkt
+  if ("geometry" %in% column_names$DATA_TYPE) {
+
+    # fetch column name with geometry
+    geo_column <- column_names %>%
+      dplyr::filter(DATA_TYPE == "geometry") %>%
+      magrittr::extract2("COLUMN_NAME")
+
+    # fetch query
+    que <- DBI::dbGetQuery(
+      conn,
+      paste0("SELECT *, ", geo_column, ".STAsText() as wkt FROM ", query)
+    )
+
+    # convert wkt to sf
+    sf_df <- sf::st_as_sf(
+      que,
+      wkt = "wkt", crs = 26915
+    )
+  } else {
+    # otherwise, just pull the table
+    sf_df <- DBI::dbGetQuery(
+      conn,
+      paste0("SELECT * FROM ", query)
+    )
+  }
 
   DBI::dbDisconnect(conn)
 
