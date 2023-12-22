@@ -45,3 +45,21 @@ testthat::test_that("airports spatial dataset", {
   # test that object returned is an sf object
   testthat::expect_equal(class(airport)[[1]], "sf")
 })
+
+
+testthat::test_that("county ctu lookup table", {
+  lookup_table <- import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY"),
+    query = "GISLibrary.dbo.CountyCTULookupTable",
+    dbname = "GISLibrary",
+    .quiet = TRUE
+  )
+
+  # test that all airports are included
+  # there should be 14 airports
+  testthat::expect_equal(nrow(lookup_table), 220)
+
+  # test that object returned is an sf object
+  testthat::expect_equal(class(lookup_table)[[1]], "data.frame")
+})
