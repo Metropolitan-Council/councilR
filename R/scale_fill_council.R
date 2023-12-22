@@ -8,7 +8,7 @@
 #' @param n numeric, value between 1-8
 #' @param name character, starting color name. One of `councilR::colors`.
 #'
-#' @description Modified [RColorBrewer::brewer.pal()]
+#' @description Adapted from [RColorBrewer::brewer.pal()]
 #' @examples
 #' \dontrun{
 #' library(scales)
@@ -31,7 +31,7 @@ council.pal <- function(n, name) {
 
 #' @title Discrete Council palettes
 #'
-#' @description Modified from [scales::pal_brewer()].
+#' @description Adapted from [scales::pal_brewer()].
 #'     Stripped down all arguments, just to show the core
 #'
 #' @family aesthetics
@@ -74,7 +74,7 @@ scale_fill_council <- function(..., aesthetics = "fill") {
 
 #' @title Color scale
 #'
-#' @description Modified from [ggplot2::scale_fill_brewer()]
+#' @description Adapted from [ggplot2::scale_fill_brewer()]
 #'
 #' @inheritParams scale_fill_council
 #'
