@@ -77,7 +77,7 @@ head(import_from_FRED(table_name = "GQ_UNIT", prod = FALSE))
 
 ## GISLibrary
 
-GISLibrary is an ESRI SQL database that contains essential geospatial datasets. 
+GISLibrary is an ESRI SQL database that contains essential geospatial datasets and complementary tables. 
 
 Generally, if the Council has published a dataset on [Minnesota Geospatial Commons](https://gisdata.mn.gov/), it is available in GISLibrary. 
 
@@ -94,8 +94,16 @@ DBI::dbDisconnect(gis)
 
 ```{r gis-table, eval=FALSE}
 # import a specific table as an sf object, with no additional SQL
+# returns an sf object
 airport <- import_from_gis(
   query = "GISLibrary.dbo.AIRPORTS",
+  .quiet = TRUE
+)
+
+# if a table does not have any spatial data,
+# it will return a data frame
+lookup_table <- import_from_gis(
+  query = "GISLibrary.dbo.CountyCTULookupTable",
   .quiet = TRUE
 )
 ```
