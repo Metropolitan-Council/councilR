@@ -31,7 +31,7 @@ council.pal <- function(n, name) {
 
 #' @title Discrete Council palettes
 #'
-#' @description Modified from [scales::brewer_pal()].
+#' @description Modified from [scales::pal_brewer()].
 #'     Stripped down all arguments, just to show the core
 #'
 #' @family aesthetics
