@@ -17,7 +17,7 @@ a color palette starting with \code{councilBlue}, followed by \code{cdGreen} and
 and then a couple other Council colors which will look
 decent afterwards (up to 8 levels).
 
-Modified \code{\link[RColorBrewer:ColorBrewer]{RColorBrewer::brewer.pal()}}
+Adapted from \code{\link[RColorBrewer:ColorBrewer]{RColorBrewer::brewer.pal()}}
 }
 \examples{
 \dontrun{

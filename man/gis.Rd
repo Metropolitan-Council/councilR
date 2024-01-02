@@ -33,7 +33,7 @@ import_from_gis(
 \value{
 \code{gis_connection()} - A S4 Microsoft SQL Server object
 
-\code{import_from_gis()} - A \code{\link[sf:sf]{sf::sf()}} object
+\code{import_from_gis()} - A \code{\link[sf:sf]{sf::sf()}} object or a data frame
 }
 \description{
 Functions for interacting with GISLibrary, the primary Met Council
@@ -46,7 +46,9 @@ This function will \emph{not} automatically close the connection, so take
 care to use \code{\link[DBI:dbDisconnect]{DBI::dbDisconnect()}} once you are done.
 \item \code{import_from_gis()} imports a given table from GISLibrary and
 converts it into a \code{\link[sf:sf]{sf::sf()}} object. The connection will
-be automatically closed after the table is imported.
+be automatically closed after the table is imported. If the table
+does not have any spatial data, the table will be returned as a
+data.frame.
 }
 
 Further examples can be found in \code{vignette("Databases", package = "councilR")}.

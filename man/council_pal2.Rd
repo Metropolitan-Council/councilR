@@ -10,7 +10,7 @@ council_pal2()
 council.pal
 }
 \description{
-Modified from \code{\link[scales:brewer_pal]{scales::brewer_pal()}}.
+Adapted from \code{\link[scales:pal_brewer]{scales::pal_brewer()}}.
 Stripped down all arguments, just to show the core
 }
 \seealso{

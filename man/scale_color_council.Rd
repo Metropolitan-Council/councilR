@@ -15,7 +15,7 @@ scale_color_council(..., aesthetics = "colour")
 a Scale object
 }
 \description{
-Modified from \code{\link[ggplot2:scale_brewer]{ggplot2::scale_fill_brewer()}}
+Adapted from \code{\link[ggplot2:scale_brewer]{ggplot2::scale_fill_brewer()}}
 }
 \examples{
 \dontrun{
