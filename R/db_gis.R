@@ -19,6 +19,7 @@
 #'
 #' @rdname gis
 #' @family database functions
+#' @export
 #'
 #' @param dbname character, database name. Default is `"GISLibrary"`.
 #' @param uid character, user ID. Default is `getOption("councilR.uid")`
@@ -164,7 +165,6 @@ import_from_gis <- function(query,
   # if there are any geometry columns,
   # pull as wkt
   if ("geometry" %in% column_names$DATA_TYPE) {
-
     # fetch column name with geometry
     geo_column <- column_names %>%
       dplyr::filter(DATA_TYPE == "geometry") %>%
