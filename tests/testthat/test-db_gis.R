@@ -10,6 +10,11 @@ testthat::skip_if(
 
 testthat::skip_if(httr2::secret_has_key("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins"))
 
+testthat::test_that("gis_connection is exported", {
+  testthat::expect_true("gis_connection" %in% ls("package:councilR"))
+})
+
+
 testthat::test_that("GIS connection returns connection object", {
   test_conn <- gis_connection(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
