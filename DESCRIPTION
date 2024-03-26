@@ -1,8 +1,8 @@
 Type: Package
 Package: councilR
 Title: Functions and Templates for the Metropolitan Council
-Version: 0.2.5
-Date: 2023-12-22
+Version: 0.2.6
+Date: 2024-03-26
 Authors@R: c(
     person("Metropolitan Council", role = "cph"),
     person("Liz", "Roten", , "liz.roten@metc.state.mn.us", role = c("cre", "aut"),
