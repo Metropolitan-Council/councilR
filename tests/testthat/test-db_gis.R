@@ -13,7 +13,7 @@ testthat::skip_if(httr2::secret_has_key("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins"))
 testthat::test_that("GIS connection returns connection object", {
   test_conn <- gis_connection(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY")
+    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY")
   )
 
   testthat::expect_s4_class(test_conn, "Microsoft SQL Server")
@@ -32,7 +32,7 @@ testthat::test_that("GIS connection returns connection object", {
 testthat::test_that("airports spatial dataset", {
   airport <- import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY"),
     query = "GISLibrary.dbo.AIRPORTS",
     dbname = "GISLibrary",
     .quiet = TRUE
@@ -50,7 +50,7 @@ testthat::test_that("airports spatial dataset", {
 testthat::test_that("county ctu lookup table", {
   lookup_table <- import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY"),
     query = "GISLibrary.dbo.CountyCTULookupTable",
     dbname = "GISLibrary",
     .quiet = TRUE
