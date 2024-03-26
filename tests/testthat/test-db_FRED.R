@@ -16,7 +16,7 @@ testthat::test_that("upercase group quarters table", {
     table_name = "GQ_UNIT",
     prod = TRUE,
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY"),
     db = "CD_RESEARCH_WEB"
   )
 
@@ -33,7 +33,7 @@ testthat::test_that("lowercase group quarters table", {
     table_name = "GQ_UNIT",
     prod = TRUE,
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY"),
     db = "CD_RESEARCH_WEB"
   )
 
@@ -48,7 +48,7 @@ testthat::test_that("lowercase group quarters table", {
 testthat::test_that("lowercase park unit via SQL", {
   fred <- fred_connection(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY"),
     db = "CD_RESEARCH_WEB"
   )
 
@@ -68,7 +68,7 @@ testthat::test_that("lowercase park unit via SQL", {
 testthat::test_that("uppercase park unit via SQL", {
   fred <- FRED_connection(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("rQHk4S39pjfJ6yoKWUUNpQUDk2i9XA3d", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY"),
     db = "CD_RESEARCH_WEB"
   )
 

@@ -34,6 +34,7 @@ or another
 [@ehesch](https://github.com/ehesch),
 [@eroten](https://github.com/eroten),
 [@velicknd](https://github.com/velicknd),
+[@schroeder-matt](https://github.com/schroeder-matt),
 [@Brandon-Whited](https://github.com/Brandon-Whited),
 [@LimerickSam](https://github.com/LimerickSam), and
 [@leonx075](https://github.com/leonx075).
