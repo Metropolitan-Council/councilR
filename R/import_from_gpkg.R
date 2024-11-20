@@ -10,6 +10,7 @@
 #' @param keep_temp character, whether to keep the temporary download.
 #'     Default is `FALSE`.
 #' @param .quiet logical, suppress messages. Default is `TRUE`.
+#' @param ... additional parameters passed to [sf::read_sf]
 #'
 #' @return [sf::sf()] object
 #' @export
@@ -30,13 +31,16 @@
 #'
 #' # import regional parks from Minnesota Geospatial Commons
 #' import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
+#' # import the "RegionalEnvironmentalJusticeByCensusTract" layer
+#' import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_tpp2050/gpkg_trans_tpp2050.zip", layer = "RegionalEnvironmentalJusticeByCensusTract")
 #'
 import_from_gpkg <- function(link,
                              save_file = FALSE,
                              save_path = getwd(),
                              .crs = 4326,
                              keep_temp = FALSE,
-                             .quiet = TRUE) {
+                             .quiet = TRUE,
+                             ...) {
   requireNamespace("rlang", quietly = TRUE)
   # check input types
   purrr::map(
@@ -63,7 +67,8 @@ import_from_gpkg <- function(link,
     gsub(pattern = ".zip", replacement = "")
 
   # read in the gpkg as an sf
-  out_sf <- sf::read_sf(unzip(temp, paste0(file_name, ".gpkg")), quiet = .quiet, ) %>%
+  out_sf <- sf::read_sf(unzip(temp, paste0(file_name, ".gpkg")), quiet = .quiet,
+                        ...) %>%
     sf::st_transform(crs = .crs)
 
   # delete the temp file
