@@ -23,6 +23,8 @@ Database connections are a critical part of the work we do at the Metropolitan C
 
 See `vignette("Options", package = "councilR")` to review package options that make these functions run more smoothly. All `uid` and `pwd` parameters are `getOption("councilR.uid")` and `getOption("councilR.pwd")`. 
 
+For additional information on database configuration, consult the [onboarding guide](http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html) from our friends over in Metro Transit Strategic Initiatves. You must be on the Council network to access the guide.
+
 ## FRED
 
 FRED contains most of CD Research's data tables, including tables for regional parks use estimates, population estimates, group quarters, and much more. Once you have the connection, you can use SQL queries to fetch only the data you need. 
