@@ -127,6 +127,8 @@ gis_connection <- function(
 
 #' @param query character, string with the database connection and feature class
 #' @param .quiet logical, whether to print time elapsed message.
+#' @param geometry logical, whether to pull the geometry column, if it exists.
+#'   Default value is `TRUE`.
 #'
 #' @rdname gis
 #'
@@ -141,6 +143,7 @@ import_from_gis <- function(query,
                             dbname = "GISLibrary",
                             uid = getOption("councilR.uid"),
                             pwd = getOption("councilR.pwd"),
+                            geometry = TRUE,
                             .quiet = FALSE) {
   if (.quiet == FALSE) {
     tictoc::tic()
@@ -162,9 +165,9 @@ import_from_gis <- function(query,
     )
   )
 
-  # if there are any geometry columns,
+  # if there are any geometry columns, and we want those columns
   # pull as wkt
-  if ("geometry" %in% column_names$DATA_TYPE) {
+  if (("geometry" %in% column_names$DATA_TYPE) & geometry == TRUE) {
     # fetch column name with geometry
     geo_column <- column_names %>%
       dplyr::filter(DATA_TYPE == "geometry") %>%
@@ -177,13 +180,29 @@ import_from_gis <- function(query,
     )
 
     # convert wkt to sf
-    sf_df <- sf::st_as_sf(
+    return_table <- sf::st_as_sf(
       que,
       wkt = "wkt", crs = 26915
     )
+  }
+  # otherwise, if there are geometry columns and we do NOT want those columns
+  else if (("geometry" %in% column_names$DATA_TYPE) & geometry == FALSE) {
+    # find columns that are NOT geometry
+    non_geo_columns <- column_names %>%
+      dplyr::filter(DATA_TYPE != "geometry")
+
+    # fetch query
+    que <- DBI::dbGetQuery(
+      conn,
+      paste0(
+        "SELECT ", paste0(non_geo_columns$COLUMN_NAME, collapse = ", "),
+        " FROM ", query
+      )
+    )
+    return_table <- que
   } else {
-    # otherwise, just pull the table
-    sf_df <- DBI::dbGetQuery(
+    # otherwise, just pull the table with all columns
+    return_table <- DBI::dbGetQuery(
       conn,
       paste0("SELECT * FROM ", query)
     )
@@ -193,5 +212,5 @@ import_from_gis <- function(query,
 
   tictoc::toc()
 
-  return(sf_df)
+  return(return_table)
 }
