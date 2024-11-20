@@ -11,7 +11,7 @@ testthat::test_that("metc districts with import_gpkg", {
 
 
 
-testthat::test_that("EJ TPP layer",  {
+testthat::test_that("EJ TPP layer", {
   ej_layer <- import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_tpp2050/gpkg_trans_tpp2050.zip", layer = "RegionalEnvironmentalJusticeByCensusTract") %>%
     suppressWarnings()
 
@@ -21,7 +21,7 @@ testthat::test_that("EJ TPP layer",  {
 })
 
 
-testthat::test_that("AADT layer",  {
+testthat::test_that("AADT layer", {
   aadt <- import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_dot/trans_aadt_traffic_count_locs/gpkg_trans_aadt_traffic_count_locs.zip") %>%
     suppressWarnings()
 
@@ -29,5 +29,3 @@ testthat::test_that("AADT layer",  {
 
   testthat::expect_gte(nrow(aadt), 39728)
 })
-
-
