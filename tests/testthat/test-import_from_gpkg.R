@@ -17,3 +17,15 @@ testthat::test_that("metc districts with import_gpkg", {
 
   testthat::expect_equal(nrow(districts), 16)
 })
+
+
+
+testthat::test_that("EJ TPP layer",  {
+  ej_layer <- import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_tpp2050/gpkg_trans_tpp2050.zip", layer = "RegionalEnvironmentalJusticeByCensusTract") %>%
+    suppressWarnings()
+
+  testthat::expect_s3_class(ej_layer, "sf")
+
+  testthat::expect_equal(nrow(ej_layer), 797)
+})
+
