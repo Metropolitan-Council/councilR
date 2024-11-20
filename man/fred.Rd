@@ -80,8 +80,7 @@ You must be set up with the appropriate database drivers to use these functions.
 \strong{Mac} users need \code{unixodbc}, \code{freetds}, and properly configured \code{odbc.ini}.
 
 See instructions in the
-\href{https://furry-adventure-596f3adb.pages.github.io/database-connections.html}{onboarding guide}
-and contact package maintainer for assistance.
+\href{http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html}{onboarding guide}.
 These functions rely on \code{{rlang}} internal functions.
 Further examples can be found in \code{vignette("Databases")}.
 }

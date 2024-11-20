@@ -73,15 +73,19 @@ import_from_gpkg <- function(link,
     # get info on all gpkg in our unzip location
     fs::dir_info(unzip_location, type = "file", glob = "*.gpkg$") %>%
     # filter to get the most recently modified
-    subset(subset = (modification_time == max(modification_time)),
-           select = path,
-           drop = TRUE)
+    subset(
+      subset = (modification_time == max(modification_time)),
+      select = path,
+      drop = TRUE
+    )
 
   # read in the gpkg as an sf
   out_sf <- sf::read_sf(
-    most_recent_gpkg, quiet = .quiet,
+    most_recent_gpkg,
+    quiet = .quiet,
     # pass on additional options
-    ...) %>%
+    ...
+  ) %>%
     sf::st_transform(crs = .crs)
 
   # write the transformed sf

@@ -16,6 +16,7 @@ import_from_gis(
   dbname = "GISLibrary",
   uid = getOption("councilR.uid"),
   pwd = getOption("councilR.pwd"),
+  geometry = TRUE,
   .quiet = FALSE
 )
 }
@@ -27,6 +28,9 @@ import_from_gis(
 \item{pwd}{character, user password. Default is \code{getOption("councilR.pwd")}.}
 
 \item{query}{character, string with the database connection and feature class}
+
+\item{geometry}{logical, whether to pull the geometry column, if it exists.
+Default value is \code{TRUE}.}
 
 \item{.quiet}{logical, whether to print time elapsed message.}
 }

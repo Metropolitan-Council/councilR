@@ -11,7 +11,8 @@ import_from_gpkg(
   save_path = getwd(),
   .crs = 4326,
   keep_temp = FALSE,
-  .quiet = TRUE
+  .quiet = TRUE,
+  ...
 )
 
 import_gpkg(
@@ -20,7 +21,8 @@ import_gpkg(
   save_path = getwd(),
   .crs = 4326,
   keep_temp = FALSE,
-  .quiet = TRUE
+  .quiet = TRUE,
+  ...
 )
 }
 \arguments{
@@ -39,6 +41,8 @@ Default is \code{4326} (WGS 84)}
 Default is \code{FALSE}.}
 
 \item{.quiet}{logical, suppress messages. Default is \code{TRUE}.}
+
+\item{...}{additional parameters passed to \link[sf:st_read]{sf::read_sf}}
 }
 \value{
 \code{\link[sf:sf]{sf::sf()}} object
@@ -57,5 +61,7 @@ library(councilR)
 
 # import regional parks from Minnesota Geospatial Commons
 import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
+# import the "RegionalEnvironmentalJusticeByCensusTract" layer only
+import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_tpp2050/gpkg_trans_tpp2050.zip", layer = "RegionalEnvironmentalJusticeByCensusTract")
 
 }
