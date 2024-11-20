@@ -66,8 +66,9 @@ council_pal2 <- function() {
 #'
 scale_fill_council <- function(..., aesthetics = "fill") {
   ggplot2::discrete_scale(
-    aesthetics, "custom",
-    council_pal2(), ...
+    aesthetics,
+    name = "custom",
+    palette = council_pal2(), ...
   ) ## give a new name to the
   ## scale, it will create a new Scale object.
 }
@@ -95,8 +96,9 @@ scale_fill_council <- function(..., aesthetics = "fill") {
 #' @importFrom ggplot2 discrete_scale
 scale_color_council <- function(..., aesthetics = "colour") {
   ggplot2::discrete_scale(
-    aesthetics, "custom",
-    council_pal2(), ...
+    aesthetics,
+    name = "custom",
+    palette = council_pal2(), ...
   )
   ## give a new name to the
   ## scale, it will create a new Scale object.
