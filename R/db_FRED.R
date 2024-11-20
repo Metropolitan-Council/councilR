@@ -22,8 +22,7 @@
 #'  **Mac** users need `unixodbc`, `freetds`, and properly configured `odbc.ini`.
 #'
 #'  See instructions in the
-#'  [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
-#'  and contact package maintainer for assistance.
+#'  [onboarding guide](http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html).
 #'  These functions rely on `{rlang}` internal functions.
 #'  Further examples can be found in `vignette("Databases")`.
 #'
