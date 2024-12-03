@@ -106,8 +106,8 @@ theme_council <- function(base_size = 11,
   check_string(base_family)
 
   if (use_showtext == TRUE) {
-    requireNamespace("sysfonts", quietly = TRUE)
-    requireNamespace("showtext", quietly = TRUE)
+    requires_pkg("sysfonts")
+    requires_pkg("showtext")
 
     showtext::showtext_auto()
     if (is_mac()) {
