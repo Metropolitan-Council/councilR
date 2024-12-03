@@ -64,7 +64,7 @@ gis_connection <- function(
     pwd = getOption("councilR.pwd")) {
   purrr::map(
     c(dbname, uid, pwd),
-    rlang:::check_string
+    check_string
   )
 
   serv <- "azdbsqlcl10.mc.local"

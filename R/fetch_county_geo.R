@@ -31,7 +31,6 @@
 #'   )
 #' }
 #'
-#' @note This function relies on `{rlang}` internal functions.
 #'
 #' @importFrom tigris counties
 #' @importFrom cli cli_abort
@@ -39,8 +38,7 @@
 #' @importFrom dplyr case_when mutate transmute
 #'
 fetch_county_geo <- function(core = TRUE, ...) {
-  requireNamespace("rlang", quietly = TRUE)
-  rlang:::check_bool(core)
+  check_bool(core)
 
   county_list <- if (core == TRUE) {
     list(
@@ -80,7 +78,7 @@ fetch_county_geo <- function(core = TRUE, ...) {
 #'
 
 fetch_ctu_geo <- function(core = TRUE, ...) {
-  rlang:::check_bool(core)
+  check_bool(core)
   NAME <- CTU_NAME <- ALAND <- AWATER <- NULL
 
   county_list <- if (core == TRUE) {

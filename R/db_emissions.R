@@ -19,7 +19,6 @@
 #'     **Mac** users need `unixodbc` and `freetds`. See instructions in the
 #'     [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
 #'
-#'     These functions rely on `{rlang}` internal functions.
 #'
 #' @return Requested table
 #' @export
@@ -73,11 +72,11 @@ emissions_connection <- function(
   # check input types
   purrr::map(
     c(uid, pwd, db),
-    rlang:::check_string
+    check_string
   )
   purrr::map(
     c(local),
-    rlang:::check_bool
+    check_bool
   )
 
 
@@ -165,11 +164,11 @@ import_from_emissions <- function(table_name,
   # check input types
   purrr::map(
     c(table_name, uid, pwd, db),
-    rlang:::check_string
+    check_string
   )
   purrr::map(
     c(local),
-    rlang:::check_bool
+    check_bool
   )
 
 

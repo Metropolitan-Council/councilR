@@ -19,7 +19,6 @@
 #'     [Minnesota Geospatial Commons](https://gisdata.mn.gov/)
 #'     when access to GISLibrary is unavailable.
 #'
-#' @note This function relies on `{rlang}` internal functions.
 #'
 #' @importFrom sf read_sf st_transform
 #' @importFrom fs file_delete dir_info
@@ -42,19 +41,17 @@ import_from_gpkg <- function(link,
                              keep_temp = FALSE,
                              .quiet = TRUE,
                              ...) {
-  requireNamespace("rlang", quietly = TRUE)
-
   # check input types
   purrr::map(
     c(link),
-    rlang:::check_string
+    check_string
   )
   purrr::map(
     c(save_file, keep_temp, .quiet),
-    rlang:::check_bool
+    check_bool
   )
-  rlang:::check_string(save_path)
-  rlang:::check_number_whole(.crs)
+  check_string(save_path)
+  check_number_whole(.crs)
 
   # download to a temp file
   temp <- tempfile()

@@ -23,7 +23,6 @@
 #'
 #'  See instructions in the
 #'  [onboarding guide](http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html).
-#'  These functions rely on `{rlang}` internal functions.
 #'  Further examples can be found in `vignette("Databases")`.
 #'
 #' @rdname fred
@@ -76,11 +75,11 @@ FRED_connection <- function(
   # check input types
   purrr::map(
     c(uid, pwd, db),
-    rlang:::check_string
+    check_string
   )
   purrr::map(
     c(prod),
-    rlang:::check_bool
+    check_bool
   )
 
   # decide which server to use based on local
@@ -178,11 +177,11 @@ import_from_FRED <- function(table_name,
   # check input types
   purrr::map(
     c(table_name, uid, pwd, db),
-    rlang:::check_string
+    check_string
   )
   purrr::map(
     c(prod),
-    rlang:::check_bool
+    check_bool
   )
 
   conn <- fred_connection(

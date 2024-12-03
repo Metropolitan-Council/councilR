@@ -61,10 +61,9 @@ council_layout <- function(a_plotly,
                            y_title = "",
                            legend_title = "",
                            ...) {
-  requireNamespace("rlang", quietly = TRUE)
   purrr::map(
     list(x_title, y_title, main_title, subtitle, legend_title),
-    rlang:::check_character
+    check_character
   )
 
   plotly_margin <- list(

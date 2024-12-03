@@ -51,8 +51,7 @@
 #'  a pull request.
 #'
 #'
-#' @note This function relies on `{rlang}` internal functions.
-#'   Further examples in `vignette("Color")`.
+#' @note Further examples in `vignette("Color")`.
 #'
 #' @examples
 #' \dontrun{
@@ -94,18 +93,17 @@ theme_council <- function(base_size = 11,
                             "caption" = 8,
                             "strip" = 14
                           )) {
-  requireNamespace("rlang", quietly = TRUE)
   purrr::map(
     c(use_showtext, use_manual_font_sizes),
-    rlang:::check_bool
+    check_bool
   )
 
   purrr::map(
     c(base_size),
-    rlang:::check_number_decimal
+    check_number_decimal
   )
 
-  rlang:::check_string(base_family)
+  check_string(base_family)
 
   if (use_showtext == TRUE) {
     requireNamespace("sysfonts", quietly = TRUE)
