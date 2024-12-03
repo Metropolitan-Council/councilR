@@ -1,6 +1,7 @@
 #' @title Object type checks, adapted from [rlang](https://github.com/r-lib/rlang/blob/main/R/standalone-types-check.R).
 #' @description
-#' Checks for character, string, boolean, whole number
+#' Checks for character, string, boolean, logical, whole number, decimal number, call,
+#'  name, environment, data frame, and symbol.
 #'
 #' @keywords internal
 #' @noRd
@@ -60,7 +61,7 @@ IS_NUMBER_oob <- 2
     } else if (x > max) {
       what <- sprintf("%s smaller than or equal to %s", what, max)
     } else {
-      abort("Unexpected state in OOB check", .internal = TRUE)
+      cli::cli_abort("Unexpected state in OOB check", .internal = TRUE)
     }
   }
 
@@ -84,7 +85,7 @@ check_character <- function(x,
   if (!missing(x)) {
     if (rlang::is_character(x)) {
       if (!allow_na && any(is.na(x))) {
-        abort(
+        cli::cli_abort(
           sprintf("`%s` can't contain NA values.", arg),
           arg = arg,
           call = call
@@ -428,7 +429,7 @@ oxford_comma <- function(chr, sep = ", ", final = "or") {
 #'   character vector of expected types, in which case the error
 #'   message mentions all of them in an "or" enumeration.
 #' @param show_value Passed to `value` argument of `obj_type_friendly()`.
-#' @param ... Arguments passed to [abort()].
+#' @param ... Arguments passed to [cli::cli_abort()].
 #' @noRd
 stop_input_type <- function(x,
                             what,
