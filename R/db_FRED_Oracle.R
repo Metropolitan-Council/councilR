@@ -1,0 +1,192 @@
+#' @title FRED-Oracle
+#'
+#' @description
+#' Functions for interacting with FRED-Oracle.
+#'
+#' @details
+#' Both "FRED" and "fred" capitalization are supported.
+#'
+#'  - `fred_oracle_connection()` creates an connection to FRED-Oracle.
+#'     This function will *not* automatically close the connection, so take
+#'     care to use [DBI::dbDisconnect()] once you are done.
+#'  - `import_from_fred_oracle()` imports a given table from FRED-Oracle. The connection will
+#'     be automatically closed after the table is imported.
+#'
+#' @note See `vignette("Credentials")` to review credential management.
+#'
+#'  You must be set up with the appropriate database drivers to use these functions.
+#'
+#'  **Windows** users need ODBC with Oracle drivers. Contact IS support for ODBC installation.
+#'
+#'  **Mac** users need `unixodbc`, `freetds`, Java and JDBC drivers.
+#'
+#'  See instructions in the
+#'  [onboarding guide](http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html).
+#'  Further examples can be found in `vignette("Databases")`.
+#'
+#' @rdname fred-oracle
+#' @family database functions
+#'
+#' @param uid character, FRED-Oracle user id
+#' @param pwd character, FRED-Oracle password
+#' @param db character, database name. Default is `"CD_RESEARCH_WEB"`.
+#'
+#' @return `fred_oracle_connection()` - A S4 Microsoft SQL Server object
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' library(councilR)
+#' library(DBI)
+#'
+#' # create connection
+#' conn <- fred_oracle_connection()
+#'
+#' # pull table using SQL
+#' DBI::dbGetQuery(conn, "SELECT * FROM GQ_UNIT WHERE UNIT_ZIP = 55104")
+#'
+#' # disconnect
+#' DBI::dbDisconnect(conn)
+#'
+#' # import a specific table, with no additional SQL logic
+#' import_from_FRED(table_name = "GQ_UNIT", prod = FALSE)
+#' }
+#'
+#' @importFrom DBI dbCanConnect dbGetQuery dbConnect dbDisconnect
+#' @importFrom odbc odbc
+#' @importFrom utils osVersion
+#' @importFrom purrr map
+#' @importFrom cli cli_abort
+FRED_oracle_connection <- function(
+    # uid = keyring::key_get("councilR.uid"),
+    # pwd = keyring::key_get("councilR.pwd"),
+    db = "CD_RESEARCH_WEB",
+    prod = TRUE) {
+  # check input types
+  purrr::map(
+    c(uid, pwd, db),
+    check_string
+  )
+  purrr::map(
+    c(prod),
+    check_bool
+  )
+
+
+  # decide which driver to use based on OS
+  drv <- if (is_mac()) {
+    "FreeTDS"
+  } else {
+    "SQL Server"
+  }
+
+  # if on Mac, you need  to specify which database name
+  # based on prod
+  db_name <- if (prod) {
+    "CD_RESEARCH_WEB_PROD"
+  } else {
+    "CD_RESEARCH_WEB_TEST"
+  }
+
+  # check that DB connection works
+  if (drv == "FreeTDS") {
+    if (
+      DBI::dbCanConnect(
+        odbc::odbc(),
+        DSN = db_name,
+        Uid = uid,
+        Pwd = pwd
+      )
+      == FALSE) {
+      cli::cli_abort("Database failed to connect")
+    }
+  } else if (drv == "SQL Server") {
+    if (
+      DBI::dbCanConnect(
+        odbc::odbc(),
+        Driver = drv,
+        Database = db,
+        Uid = uid,
+        Pwd = pwd,
+        Server = serv,
+        Trusted_Connection = "yes"
+      ) == FALSE) {
+      cli::cli_abort("Database failed to connect")
+    }
+  }
+
+
+
+  conn <-
+    if (drv == "FreeTDS") {
+      DBI::dbConnect(
+        odbc::odbc(),
+        DSN = db_name,
+        Uid = uid,
+        Pwd = pwd
+      )
+    } else if (drv == "SQL Server") {
+      DBI::dbConnect(
+        odbc::odbc(),
+        Driver = drv,
+        Database = db,
+        Uid = uid,
+        Pwd = pwd,
+        Server = serv,
+        Trusted_Connection = "yes"
+      )
+    }
+
+  # return connection
+  return(conn)
+}
+
+#' @rdname fred
+#' @export
+fred_oracle_connection <- FRED_oracle_connection
+
+#'
+#' @param table_name character, which table to pull.
+#'
+#' @return `import_from_fred_oracle()` - Requested table
+#' @export
+#'
+#' @importFrom DBI dbGetQuery dbDisconnect
+#' @rdname fred
+import_from_FRED_oracle <- function(table_name,
+                             # uid = keyring::key_get("councilR.uid"),
+                             # pwd = keyring::key_get("councilR.pwd"),
+                             # db = "CD_RESEARCH_WEB",
+                             prod = TRUE) {
+  # check input types
+  purrr::map(
+    c(table_name, uid, pwd, db),
+    check_string
+  )
+  purrr::map(
+    c(prod),
+    check_bool
+  )
+
+  conn <- fred_oracle_connection(
+    uid = uid,
+    pwd = pwd,
+    db = db,
+    prod = prod
+  )
+
+  db_sp_table <- DBI::dbGetQuery(
+    conn,
+    paste0("SELECT * FROM ", table_name)
+  )
+
+  DBI::dbDisconnect(conn)
+
+  return(db_sp_table)
+}
+
+
+
+#' @rdname fred
+#' @export
+import_from_fred_oracle <- import_from_FRED_oracle
