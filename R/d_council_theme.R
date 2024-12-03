@@ -13,7 +13,7 @@
 #' @return an error
 #' @export
 #'
-#' @importFrom rlang abort
+#' @importFrom cli cli_abort
 #'
 council_theme <- function(use_showtext = FALSE,
                           size_header = 22,
@@ -23,7 +23,7 @@ council_theme <- function(use_showtext = FALSE,
                           size_legend_text = 10,
                           size_caption = 8,
                           size_margin = 10) {
-  rlang::abort(
+  cli::cli_abort(
     message = "council_theme() is deprecated as of version 0.1.1. Please use theme_council()",
     body = c("Equivalent is `theme_council(use_showtext = FALSE, use_manual_font_sizes = TRUE)`")
   )
