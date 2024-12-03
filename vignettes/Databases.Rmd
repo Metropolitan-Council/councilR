@@ -21,9 +21,11 @@ library(councilR)
 
 Database connections are a critical part of the work we do at the Metropolitan Council. 
 
-See `vignette("Options", package = "councilR")` to review package options that make these functions run more smoothly. All `uid` and `pwd` parameters are `getOption("councilR.uid")` and `getOption("councilR.pwd")`. 
+See `vignette("Credentials", package = "councilR")` to review credential management.
 
-For additional information on database configuration, consult the [onboarding guide](http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html) from our friends over in Metro Transit Strategic Initiatves. You must be on the Council network to access the guide.
+All `uid` and `pwd` parameters are `keyring::key_get("councilR.uid")` and `keyring::key_get("councilR.pwd")` by default.
+
+For additional information on database configuration, consult the [onboarding guide](http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html) from our friends over in Metro Transit Strategic Initiatives. You must be on the Council network to access the guide.
 
 ## FRED
 

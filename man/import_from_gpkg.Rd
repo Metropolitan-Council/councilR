@@ -52,9 +52,6 @@ This function is particularly useful for importing data from
 \href{https://gisdata.mn.gov/}{Minnesota Geospatial Commons}
 when access to GISLibrary is unavailable.
 }
-\note{
-This function relies on \code{{rlang}} internal functions.
-}
 \examples{
 
 library(councilR)

@@ -48,7 +48,6 @@ Please note that the y-axis text is horizontal, and long axis names will need to
 For example, consider using this piece of code: \code{labs(y = stringr::str_wrap("Axis labels are now horizontal, but you still need to insert some code to wrap long labels", width = 15))}
 }
 \note{
-This function relies on \code{{rlang}} internal functions.
 Further examples in \code{vignette("Color")}.
 }
 \section{Council fonts}{

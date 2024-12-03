@@ -7,15 +7,15 @@
 \usage{
 gis_connection(
   dbname = "GISLibrary",
-  uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd")
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd")
 )
 
 import_from_gis(
   query,
   dbname = "GISLibrary",
-  uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd"),
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd"),
   geometry = TRUE,
   .quiet = FALSE
 )
@@ -23,9 +23,11 @@ import_from_gis(
 \arguments{
 \item{dbname}{character, database name. Default is \code{"GISLibrary"}.}
 
-\item{uid}{character, user ID. Default is \code{getOption("councilR.uid")}}
+\item{uid}{character, your network ID.
+Default is \code{keyring::key_get("councilR.uid")}.}
 
-\item{pwd}{character, user password. Default is \code{getOption("councilR.pwd")}.}
+\item{pwd}{character, your network password.
+Default is \code{keyring::key_get("councilR.pwd")}.}
 
 \item{query}{character, string with the database connection and feature class}
 
@@ -63,11 +65,9 @@ library(councilR)
 library(DBI)
 library(sf)
 
-# set options if you haven't already
-options(
-  councilR.uid = "mc\\\\uid",
-  councilR.pwd = "mypwd"
-)
+# set credentials if you haven't already
+keyring::key_set_with_value("councilR.uid", "mc\\\\myuuid")
+keyring::key_set_with_value("councilR.pwd", "password")
 
 # create connection
 gis <- gis_connection()
