@@ -112,7 +112,7 @@ theme_council <- function(base_size = 11,
     requireNamespace("showtext", quietly = TRUE)
 
     showtext::showtext_auto()
-    if (grepl("mac", osVersion)) {
+    if (is_mac()) {
       # if mac, search default font paths
       sysfonts::font_paths()
     } else {

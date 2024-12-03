@@ -1,5 +1,8 @@
 ## many functions here come from https://github.com/gadenbuie/js4shiny/blob/master/R/utils.R
 
+is_mac <- function(){
+  grepl("mac", osVersion)
+}
 
 `%||%` <- function(x, y) if (is.null(x)) y else x
 

@@ -89,7 +89,7 @@ emissions_connection <- function(
   }
 
   # decide which driver to use based on OS
-  drv <- if (grepl("mac", osVersion)) {
+  drv <- if (is_mac()) {
     "FreeTDS"
   } else {
     "SQL Server"
