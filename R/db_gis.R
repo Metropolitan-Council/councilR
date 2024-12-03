@@ -22,20 +22,16 @@
 #' @export
 #'
 #' @param dbname character, database name. Default is `"GISLibrary"`.
-#' @param uid character, user ID. Default is `getOption("councilR.uid")`
-#' @param pwd character, user password. Default is `getOption("councilR.pwd")`.
-#'
+#' @inheritParams fred_connection
 #'
 #' @examples \dontrun{
 #' library(councilR)
 #' library(DBI)
 #' library(sf)
 #'
-#' # set options if you haven't already
-#' options(
-#'   councilR.uid = "mc\\uid",
-#'   councilR.pwd = "mypwd"
-#' )
+#' # set credentials if you haven't already
+#' keyring::key_set_with_value("councilR.uid", "mc\\myuuid")
+#' keyring::key_set_with_value("councilR.pwd", "password")
 #'
 #' # create connection
 #' gis <- gis_connection()
@@ -60,8 +56,8 @@
 #' @importFrom odbc odbc
 gis_connection <- function(
     dbname = "GISLibrary",
-    uid = getOption("councilR.uid"),
-    pwd = getOption("councilR.pwd")) {
+    uid = keyring::key_get("councilR.uid"),
+    pwd = keyring::key_get("councilR.pwd")) {
   purrr::map(
     c(dbname, uid, pwd),
     check_string
@@ -141,8 +137,8 @@ gis_connection <- function(
 #' @importFrom dplyr filter
 import_from_gis <- function(query,
                             dbname = "GISLibrary",
-                            uid = getOption("councilR.uid"),
-                            pwd = getOption("councilR.pwd"),
+                            uid = keyring::key_get("councilR.uid"),
+                            pwd = keyring::key_get("councilR.pwd"),
                             geometry = TRUE,
                             .quiet = FALSE) {
   if (.quiet == FALSE) {

@@ -13,7 +13,7 @@
 #'  - `import_from_fred()` imports a given table from FRED. The connection will
 #'     be automatically closed after the table is imported.
 #'
-#' @note See `vignette("Options")` to review package options.
+#' @note See `vignette("Credentials")` to review credential management.
 #'
 #'  You must be set up with the appropriate database drivers to use these functions.
 #'
@@ -29,9 +29,9 @@
 #' @family database functions
 #'
 #' @param uid character, your network ID.
-#'     Default is `getOption("councilR.uid")`.
+#'     Default is `keyring::key_get("councilR.uid")`.
 #' @param pwd character, your network password.
-#'     Default is `getOption("councilR.pwd")`. For example, `"mypwd"`
+#'     Default is `keyring::key_get("councilR.pwd")`.
 #' @param db character, database name. Default is `"CD_RESEARCH_WEB"`.
 #' @param prod logical, whether to pull from the test or production db.
 #'     Default is `TRUE`.
@@ -44,11 +44,10 @@
 #' library(councilR)
 #' library(DBI)
 #'
-#' # set options if you haven't already
-#' options(
-#'   councilR.uid = "mc\\you",
-#'   councilR.pwd = "mypwd"
-#' )
+#' # set credentials if you haven't already
+#' keyring::key_set_with_value("councilR.uid", "mc\\myuuid")
+#' keyring::key_set_with_value("councilR.pwd", "password")
+#'
 #' # create connection
 #' conn <- FRED_connection(prod = FALSE)
 #'
@@ -68,8 +67,8 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_abort
 FRED_connection <- function(
-    uid = getOption("councilR.uid"),
-    pwd = getOption("councilR.pwd"),
+    uid = keyring::key_get("councilR.uid"),
+    pwd = keyring::key_get("councilR.pwd"),
     db = "CD_RESEARCH_WEB",
     prod = TRUE) {
   # check input types
@@ -170,8 +169,8 @@ fred_connection <- FRED_connection
 #' @importFrom DBI dbGetQuery dbDisconnect
 #' @rdname fred
 import_from_FRED <- function(table_name,
-                             uid = getOption("councilR.uid"),
-                             pwd = getOption("councilR.pwd"),
+                             uid = keyring::key_get("councilR.uid"),
+                             pwd = keyring::key_get("councilR.pwd"),
                              db = "CD_RESEARCH_WEB",
                              prod = TRUE) {
   # check input types
