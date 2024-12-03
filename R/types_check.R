@@ -149,7 +149,8 @@ check_bool <- function(x,
                        call = rlang::caller_env()) {
   if (!missing(x) && .standalone_types_check_dot_call(
     rlang::ffi_standalone_is_bool_1.0.7,
-    x, allow_na, allow_null)) {
+    x, allow_na, allow_null
+  )) {
     return(invisible(NULL))
   }
 
@@ -471,5 +472,3 @@ stop_input_type <- function(x,
 
   cli::cli_abort(message, ..., call = call, arg = arg)
 }
-
-

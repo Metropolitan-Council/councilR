@@ -43,7 +43,6 @@ fetch_ctu_geo() \%>\%
   )
 }
 
-
 }
 \seealso{
 Other spatial helpers: 

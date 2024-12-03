@@ -151,7 +151,7 @@ emissions_connection <- function(
 #' @importFrom purrr map
 #' @rdname emissions
 import_from_emissions <- function(table_name,
-                                  uid =  keyring::key_get("councilR.uid"),
+                                  uid = keyring::key_get("councilR.uid"),
                                   pwd = keyring::key_get("councilR.pwd"),
                                   local = TRUE,
                                   db = "CD_Emissions") {

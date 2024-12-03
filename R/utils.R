@@ -1,8 +1,8 @@
 ## many functions here come from https://github.com/gadenbuie/js4shiny/blob/master/R/utils.R
 # person("Garrick", "Aden-Buie", , "garrick@adenbuie.com", role = "ctb",
-       # comment = c(ORCID = "0000-0002-7111-0077"))
+# comment = c(ORCID = "0000-0002-7111-0077"))
 
-is_mac <- function(){
+is_mac <- function() {
   grepl("mac", osVersion)
 }
 

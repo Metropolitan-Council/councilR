@@ -11,7 +11,6 @@ test_that("`check_bool()` checks", {
   expect_error(check_bool(lgl(), allow_na = TRUE, allow_null = TRUE))
   expect_error(check_bool(c(TRUE, FALSE), allow_na = TRUE, allow_null = TRUE))
   expect_error(check_bool(1))
-
 })
 
 test_that("`check_string()` checks", {
@@ -28,7 +27,6 @@ test_that("`check_string()` checks", {
   expect_error(check_string(rlang::na_chr))
   expect_error(check_string(c("", ""), allow_na = TRUE, allow_null = TRUE))
   expect_error(check_string(1))
-
 })
 
 test_that("`check_name()` checks", {
@@ -42,7 +40,6 @@ test_that("`check_name()` checks", {
   expect_error(check_name(c("", "")))
   expect_error(check_name(1))
   expect_error(check_name(""))
-
 })
 
 test_that("`check_number_whole()` checks", {
@@ -72,7 +69,6 @@ test_that("`check_number_whole()` checks", {
   expect_error(check_number_whole(10, min = 1, max = 5))
   expect_error(check_number_whole(10, min = NA))
   expect_error(check_number_whole(10, min = NaN))
-
 })
 
 test_that("`check_number_decimal()` checks", {
@@ -98,8 +94,6 @@ test_that("`check_number_decimal()` checks", {
   expect_error(check_number_decimal(c(10:11), allow_na = TRUE, allow_null = TRUE))
   expect_error(check_number_decimal(NA))
   expect_error(check_number_decimal(NULL))
-
-
 })
 
 test_that("`check_symbol()` checks", {
@@ -111,7 +105,6 @@ test_that("`check_symbol()` checks", {
   expect_error(check_symbol(alist(foo, bar)))
   expect_error(check_symbol("foo"))
   expect_error(check_symbol(quote(foo())))
-
 })
 
 test_that("`check_call()` checks", {
@@ -131,7 +124,6 @@ test_that("`check_environment()` checks", {
   expect_error(check_environment(NULL))
   expect_error(check_environment(FALSE))
   expect_error(check_environment(list(env(), env(), env()), allow_null = TRUE))
-
 })
 
 test_that("`check_character()` checks", {
@@ -148,7 +140,6 @@ test_that("`check_character()` checks", {
   expect_error(check_character(list("foo", "bar")))
   expect_error(check_character(list("a", NA), allow_na = FALSE))
   expect_error(check_character(list("a", NULL), allow_null = FALSE))
-
 })
 
 test_that("`check_logical()` checks", {
@@ -163,7 +154,6 @@ test_that("`check_logical()` checks", {
   expect_error(check_logical(NA_integer_))
   expect_error(check_logical(1))
   expect_error(check_logical(list("foo", "bar")))
-
 })
 
 test_that("non-numeric types are not numbers", {
@@ -177,5 +167,4 @@ test_that("`check_data_frame()` checks", {
 
   expect_error(check_data_frame(list(data.frame(), data.frame(), data.frame())))
   expect_error(check_data_frame(NULL))
-
 })

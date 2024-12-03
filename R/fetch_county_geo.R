@@ -31,7 +31,6 @@
 #'   )
 #' }
 #'
-#'
 #' @importFrom tigris counties
 #' @importFrom cli cli_abort
 #' @importFrom purrr map
