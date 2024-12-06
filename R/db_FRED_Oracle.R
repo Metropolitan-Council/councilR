@@ -14,24 +14,29 @@
 #'
 #' @note See `vignette("Credentials")` to review credential management.
 #'
+#'  FRED-Oracle requires its own user id and password, separate from your Met Council
+#'  credentials. Contact Matt Schroeder for assistance.
+#'
 #'  You must be set up with the appropriate database drivers to use these functions.
 #'
 #'  **Windows** users need ODBC with Oracle drivers. Contact IS support for ODBC installation.
 #'
-#'  **Mac** users need `unixodbc`, `freetds`, Java and JDBC drivers.
-#'
+#'  **Mac** users need `unixodbc` and `freetds`, plus Java and JDBC drivers. Additionally,
+#'  you must have set `FREDOracle.url` in your keyring and `JDBC_HOME` in your .Renviron.
 #'  See instructions in the
-#'  [onboarding guide](http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html).
+#'  [onboarding guide](http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html#configuring-oracle-connections---use-rjdbc-on-any-platform).
+#'
 #'  Further examples can be found in `vignette("Databases")`.
 #'
 #' @rdname fred-oracle
 #' @family database functions
 #'
-#' @param uid character, FRED-Oracle user id
-#' @param pwd character, FRED-Oracle password
-#' @param db character, database name. Default is `"CD_RESEARCH_WEB"`.
+#' @param uid character, FRED-Oracle user id. Default value is
+#'    `keyring::key_get("FREDOracle.uid")`
+#' @param pwd character, FRED-Oracle password. Default value is
+#'    `keyring::key_get("FREDOracle.pwd")`
 #'
-#' @return `fred_oracle_connection()` - A S4 Microsoft SQL Server object
+#' @return `fred_oracle_connection()` - An ODBC or JDBC connection object
 #' @export
 #'
 #' @examples
@@ -43,13 +48,13 @@
 #' conn <- fred_oracle_connection()
 #'
 #' # pull table using SQL
-#' DBI::dbGetQuery(conn, "SELECT * FROM GQ_UNIT WHERE UNIT_ZIP = 55104")
+#' DBI::dbGetQuery(conn, "SELECT * FROM RESEARCH_WEB.RES_PERMIT_TYPE")
 #'
 #' # disconnect
 #' DBI::dbDisconnect(conn)
 #'
 #' # import a specific table, with no additional SQL logic
-#' import_from_FRED(table_name = "GQ_UNIT", prod = FALSE)
+#' import_from_FRED(table_name = "RESEARCH_WEB.RES_PERMIT_TYPE")
 #' }
 #'
 #' @importFrom DBI dbCanConnect dbGetQuery dbConnect dbDisconnect
@@ -58,82 +63,66 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_abort
 FRED_oracle_connection <- function(
-    # uid = keyring::key_get("councilR.uid"),
-    # pwd = keyring::key_get("councilR.pwd"),
-    db = "CD_RESEARCH_WEB",
-    prod = TRUE) {
+    uid = keyring::key_get("FREDOracle.uid"),
+    pwd = keyring::key_get("FREDOracle.pwd")
+) {
   # check input types
   purrr::map(
-    c(uid, pwd, db),
+    c(uid, pwd),
     check_string
-  )
-  purrr::map(
-    c(prod),
-    check_bool
   )
 
 
   # decide which driver to use based on OS
-  drv <- if (is_mac()) {
-    "FreeTDS"
+  if (is_mac()) {
+    requires_pkg("RJDBC")
+    drv <- RJDBC::JDBC(
+      driverClass = "java.sql.Driver",
+      classPath = file.path(Sys.getenv("JDBC_HOME"), "ojdbc17.jar"))
   } else {
-    "SQL Server"
+    drv <- odbc::odbc()
   }
 
   # if on Mac, you need  to specify which database name
   # based on prod
-  db_name <- if (prod) {
-    "CD_RESEARCH_WEB_PROD"
-  } else {
-    "CD_RESEARCH_WEB_TEST"
-  }
 
   # check that DB connection works
-  if (drv == "FreeTDS") {
+  if (class(drv) == "JDBCDriver") {
     if (
       DBI::dbCanConnect(
-        odbc::odbc(),
-        DSN = db_name,
-        Uid = uid,
-        Pwd = pwd
+        drv = drv,
+        url = keyring::key_get("FREDOracle.url"),
+        user = uid,
+        password = pwd
       )
       == FALSE) {
       cli::cli_abort("Database failed to connect")
     }
-  } else if (drv == "SQL Server") {
+  } else if (class(drv) == "OdbcDriver") {
     if (
       DBI::dbCanConnect(
-        odbc::odbc(),
-        Driver = drv,
-        Database = db,
-        Uid = uid,
-        Pwd = pwd,
-        Server = serv,
-        Trusted_Connection = "yes"
+        drv = drv,
+        user = uid,
+        password = pwd
       ) == FALSE) {
       cli::cli_abort("Database failed to connect")
     }
   }
 
-
-
+  # create and return connection object
   conn <-
-    if (drv == "FreeTDS") {
+    if (class(drv) == "JDBCDriver") {
       DBI::dbConnect(
-        odbc::odbc(),
-        DSN = db_name,
-        Uid = uid,
-        Pwd = pwd
+        drv = drv,
+        url = keyring::key_get("FREDOracle.url"),
+        user = uid,
+        password = pwd
       )
-    } else if (drv == "SQL Server") {
+    } else if (class(drv) == "OdbcDriver") {
       DBI::dbConnect(
-        odbc::odbc(),
-        Driver = drv,
-        Database = db,
-        Uid = uid,
-        Pwd = pwd,
-        Server = serv,
-        Trusted_Connection = "yes"
+        drv = drv,
+        user = uid,
+        password = pwd
       )
     }
 
@@ -152,27 +141,21 @@ fred_oracle_connection <- FRED_oracle_connection
 #' @export
 #'
 #' @importFrom DBI dbGetQuery dbDisconnect
-#' @rdname fred
+#' @rdname fred-oracle
 import_from_FRED_oracle <- function(table_name,
-                             # uid = keyring::key_get("councilR.uid"),
-                             # pwd = keyring::key_get("councilR.pwd"),
-                             # db = "CD_RESEARCH_WEB",
-                             prod = TRUE) {
+                                    uid = keyring::key_get("FREDOracle.uid"),
+                                    pwd = keyring::key_get("FREDOracle.pwd")
+                                    # db = "CD_RESEARCH_WEB",
+                                    ) {
   # check input types
   purrr::map(
-    c(table_name, uid, pwd, db),
+    c(table_name, uid, pwd),
     check_string
-  )
-  purrr::map(
-    c(prod),
-    check_bool
   )
 
   conn <- fred_oracle_connection(
     uid = uid,
-    pwd = pwd,
-    db = db,
-    prod = prod
+    pwd = pwd
   )
 
   db_sp_table <- DBI::dbGetQuery(
@@ -187,6 +170,6 @@ import_from_FRED_oracle <- function(table_name,
 
 
 
-#' @rdname fred
+#' @rdname fred-oracle
 #' @export
 import_from_fred_oracle <- import_from_FRED_oracle
