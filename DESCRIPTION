@@ -46,6 +46,7 @@ Suggests:
     details (>= 0.2.1),
     httr2 (>= 0.2.1),
     knitr (>= 1.37),
+    RJDBC,
     rmarkdown (>= 2.11),
     stringr (>= 1.4.0),
     testthat (>= 3.0.0),
