@@ -131,7 +131,7 @@ FRED_oracle_connection <- function(
   return(conn)
 }
 
-#' @rdname fred
+#' @rdname fred-oracle
 #' @export
 fred_oracle_connection <- FRED_oracle_connection
 

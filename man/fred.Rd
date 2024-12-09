@@ -108,6 +108,7 @@ import_from_FRED(table_name = "GQ_UNIT", prod = FALSE)
 }
 \seealso{
 Other database functions: 
+\code{\link{FRED_oracle_connection}()},
 \code{\link{emissions_connection}()},
 \code{\link{gis_connection}()}
 }
