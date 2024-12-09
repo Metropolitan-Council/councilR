@@ -52,7 +52,7 @@ testthat::test_that("lowercase res unit type table via SQL query", {
   )
 
   testthat::expect_true(
-    class(fred) %in% c("JDBCConnection", "OdbcConnection")
+    as.character(class(fred)) %in% c("JDBCConnection", "OdbcConnection")
   )
 
   permit_type <- DBI::dbGetQuery(fred, "SELECT * FROM RESEARCH_WEB.RES_PERMIT_TYPE WHERE RES_PERMIT_TYPE = 'FC'")
@@ -77,7 +77,7 @@ testthat::test_that("uppercase res unit type table via SQL query", {
   )
 
   testthat::expect_true(
-    class(fred) %in% c("JDBCConnection", "OdbcConnection")
+    as.character(class(fred)) %in% c("JDBCConnection", "OdbcConnection")
   )
 
   testthat::expect_s4_class(fred, "JDBCConnection")
