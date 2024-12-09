@@ -25,9 +25,10 @@ councilR_file <- function(...) {
   system.file(..., package = "councilR", mustWork = TRUE)
 }
 
+#' @importFrom rlang is_installed
 requires_pkg <- function(pkg) {
   calling_function <- deparse(sys.calls()[[sys.nframe() - 1]])
-  if (!requireNamespace(pkg, quietly = TRUE)) {
+  if (!rlang::is_installed(pkg)) {
     cli::cli_abort(glue::glue("{calling_function} requires the `{pkg}` package"), call. = FALSE)
   }
 }
