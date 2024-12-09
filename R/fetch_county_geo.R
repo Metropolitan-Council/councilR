@@ -34,7 +34,7 @@
 #' @importFrom tigris counties
 #' @importFrom cli cli_abort
 #' @importFrom purrr map
-#' @importFrom dplyr case_when mutate transmute
+#' @importFrom dplyr case_when mutate transmute n
 #'
 fetch_county_geo <- function(core = TRUE, ...) {
   check_bool(core)
@@ -134,10 +134,10 @@ fetch_ctu_geo <- function(core = TRUE, ...) {
   } else if (core == FALSE) {
     cities_geo %>%
       dplyr::group_by(NAME) %>%
-      dplyr::mutate(n = dplyr::n()) %>%
+      dplyr::mutate(n_cities = dplyr::n()) %>%
       dplyr::mutate(CTU_NAME = dplyr::if_else(
-        n > 1 & LSAD != 25,
-        paste0(NAME, " - ", county, " Co."), # cities dont get merged
+        n_cities > 1 & LSAD != 25,
+        paste0(NAME, " - ", county, " Co."), # cities don't get merged
         NAME
       )) %>%
       dplyr::group_by(CTU_NAME) %>%

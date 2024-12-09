@@ -88,7 +88,7 @@ You will need Oracle drivers and specific credentials to access FRED-Oracle. See
 FRED-Oracle functions include `FRED_oracle_connection()` and `import_from_FRED_oracle()`. Both "FRED" and "fred" capitalization are supported.  
 
 
-```{r fred-oracle}
+```{r fred-oracle, eval=FALSE}
 fred_oracle <- FRED_oracle_connection()
 
 DBI::dbListTables(fred_oracle, schema = "RESEARCH_WEB" )[1:20]
