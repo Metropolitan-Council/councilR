@@ -79,6 +79,26 @@ head(import_from_FRED(table_name = "GQ_UNIT", prod = FALSE))
 ```
 
 
+## FRED-Oracle
+
+FRED-Oracle is our older Oracle version of FRED. We are migrating all tables from FRED-Oracle to FRED, but some tables are still only available in FRED-Oracle. 
+
+You will need Oracle drivers and specific credentials to access FRED-Oracle. See `r ?FRED_oracle_connection()` for more information. 
+
+FRED-Oracle functions include `FRED_oracle_connection()` and `import_from_FRED_oracle()`. Both "FRED" and "fred" capitalization are supported.  
+
+
+```{r fred-oracle}
+fred_oracle <- FRED_oracle_connection()
+
+DBI::dbListTables(fred_oracle, schema = "RESEARCH_WEB" )[1:20]
+
+head(DBI::dbGetQuery(fred_oracle, "SELECT * FROM RESEARCH_WEB.RES_PERMIT_TYPE"))
+
+DBI::dbDisconnect(fred_oracle)
+```
+
+
 ## GISLibrary
 
 GISLibrary is an ESRI SQL database that contains essential geospatial datasets and complementary tables. 
