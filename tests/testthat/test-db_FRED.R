@@ -61,6 +61,8 @@ testthat::test_that("lowercase park unit via SQL", {
 
   # test that object returned is a data.frame
   testthat::expect_equal(class(park_unit)[[1]], "data.frame")
+
+  DBI::dbDisconnect(fred)
 })
 
 
@@ -82,4 +84,7 @@ testthat::test_that("uppercase park unit via SQL", {
 
   # test that object returned is a data.frame
   testthat::expect_equal(class(park_unit)[[1]], "data.frame")
+
+  DBI::dbDisconnect(fred)
+
 })
