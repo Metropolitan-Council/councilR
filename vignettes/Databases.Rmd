@@ -83,7 +83,7 @@ head(import_from_FRED(table_name = "GQ_UNIT", prod = FALSE))
 
 FRED-Oracle is our older Oracle version of FRED. We are migrating all tables from FRED-Oracle to FRED, but some tables are still only available in FRED-Oracle. 
 
-You will need Oracle drivers and specific credentials to access FRED-Oracle. See `r ?FRED_oracle_connection()` for more information. 
+You will need Oracle drivers and specific credentials to access FRED-Oracle. See `?FRED_oracle_connection()` for more information. 
 
 FRED-Oracle functions include `FRED_oracle_connection()` and `import_from_FRED_oracle()`. Both "FRED" and "fred" capitalization are supported.  
 
