@@ -32,9 +32,11 @@
 #' @family database functions
 #'
 #' @param uid character, FRED-Oracle user id. Default value is
-#'    `keyring::key_get("FREDOracle.uid")`
+#'    `keyring::key_get("FREDOracle.uid")`,
 #' @param pwd character, FRED-Oracle password. Default value is
-#'    `keyring::key_get("FREDOracle.pwd")`
+#'    `keyring::key_get("FREDOracle.pwd")`.
+#' @param url character, FRED-Oracle URL. Default value is
+#'     `keyring::key_get("FREDOracle.url")`.
 #'
 #' @return `fred_oracle_connection()` - An ODBC or JDBC connection object
 #' @export
@@ -64,11 +66,12 @@
 #' @importFrom cli cli_abort
 FRED_oracle_connection <- function(
     uid = keyring::key_get("FREDOracle.uid"),
-    pwd = keyring::key_get("FREDOracle.pwd")
+    pwd = keyring::key_get("FREDOracle.pwd"),
+    url = keyring::key_get("FREDOracle.url")
 ) {
   # check input types
   purrr::map(
-    c(uid, pwd),
+    c(uid, pwd, url),
     check_string
   )
 
@@ -83,15 +86,12 @@ FRED_oracle_connection <- function(
     drv <- odbc::odbc()
   }
 
-  # if on Mac, you need  to specify which database name
-  # based on prod
-
   # check that DB connection works
   if (class(drv) == "JDBCDriver") {
     if (
       DBI::dbCanConnect(
         drv = drv,
-        url = keyring::key_get("FREDOracle.url"),
+        url = url,
         user = uid,
         password = pwd
       )
@@ -114,7 +114,7 @@ FRED_oracle_connection <- function(
     if (class(drv) == "JDBCDriver") {
       DBI::dbConnect(
         drv = drv,
-        url = keyring::key_get("FREDOracle.url"),
+        url = url,
         user = uid,
         password = pwd
       )
@@ -144,18 +144,19 @@ fred_oracle_connection <- FRED_oracle_connection
 #' @rdname fred-oracle
 import_from_FRED_oracle <- function(table_name,
                                     uid = keyring::key_get("FREDOracle.uid"),
-                                    pwd = keyring::key_get("FREDOracle.pwd")
-                                    # db = "CD_RESEARCH_WEB",
+                                    pwd = keyring::key_get("FREDOracle.pwd"),
+                                    url = keyring::key_get("FREDOracle.url")
                                     ) {
   # check input types
   purrr::map(
-    c(table_name, uid, pwd),
+    c(table_name, uid, pwd, url),
     check_string
   )
 
   conn <- fred_oracle_connection(
     uid = uid,
-    pwd = pwd
+    pwd = pwd,
+    url = url
   )
 
   db_sp_table <- DBI::dbGetQuery(
