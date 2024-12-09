@@ -67,8 +67,7 @@
 FRED_oracle_connection <- function(
     uid = keyring::key_get("FREDOracle.uid"),
     pwd = keyring::key_get("FREDOracle.pwd"),
-    url = keyring::key_get("FREDOracle.url")
-) {
+    url = keyring::key_get("FREDOracle.url")) {
   # check input types
   purrr::map(
     c(uid, pwd, url),
@@ -82,7 +81,8 @@ FRED_oracle_connection <- function(
     requires_pkg("RJDBC")
     drv <- RJDBC::JDBC(
       driverClass = "java.sql.Driver",
-      classPath = file.path(Sys.getenv("JDBC_HOME"), "ojdbc17.jar"))
+      classPath = file.path(Sys.getenv("JDBC_HOME"), "ojdbc17.jar")
+    )
   } else {
     drv <- odbc::odbc()
   }
@@ -146,8 +146,7 @@ fred_oracle_connection <- FRED_oracle_connection
 import_from_FRED_oracle <- function(table_name,
                                     uid = keyring::key_get("FREDOracle.uid"),
                                     pwd = keyring::key_get("FREDOracle.pwd"),
-                                    url = keyring::key_get("FREDOracle.url")
-                                    ) {
+                                    url = keyring::key_get("FREDOracle.url")) {
   # check input types
   purrr::map(
     c(table_name, uid, pwd, url),

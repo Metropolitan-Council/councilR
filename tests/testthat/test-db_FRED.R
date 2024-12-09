@@ -86,5 +86,4 @@ testthat::test_that("uppercase park unit via SQL", {
   testthat::expect_equal(class(park_unit)[[1]], "data.frame")
 
   DBI::dbDisconnect(fred)
-
 })

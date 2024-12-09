@@ -1,4 +1,3 @@
-
 # skip on GH Actions
 testthat::skip_on_ci()
 
@@ -64,7 +63,6 @@ testthat::test_that("lowercase res unit type table via SQL query", {
   testthat::expect_equal(class(permit_type)[[1]], "data.frame")
 
   DBI::dbDisconnect(fred)
-
 })
 
 

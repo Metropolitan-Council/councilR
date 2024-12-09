@@ -73,14 +73,14 @@ keyring::key_set_with_value("councilR.pwd", "password")
 gis <- gis_connection()
 
 # pull table using SQL and convert to sf
-DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.AIRPORTS where APNAME ='Flying Cloud'") \%>\%
+DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'") \%>\%
   st_as_sf(wkt = "wkt", crs = 26915)
 
 # disconnect
 DBI::dbDisconnect(gis)
 
 # import a specific table, with no additional SQL logic
-import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
+import_from_gis(query = "GISLibrary.dbo.COUNTIES", dbname = "GISLibrary")
 }
 
 }

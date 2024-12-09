@@ -43,9 +43,9 @@ testthat::test_that("counties spatial dataset", {
     .quiet = TRUE
   )
 
-  # test that all airports are included
-  # there should be 14 airports
-  testthat::expect_equal(ncol(counties), 9)
+  # test that all counties are included
+  # there should be 7 counties
+  testthat::expect_equal(nrow(counties), 7)
 
   # test that object returned is an sf object
   testthat::expect_equal(class(counties)[[1]], "sf")
@@ -61,8 +61,8 @@ testthat::test_that("county ctu lookup table", {
     .quiet = TRUE
   )
 
-  # test that all airports are included
-  # there should be 14 airports
+  # test that all CTUs are included
+  # there should be 220 airports
   testthat::expect_equal(nrow(lookup_table), 220)
 
   # test that object returned is an sf object

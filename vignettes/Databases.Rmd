@@ -91,7 +91,7 @@ FRED-Oracle functions include `FRED_oracle_connection()` and `import_from_FRED_o
 ```{r fred-oracle, eval=FALSE}
 fred_oracle <- FRED_oracle_connection()
 
-DBI::dbListTables(fred_oracle, schema = "RESEARCH_WEB" )[1:20]
+DBI::dbListTables(fred_oracle, schema = "RESEARCH_WEB")[1:20]
 
 head(DBI::dbGetQuery(fred_oracle, "SELECT * FROM RESEARCH_WEB.RES_PERMIT_TYPE"))
 
@@ -110,7 +110,7 @@ Generally, if the Council has published a dataset on [Minnesota Geospatial Commo
 gis <- gis_connection()
 
 # fetch with SQL
-DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.AIRPORTS where APNAME ='Flying Cloud'")
+DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'")
 
 # remember to disconnect!
 DBI::dbDisconnect(gis)
