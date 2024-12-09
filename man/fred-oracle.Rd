@@ -10,27 +10,31 @@
 FRED_oracle_connection(
   uid = keyring::key_get("FREDOracle.uid"),
   pwd = keyring::key_get("FREDOracle.pwd"),
-  url = keyring::key_get("FREDOracle.url")
+  url = keyring::key_get("FREDOracle.url"),
+  dsn = keyring::key_get("FREDOracle.dsn")
 )
 
 fred_oracle_connection(
   uid = keyring::key_get("FREDOracle.uid"),
   pwd = keyring::key_get("FREDOracle.pwd"),
-  url = keyring::key_get("FREDOracle.url")
+  url = keyring::key_get("FREDOracle.url"),
+  dsn = keyring::key_get("FREDOracle.dsn")
 )
 
 import_from_FRED_oracle(
   table_name,
   uid = keyring::key_get("FREDOracle.uid"),
   pwd = keyring::key_get("FREDOracle.pwd"),
-  url = keyring::key_get("FREDOracle.url")
+  url = keyring::key_get("FREDOracle.url"),
+  dsn = keyring::key_get("FREDOracle.dsn")
 )
 
 import_from_fred_oracle(
   table_name,
   uid = keyring::key_get("FREDOracle.uid"),
   pwd = keyring::key_get("FREDOracle.pwd"),
-  url = keyring::key_get("FREDOracle.url")
+  url = keyring::key_get("FREDOracle.url"),
+  dsn = keyring::key_get("FREDOracle.dsn")
 )
 }
 \arguments{
@@ -42,6 +46,9 @@ import_from_fred_oracle(
 
 \item{url}{character, FRED-Oracle URL. Default value is
 \code{keyring::key_get("FREDOracle.url")}.}
+
+\item{dsn}{character, FRED-Oracle data source name. Default value is
+\code{keyring::key_get("FREDOracle.dsn")}.}
 
 \item{table_name}{character, which table to pull.}
 }

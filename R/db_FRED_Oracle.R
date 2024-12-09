@@ -37,6 +37,8 @@
 #'    `keyring::key_get("FREDOracle.pwd")`.
 #' @param url character, FRED-Oracle URL. Default value is
 #'     `keyring::key_get("FREDOracle.url")`.
+#' @param dsn character, FRED-Oracle data source name. Default value is
+#'     `keyring::key_get("FREDOracle.dsn")`.
 #'
 #' @return `fred_oracle_connection()` - An ODBC or JDBC connection object
 #' @export
@@ -67,10 +69,11 @@
 FRED_oracle_connection <- function(
     uid = keyring::key_get("FREDOracle.uid"),
     pwd = keyring::key_get("FREDOracle.pwd"),
-    url = keyring::key_get("FREDOracle.url")) {
+    url = keyring::key_get("FREDOracle.url"),
+    dsn = keyring::key_get("FREDOracle.dsn")) {
   # check input types
   purrr::map(
-    c(uid, pwd, url),
+    c(uid, pwd, url, dsn),
     check_string
   )
 
@@ -102,9 +105,10 @@ FRED_oracle_connection <- function(
   } else if (class(drv) == "OdbcDriver") {
     if (
       DBI::dbCanConnect(
+        dsn = dsn,
         drv = drv,
         user = uid,
-        password = pwd
+        pwd = pwd
       ) == FALSE) {
       cli::cli_abort("Database failed to connect")
     }
@@ -121,9 +125,10 @@ FRED_oracle_connection <- function(
       )
     } else if (class(drv) == "OdbcDriver") {
       DBI::dbConnect(
+        dsn = dsn,
         drv = drv,
         user = uid,
-        password = pwd
+        pwd = pwd
       )
     }
 
@@ -146,17 +151,19 @@ fred_oracle_connection <- FRED_oracle_connection
 import_from_FRED_oracle <- function(table_name,
                                     uid = keyring::key_get("FREDOracle.uid"),
                                     pwd = keyring::key_get("FREDOracle.pwd"),
-                                    url = keyring::key_get("FREDOracle.url")) {
+                                    url = keyring::key_get("FREDOracle.url"),
+                                    dsn = keyring::key_get("FREDOracle.dsn")) {
   # check input types
   purrr::map(
-    c(table_name, uid, pwd, url),
+    c(table_name, uid, pwd, url, dsn),
     check_string
   )
 
   conn <- fred_oracle_connection(
     uid = uid,
     pwd = pwd,
-    url = url
+    url = url,
+    dsn = dsn
   )
 
   db_sp_table <- DBI::dbGetQuery(

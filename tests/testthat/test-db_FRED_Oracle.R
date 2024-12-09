@@ -6,13 +6,12 @@ testthat::skip_if(
   is.null(curl::nslookup("mc.local"))
 )
 
-
 testthat::skip_if(httr2::secret_has_key("O9i39Lhbau_YWJd97DlnWiPk912zkLhl9_mTqGBQhcRhVoGy9VZKKpE2oDcpso795QFs5dvrufm12dfo4ZYyPe043NkY69EonIg-XRfGbnVB"))
-
 
 testthat::test_that("res permit type table direct", {
   res_permit_type <- import_from_FRED_oracle(
     table_name = "RESEARCH_WEB.RES_PERMIT_TYPE",
+    dsn = httr2::secret_decrypt("cABpjoRCjYNrPb4MwWdDBM20DsU", "COUNCILR_KEY"),
     uid = httr2::secret_decrypt("cV0x5C6BA08qwix81ggi-8YNYpCghBpOg-tMS6o", "COUNCILR_KEY"),
     pwd = httr2::secret_decrypt("8zXftlj8U8YHQvQ1j-jlXc060eAe_-WcbCScZwIrqw", "COUNCILR_KEY"),
     url = httr2::secret_decrypt("O9i39Lhbau_YWJd97DlnWiPk912zkLhl9_mTqGBQhcRhVoGy9VZKKpE2oDcpso795QFs5dvrufm12dfo4ZYyPe043NkY69EonIg-XRfGbnVB", "COUNCILR_KEY")
@@ -29,6 +28,7 @@ testthat::test_that("res permit type table direct", {
 testthat::test_that("lowercase res permit type table direct", {
   res_permit_type <- import_from_fred_oracle(
     table_name = "RESEARCH_WEB.RES_PERMIT_TYPE",
+    dsn = httr2::secret_decrypt("cABpjoRCjYNrPb4MwWdDBM20DsU", "COUNCILR_KEY"),
     uid = httr2::secret_decrypt("cV0x5C6BA08qwix81ggi-8YNYpCghBpOg-tMS6o", "COUNCILR_KEY"),
     pwd = httr2::secret_decrypt("8zXftlj8U8YHQvQ1j-jlXc060eAe_-WcbCScZwIrqw", "COUNCILR_KEY"),
     url = httr2::secret_decrypt("O9i39Lhbau_YWJd97DlnWiPk912zkLhl9_mTqGBQhcRhVoGy9VZKKpE2oDcpso795QFs5dvrufm12dfo4ZYyPe043NkY69EonIg-XRfGbnVB", "COUNCILR_KEY")
@@ -45,6 +45,7 @@ testthat::test_that("lowercase res permit type table direct", {
 
 testthat::test_that("lowercase res unit type table via SQL query", {
   fred <- fred_oracle_connection(
+    dsn = httr2::secret_decrypt("cABpjoRCjYNrPb4MwWdDBM20DsU", "COUNCILR_KEY"),
     uid = httr2::secret_decrypt("cV0x5C6BA08qwix81ggi-8YNYpCghBpOg-tMS6o", "COUNCILR_KEY"),
     pwd = httr2::secret_decrypt("8zXftlj8U8YHQvQ1j-jlXc060eAe_-WcbCScZwIrqw", "COUNCILR_KEY"),
     url = httr2::secret_decrypt("O9i39Lhbau_YWJd97DlnWiPk912zkLhl9_mTqGBQhcRhVoGy9VZKKpE2oDcpso795QFs5dvrufm12dfo4ZYyPe043NkY69EonIg-XRfGbnVB", "COUNCILR_KEY")
@@ -69,6 +70,7 @@ testthat::test_that("lowercase res unit type table via SQL query", {
 
 testthat::test_that("uppercase res unit type table via SQL query", {
   fred <- FRED_oracle_connection(
+    dsn = httr2::secret_decrypt("cABpjoRCjYNrPb4MwWdDBM20DsU", "COUNCILR_KEY"),
     uid = httr2::secret_decrypt("cV0x5C6BA08qwix81ggi-8YNYpCghBpOg-tMS6o", "COUNCILR_KEY"),
     pwd = httr2::secret_decrypt("8zXftlj8U8YHQvQ1j-jlXc060eAe_-WcbCScZwIrqw", "COUNCILR_KEY"),
     url = httr2::secret_decrypt("O9i39Lhbau_YWJd97DlnWiPk912zkLhl9_mTqGBQhcRhVoGy9VZKKpE2oDcpso795QFs5dvrufm12dfo4ZYyPe043NkY69EonIg-XRfGbnVB", "COUNCILR_KEY")
