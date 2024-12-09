@@ -78,6 +78,7 @@ FRED_oracle_connection <- function(
 
   # decide which driver to use based on OS
   if (is_mac()) {
+    requires_pkg("rJava")
     requires_pkg("RJDBC")
     drv <- RJDBC::JDBC(
       driverClass = "java.sql.Driver",
