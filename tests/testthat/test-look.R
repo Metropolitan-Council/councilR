@@ -1,4 +1,4 @@
-test_that("titanic", {
+test_that("titanic dataset look", {
   titanic <- data.table::fread("https://raw.githubusercontent.com/Geoyi/Cleaning-Titanic-Data/master/titanic_clean.csv")
 
   # look at a random home.dest
