@@ -74,11 +74,12 @@ be automatically closed after the table is imported.
 See \code{vignette("Credentials")} to review credential management.
 
 FRED-Oracle requires its own user id and password, separate from your Met Council
-credentials. Contact Matt Schroeder for assistance.
+credentials. Contact Matt Schroeder in CD-Research for assistance.
 
 You must be set up with the appropriate database drivers to use these functions.
 
-\strong{Windows} users need ODBC with Oracle drivers. Contact IS support for ODBC installation.
+\strong{Windows} users need ODBC with Oracle drivers. You must also have \code{FREDOracle.dsn} set in your keyring.
+Contact IS support for ODBC and driver installation.
 
 \strong{Mac} users need \code{unixodbc} and \code{freetds}, plus Java and JDBC drivers. Additionally,
 you must have set \code{FREDOracle.url} in your keyring and \code{JDBC_HOME} in your .Renviron.

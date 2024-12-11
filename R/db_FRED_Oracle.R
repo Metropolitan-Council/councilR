@@ -15,11 +15,12 @@
 #' @note See `vignette("Credentials")` to review credential management.
 #'
 #'  FRED-Oracle requires its own user id and password, separate from your Met Council
-#'  credentials. Contact Matt Schroeder for assistance.
+#'  credentials. Contact Matt Schroeder in CD-Research for assistance.
 #'
 #'  You must be set up with the appropriate database drivers to use these functions.
 #'
-#'  **Windows** users need ODBC with Oracle drivers. Contact IS support for ODBC installation.
+#'  **Windows** users need ODBC with Oracle drivers. You must also have `FREDOracle.dsn` set in your keyring.
+#'   Contact IS support for ODBC and driver installation.
 #'
 #'  **Mac** users need `unixodbc` and `freetds`, plus Java and JDBC drivers. Additionally,
 #'  you must have set `FREDOracle.url` in your keyring and `JDBC_HOME` in your .Renviron.
