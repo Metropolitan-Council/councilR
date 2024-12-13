@@ -2,7 +2,7 @@ testthat::skip_if_offline()
 
 
 testthat::test_that("metc districts with import_gpkg", {
-  districts <- import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/bdry_mcdistricts_2013/gpkg_bdry_mcdistricts_2013.zip")
+  districts <- import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/bdry_mcdistricts_current/gpkg_bdry_mcdistricts_current.zip")
 
   testthat::expect_s3_class(districts, "sf")
 
