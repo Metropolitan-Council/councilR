@@ -6,27 +6,26 @@
 \title{Import data table from greenhouse gas emissions scenario planning database}
 \usage{
 emissions_connection(
-  uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd"),
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd"),
   local = TRUE,
   db = "CD_Emissions"
 )
 
 import_from_emissions(
   table_name,
-  uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd"),
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd"),
   local = TRUE,
   db = "CD_Emissions"
 )
 }
 \arguments{
 \item{uid}{character, your network ID.
-Default is \code{getOption("councilR.uid")}. If you are accessing Azure,
-this value should be your full email address.}
+Default is \code{keyring::key_get("councilR.uid")}.}
 
 \item{pwd}{character, your network password.
-Default is \code{getOption("councilR.pwd")}. For example, \code{"my_password"}}
+Default is \code{keyring::key_get("councilR.pwd")}.}
 
 \item{local}{logical, whether to pull from the onsite database or Azure.
 Default is \code{TRUE}.}
@@ -47,14 +46,11 @@ Import data table from greenhouse gas emissions scenario planning database
 To access Azure, your IP address must be approved. Contact Sean Molloy.
 }
 \note{
-See \code{vignette("Options")} to review package options.
+See \code{vignette("Credentials")} to review credential management.
 You must be set up with the appropriate database drivers to use these functions.
 \strong{Windows} users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
 \strong{Mac} users need \code{unixodbc} and \code{freetds}. See instructions in the
 \href{https://furry-adventure-596f3adb.pages.github.io/database-connections.html}{onboarding guide}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{These functions rely on `\{rlang\}` internal functions.
-}\if{html}{\out{</div>}}
 }
 \examples{
 \dontrun{
@@ -62,11 +58,9 @@ You must be set up with the appropriate database drivers to use these functions.
 library(councilR)
 library(DBI)
 
-# set options if you haven't already
-options(
-  councilR.uid = "mc\\\\you",
-  councilR.pwd = "mypwd"
-)
+# set credentials if you haven't already
+keyring::key_set_with_value("councilR.uid", "mc\\\\myuuid")
+keyring::key_set_with_value("councilR.pwd", "password")
 
 # create connection
 conn <- emissions_connect()
@@ -95,6 +89,7 @@ t_utility_natural_gas_by_ctu <- import_from_emissions(
 \seealso{
 Other database functions: 
 \code{\link{FRED_connection}()},
+\code{\link{FRED_oracle_connection}()},
 \code{\link{gis_connection}()}
 }
 \concept{database functions}

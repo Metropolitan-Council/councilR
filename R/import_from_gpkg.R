@@ -10,6 +10,7 @@
 #' @param keep_temp character, whether to keep the temporary download.
 #'     Default is `FALSE`.
 #' @param .quiet logical, suppress messages. Default is `TRUE`.
+#' @param ... additional parameters passed to [sf::read_sf]
 #'
 #' @return [sf::sf()] object
 #' @export
@@ -18,11 +19,11 @@
 #'     [Minnesota Geospatial Commons](https://gisdata.mn.gov/)
 #'     when access to GISLibrary is unavailable.
 #'
-#' @note This function relies on `{rlang}` internal functions.
 #'
 #' @importFrom sf read_sf st_transform
-#' @importFrom fs file_delete
+#' @importFrom fs file_delete dir_info
 #' @importFrom utils download.file tail unzip
+#' @importFrom data.table last
 #' @importFrom purrr map
 #' @examples
 #'
@@ -30,49 +31,64 @@
 #'
 #' # import regional parks from Minnesota Geospatial Commons
 #' import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
+#' # import the "RegionalEnvironmentalJusticeByCensusTract" layer only
+#' import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_tpp2050/gpkg_trans_tpp2050.zip", layer = "RegionalEnvironmentalJusticeByCensusTract")
 #'
 import_from_gpkg <- function(link,
                              save_file = FALSE,
                              save_path = getwd(),
                              .crs = 4326,
                              keep_temp = FALSE,
-                             .quiet = TRUE) {
-  requireNamespace("rlang", quietly = TRUE)
+                             .quiet = TRUE,
+                             ...) {
   # check input types
   purrr::map(
     c(link),
-    rlang:::check_string
+    check_string
   )
   purrr::map(
     c(save_file, keep_temp, .quiet),
-    rlang:::check_bool
+    check_bool
   )
-  rlang:::check_string(save_path)
-  rlang:::check_number_whole(.crs)
+  check_string(save_path)
+  check_number_whole(.crs)
 
   # download to a temp file
   temp <- tempfile()
   download.file(link, temp, quiet = .quiet)
 
-  # get file names
-  file_names <- strsplit(link, split = "/")
 
-  # fetch the core file name
-  file_name <- tail(file_names[[1]], 1) %>%
-    gsub(pattern = "gpkg_", replacement = "") %>%
-    gsub(pattern = ".zip", replacement = "")
+  # create location in which to unzip
+  unzip_location <- tempdir()
+  # unzip the download
+  unzip(temp, exdir = unzip_location)
+
+  # find all the gpkg files in the unzip_location
+  # Sometimes, the unzipped gpkg file name may not match the
+  # downloaded zip file name
+  most_recent_gpkg <-
+    # get info on all gpkg in our unzip location
+    fs::dir_info(unzip_location, type = "file", glob = "*.gpkg$") %>%
+    # filter to get the most recently modified
+    subset(
+      subset = (modification_time == max(modification_time)),
+      select = path,
+      drop = TRUE
+    )
 
   # read in the gpkg as an sf
-  out_sf <- sf::read_sf(unzip(temp, paste0(file_name, ".gpkg")), quiet = .quiet, ) %>%
+  out_sf <- sf::read_sf(
+    most_recent_gpkg,
+    quiet = .quiet,
+    # pass on additional options
+    ...
+  ) %>%
     sf::st_transform(crs = .crs)
-
-  # delete the temp file
-  if (keep_temp == FALSE) {
-    fs::file_delete(paste0(file_name, ".gpkg"))
-  }
 
   # write the transformed sf
   if (save_file == TRUE) {
+    # create save file name using the gpkg file name
+    file_name <- stringr::str_split(most_recent_gpkg, pattern = "/")[[1]] %>% data.table::last()
     saveRDS(out_sf, paste0(save_path, "/", file_name, ".RDS"))
   }
 

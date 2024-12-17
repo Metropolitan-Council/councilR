@@ -1,5 +1,10 @@
 ## many functions here come from https://github.com/gadenbuie/js4shiny/blob/master/R/utils.R
+# person("Garrick", "Aden-Buie", , "garrick@adenbuie.com", role = "ctb",
+# comment = c(ORCID = "0000-0002-7111-0077"))
 
+is_mac <- function() {
+  grepl("mac", osVersion)
+}
 
 `%||%` <- function(x, y) if (is.null(x)) y else x
 
@@ -20,21 +25,22 @@ councilR_file <- function(...) {
   system.file(..., package = "councilR", mustWork = TRUE)
 }
 
+#' @importFrom rlang is_installed
 requires_pkg <- function(pkg) {
   calling_function <- deparse(sys.calls()[[sys.nframe() - 1]])
-  if (!requireNamespace(pkg, quietly = TRUE)) {
-    cli::cli_abort(glue("{calling_function} requires the `{pkg}` package"), call. = FALSE)
+  if (!rlang::is_installed(pkg)) {
+    cli::cli_abort(glue::glue("{calling_function} requires the `{pkg}` package"), call. = FALSE)
   }
 }
 
 requires_pkg_version <- function(pkg, version) {
   calling_function <- deparse(sys.calls()[[sys.nframe() - 1]])
   tryCatch(requires_pkg(pkg), error = function(e) {
-    cli::cli_abort(glue("{calling_function} requires the `{pkg}` package"), call. = FALSE)
+    cli::cli_abort(glue::glue("{calling_function} requires the `{pkg}` package"), call. = FALSE)
   })
   if (utils::packageVersion(pkg) < package_version(version)) {
     cli::cli_abort(
-      glue("{calling_function} requires `{pkg}` version {version} or later."),
+      glue::glue("{calling_function} requires `{pkg}` version {version} or later."),
       call. = FALSE
     )
   }
@@ -58,11 +64,11 @@ with_rstudio <- function(fn, ..., stopifnot = FALSE) {
   if (rstudioapi::hasFun(fn)) {
     rstudio_fun <- get(fn, asNamespace("rstudioapi"))
     tryCatch(do.call(rstudio_fun, list(...)), error = function(e) {
-      cli::cli_abort(glue("Error in rstudioapi::{fn}(): {e$message}"), call. = FALSE)
+      cli::cli_abort(glue::glue("Error in rstudioapi::{fn}(): {e$message}"), call. = FALSE)
     })
   } else {
     if (stopifnot) {
-      cli::cli_abort(glue(
+      cli::cli_abort(glue::glue(
         "Your version of RStudio does not support this function: {fn}"
       ), call. = FALSE)
     }
@@ -72,7 +78,7 @@ with_rstudio <- function(fn, ..., stopifnot = FALSE) {
 has_rstudio <- function(fn, stopifnot = FALSE) {
   has <- rstudioapi::hasFun(fn)
   if (!has && stopifnot) {
-    cli::cli_abort(glue(
+    cli::cli_abort(glue::glue(
       "Your version of RStudio does not support this function: {fn}"
     ), call. = FALSE)
   }

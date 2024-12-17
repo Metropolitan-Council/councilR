@@ -21,7 +21,11 @@ library(councilR)
 
 Database connections are a critical part of the work we do at the Metropolitan Council. 
 
-See `vignette("Options", package = "councilR")` to review package options that make these functions run more smoothly. All `uid` and `pwd` parameters are `getOption("councilR.uid")` and `getOption("councilR.pwd")`. 
+See `vignette("Credentials", package = "councilR")` to review credential management.
+
+All `uid` and `pwd` parameters are `keyring::key_get("councilR.uid")` and `keyring::key_get("councilR.pwd")` by default.
+
+For additional information on database configuration, consult the [onboarding guide](http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html) from our friends over in Metro Transit Strategic Initiatives. You must be on the Council network to access the guide.
 
 ## FRED
 
@@ -75,6 +79,26 @@ head(import_from_FRED(table_name = "GQ_UNIT", prod = FALSE))
 ```
 
 
+## FRED-Oracle
+
+FRED-Oracle is our older Oracle version of FRED. We are migrating all tables from FRED-Oracle to FRED, but some tables are still only available in FRED-Oracle. 
+
+You will need Oracle drivers and specific credentials to access FRED-Oracle. See `?FRED_oracle_connection()` for more information. 
+
+FRED-Oracle functions include `FRED_oracle_connection()` and `import_from_FRED_oracle()`. Both "FRED" and "fred" capitalization are supported.  
+
+
+```{r fred-oracle, eval=FALSE}
+fred_oracle <- FRED_oracle_connection()
+
+DBI::dbListTables(fred_oracle, schema = "RESEARCH_WEB")[1:20]
+
+head(DBI::dbGetQuery(fred_oracle, "SELECT * FROM RESEARCH_WEB.RES_PERMIT_TYPE"))
+
+DBI::dbDisconnect(fred_oracle)
+```
+
+
 ## GISLibrary
 
 GISLibrary is an ESRI SQL database that contains essential geospatial datasets and complementary tables. 
@@ -86,7 +110,7 @@ Generally, if the Council has published a dataset on [Minnesota Geospatial Commo
 gis <- gis_connection()
 
 # fetch with SQL
-DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.AIRPORTS where APNAME ='Flying Cloud'")
+DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'")
 
 # remember to disconnect!
 DBI::dbDisconnect(gis)

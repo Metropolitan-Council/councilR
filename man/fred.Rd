@@ -8,41 +8,41 @@
 \title{FRED}
 \usage{
 FRED_connection(
-  uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd"),
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd"),
   db = "CD_RESEARCH_WEB",
   prod = TRUE
 )
 
 fred_connection(
-  uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd"),
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd"),
   db = "CD_RESEARCH_WEB",
   prod = TRUE
 )
 
 import_from_FRED(
   table_name,
-  uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd"),
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd"),
   db = "CD_RESEARCH_WEB",
   prod = TRUE
 )
 
 import_from_fred(
   table_name,
-  uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd"),
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd"),
   db = "CD_RESEARCH_WEB",
   prod = TRUE
 )
 }
 \arguments{
 \item{uid}{character, your network ID.
-Default is \code{getOption("councilR.uid")}.}
+Default is \code{keyring::key_get("councilR.uid")}.}
 
 \item{pwd}{character, your network password.
-Default is \code{getOption("councilR.pwd")}. For example, \code{"mypwd"}}
+Default is \code{keyring::key_get("councilR.pwd")}.}
 
 \item{db}{character, database name. Default is \code{"CD_RESEARCH_WEB"}.}
 
@@ -71,7 +71,7 @@ be automatically closed after the table is imported.
 }
 }
 \note{
-See \code{vignette("Options")} to review package options.
+See \code{vignette("Credentials")} to review credential management.
 
 You must be set up with the appropriate database drivers to use these functions.
 
@@ -80,9 +80,7 @@ You must be set up with the appropriate database drivers to use these functions.
 \strong{Mac} users need \code{unixodbc}, \code{freetds}, and properly configured \code{odbc.ini}.
 
 See instructions in the
-\href{https://furry-adventure-596f3adb.pages.github.io/database-connections.html}{onboarding guide}
-and contact package maintainer for assistance.
-These functions rely on \code{{rlang}} internal functions.
+\href{http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html}{onboarding guide}.
 Further examples can be found in \code{vignette("Databases")}.
 }
 \examples{
@@ -90,11 +88,10 @@ Further examples can be found in \code{vignette("Databases")}.
 library(councilR)
 library(DBI)
 
-# set options if you haven't already
-options(
-  councilR.uid = "mc\\\\you",
-  councilR.pwd = "mypwd"
-)
+# set credentials if you haven't already
+keyring::key_set_with_value("councilR.uid", "mc\\\\myuuid")
+keyring::key_set_with_value("councilR.pwd", "password")
+
 # create connection
 conn <- FRED_connection(prod = FALSE)
 
@@ -111,6 +108,7 @@ import_from_FRED(table_name = "GQ_UNIT", prod = FALSE)
 }
 \seealso{
 Other database functions: 
+\code{\link{FRED_oracle_connection}()},
 \code{\link{emissions_connection}()},
 \code{\link{gis_connection}()}
 }

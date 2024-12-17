@@ -1,25 +1,20 @@
 #' @title Import data table from greenhouse gas emissions scenario planning database
 #'
 #' @param table_name character, which table to pull.
-#' @param uid character, your network ID.
-#'     Default is `getOption("councilR.uid")`. If you are accessing Azure,
-#'     this value should be your full email address.
-#' @param pwd character, your network password.
-#'     Default is `getOption("councilR.pwd")`. For example, `"my_password"`
 #' @param db character, database name. Default is `"CD_Emissions"`.
 #' @param local logical, whether to pull from the onsite database or Azure.
 #'     Default is `TRUE`.
+#' @inheritParams fred_connection
 #'
 #' @details
 #'  To access Azure, your IP address must be approved. Contact Sean Molloy.
 #'
-#' @note See `vignette("Options")` to review package options.
+#' @note See `vignette("Credentials")` to review credential management.
 #'     You must be set up with the appropriate database drivers to use these functions.
 #'     **Windows** users need ODBC with Microsoft SQL. Contact IS support for ODBC installation.
 #'     **Mac** users need `unixodbc` and `freetds`. See instructions in the
 #'     [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
 #'
-#'     These functions rely on `{rlang}` internal functions.
 #'
 #' @return Requested table
 #' @export
@@ -31,11 +26,9 @@
 #' library(councilR)
 #' library(DBI)
 #'
-#' # set options if you haven't already
-#' options(
-#'   councilR.uid = "mc\\you",
-#'   councilR.pwd = "mypwd"
-#' )
+#' # set credentials if you haven't already
+#' keyring::key_set_with_value("councilR.uid", "mc\\myuuid")
+#' keyring::key_set_with_value("councilR.pwd", "password")
 #'
 #' # create connection
 #' conn <- emissions_connect()
@@ -66,18 +59,18 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_abort
 emissions_connection <- function(
-    uid = getOption("councilR.uid"),
-    pwd = getOption("councilR.pwd"),
+    uid = keyring::key_get("councilR.uid"),
+    pwd = keyring::key_get("councilR.pwd"),
     local = TRUE,
     db = "CD_Emissions") {
   # check input types
   purrr::map(
     c(uid, pwd, db),
-    rlang:::check_string
+    check_string
   )
   purrr::map(
     c(local),
-    rlang:::check_bool
+    check_bool
   )
 
 
@@ -89,7 +82,7 @@ emissions_connection <- function(
   }
 
   # decide which driver to use based on OS
-  drv <- if (grepl("mac", osVersion)) {
+  drv <- if (is_mac()) {
     "FreeTDS"
   } else {
     "SQL Server"
@@ -158,18 +151,18 @@ emissions_connection <- function(
 #' @importFrom purrr map
 #' @rdname emissions
 import_from_emissions <- function(table_name,
-                                  uid = getOption("councilR.uid"),
-                                  pwd = getOption("councilR.pwd"),
+                                  uid = keyring::key_get("councilR.uid"),
+                                  pwd = keyring::key_get("councilR.pwd"),
                                   local = TRUE,
                                   db = "CD_Emissions") {
   # check input types
   purrr::map(
     c(table_name, uid, pwd, db),
-    rlang:::check_string
+    check_string
   )
   purrr::map(
     c(local),
-    rlang:::check_bool
+    check_bool
   )
 
 

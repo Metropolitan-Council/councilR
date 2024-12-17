@@ -13,7 +13,7 @@
 #'  - `import_from_fred()` imports a given table from FRED. The connection will
 #'     be automatically closed after the table is imported.
 #'
-#' @note See `vignette("Options")` to review package options.
+#' @note See `vignette("Credentials")` to review credential management.
 #'
 #'  You must be set up with the appropriate database drivers to use these functions.
 #'
@@ -22,18 +22,16 @@
 #'  **Mac** users need `unixodbc`, `freetds`, and properly configured `odbc.ini`.
 #'
 #'  See instructions in the
-#'  [onboarding guide](https://furry-adventure-596f3adb.pages.github.io/database-connections.html)
-#'  and contact package maintainer for assistance.
-#'  These functions rely on `{rlang}` internal functions.
+#'  [onboarding guide](http://mtapshiny1p/MT/Strategic_Initiatives/Onboarding/rodbc.html).
 #'  Further examples can be found in `vignette("Databases")`.
 #'
 #' @rdname fred
 #' @family database functions
 #'
 #' @param uid character, your network ID.
-#'     Default is `getOption("councilR.uid")`.
+#'     Default is `keyring::key_get("councilR.uid")`.
 #' @param pwd character, your network password.
-#'     Default is `getOption("councilR.pwd")`. For example, `"mypwd"`
+#'     Default is `keyring::key_get("councilR.pwd")`.
 #' @param db character, database name. Default is `"CD_RESEARCH_WEB"`.
 #' @param prod logical, whether to pull from the test or production db.
 #'     Default is `TRUE`.
@@ -46,11 +44,10 @@
 #' library(councilR)
 #' library(DBI)
 #'
-#' # set options if you haven't already
-#' options(
-#'   councilR.uid = "mc\\you",
-#'   councilR.pwd = "mypwd"
-#' )
+#' # set credentials if you haven't already
+#' keyring::key_set_with_value("councilR.uid", "mc\\myuuid")
+#' keyring::key_set_with_value("councilR.pwd", "password")
+#'
 #' # create connection
 #' conn <- FRED_connection(prod = FALSE)
 #'
@@ -70,29 +67,29 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_abort
 FRED_connection <- function(
-    uid = getOption("councilR.uid"),
-    pwd = getOption("councilR.pwd"),
+    uid = keyring::key_get("councilR.uid"),
+    pwd = keyring::key_get("councilR.pwd"),
     db = "CD_RESEARCH_WEB",
     prod = TRUE) {
   # check input types
   purrr::map(
     c(uid, pwd, db),
-    rlang:::check_string
+    check_string
   )
   purrr::map(
     c(prod),
-    rlang:::check_bool
+    check_bool
   )
 
   # decide which server to use based on local
   serv <- if (prod == FALSE) {
     "azdbsqlcl11t.test.local"
   } else if (prod == TRUE) {
-    "azdbsqlcl11.mc.local"
+    "azdbsqlcl07.mc.local"
   }
 
   # decide which driver to use based on OS
-  drv <- if (grepl("mac", osVersion)) {
+  drv <- if (is_mac()) {
     "FreeTDS"
   } else {
     "SQL Server"
@@ -172,18 +169,18 @@ fred_connection <- FRED_connection
 #' @importFrom DBI dbGetQuery dbDisconnect
 #' @rdname fred
 import_from_FRED <- function(table_name,
-                             uid = getOption("councilR.uid"),
-                             pwd = getOption("councilR.pwd"),
+                             uid = keyring::key_get("councilR.uid"),
+                             pwd = keyring::key_get("councilR.pwd"),
                              db = "CD_RESEARCH_WEB",
                              prod = TRUE) {
   # check input types
   purrr::map(
     c(table_name, uid, pwd, db),
-    rlang:::check_string
+    check_string
   )
   purrr::map(
     c(prod),
-    rlang:::check_bool
+    check_bool
   )
 
   conn <- fred_connection(

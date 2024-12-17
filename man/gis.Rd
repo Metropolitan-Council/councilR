@@ -7,26 +7,32 @@
 \usage{
 gis_connection(
   dbname = "GISLibrary",
-  uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd")
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd")
 )
 
 import_from_gis(
   query,
   dbname = "GISLibrary",
-  uid = getOption("councilR.uid"),
-  pwd = getOption("councilR.pwd"),
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd"),
+  geometry = TRUE,
   .quiet = FALSE
 )
 }
 \arguments{
 \item{dbname}{character, database name. Default is \code{"GISLibrary"}.}
 
-\item{uid}{character, user ID. Default is \code{getOption("councilR.uid")}}
+\item{uid}{character, your network ID.
+Default is \code{keyring::key_get("councilR.uid")}.}
 
-\item{pwd}{character, user password. Default is \code{getOption("councilR.pwd")}.}
+\item{pwd}{character, your network password.
+Default is \code{keyring::key_get("councilR.pwd")}.}
 
 \item{query}{character, string with the database connection and feature class}
+
+\item{geometry}{logical, whether to pull the geometry column, if it exists.
+Default value is \code{TRUE}.}
 
 \item{.quiet}{logical, whether to print time elapsed message.}
 }
@@ -59,34 +65,34 @@ library(councilR)
 library(DBI)
 library(sf)
 
-# set options if you haven't already
-options(
-  councilR.uid = "mc\\\\uid",
-  councilR.pwd = "mypwd"
-)
+# set credentials if you haven't already
+keyring::key_set_with_value("councilR.uid", "mc\\\\myuuid")
+keyring::key_set_with_value("councilR.pwd", "password")
 
 # create connection
 gis <- gis_connection()
 
 # pull table using SQL and convert to sf
-DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.AIRPORTS where APNAME ='Flying Cloud'") \%>\%
+DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'") \%>\%
   st_as_sf(wkt = "wkt", crs = 26915)
 
 # disconnect
 DBI::dbDisconnect(gis)
 
 # import a specific table, with no additional SQL logic
-import_from_gis(query = "GISLibrary.dbo.AIRPORTS", dbname = "GISLibrary")
+import_from_gis(query = "GISLibrary.dbo.COUNTIES", dbname = "GISLibrary")
 }
 
 }
 \seealso{
 Other database functions: 
 \code{\link{FRED_connection}()},
+\code{\link{FRED_oracle_connection}()},
 \code{\link{emissions_connection}()}
 
 Other database functions: 
 \code{\link{FRED_connection}()},
+\code{\link{FRED_oracle_connection}()},
 \code{\link{emissions_connection}()}
 }
 \concept{database functions}
