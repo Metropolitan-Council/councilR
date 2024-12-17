@@ -35,7 +35,7 @@ Imports:
     purrr (>= 1.0.2),
     rlang (>= 1.1.4),
     rstudioapi (>= 0.17.1),
-    sf (>= 1.0-19),
+    sf (>= 1.0-16),
     tictoc (>= 1.2.1),
     tigris (>= 2.1),
     utils
