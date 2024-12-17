@@ -24,7 +24,7 @@ Imports:
     data.table (>= 1.16.2),
     DBI (>= 1.2.3),
     dplyr (>= 1.1.4),
-    fs (>= 1.6.5),
+    fs (>= 1.6.3),
     ggplot2 (>= 3.5.1),
     ggspatial (>= 1.1.9),
     glue (>= 1.8.0),
