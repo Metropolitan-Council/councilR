@@ -50,7 +50,8 @@ import_from_fred_oracle(
 \item{dsn}{character, FRED-Oracle data source name. Default value is
 \code{keyring::key_get("FREDOracle.dsn")}.}
 
-\item{table_name}{character, which table to pull.}
+\item{table_name}{character, which table to pull. This should include the
+database name, separated by a period (i.e. "RESEARCH_WEB.TABLE_NAME")}
 }
 \value{
 \code{fred_oracle_connection()} - An ODBC or JDBC connection object
