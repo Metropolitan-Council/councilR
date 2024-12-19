@@ -86,7 +86,6 @@ FRED_connection <- function(
     "azdbsqlcl07.mc.local"
   } else if (prod == FALSE) {
     "azdbsqlcl07t.test.local"
-
   }
 
   # decide which driver to use based on OS
