@@ -119,8 +119,8 @@ DBI::dbDisconnect(gis)
 ```{r gis-table, eval=FALSE}
 # import a specific table as an sf object, with no additional SQL
 # returns an sf object
-airport <- import_from_gis(
-  query = "GISLibrary.dbo.AIRPORTS",
+counties <- import_from_gis(
+  query = "GISLibrary.dbo.COUNTIES",
   .quiet = TRUE
 )
 

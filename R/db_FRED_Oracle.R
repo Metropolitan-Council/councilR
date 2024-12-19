@@ -142,7 +142,8 @@ FRED_oracle_connection <- function(
 fred_oracle_connection <- FRED_oracle_connection
 
 #'
-#' @param table_name character, which table to pull.
+#' @param table_name character, which table to pull. This should include the
+#'   database name, separated by a period (i.e. "RESEARCH_WEB.TABLE_NAME")
 #'
 #' @return `import_from_fred_oracle()` - Requested table
 #' @export

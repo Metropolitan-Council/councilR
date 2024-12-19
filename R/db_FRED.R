@@ -82,10 +82,10 @@ FRED_connection <- function(
   )
 
   # decide which server to use based on local
-  serv <- if (prod == FALSE) {
-    "azdbsqlcl11t.test.local"
-  } else if (prod == TRUE) {
+  serv <- if (prod == TRUE) {
     "azdbsqlcl07.mc.local"
+  } else if (prod == FALSE) {
+    "azdbsqlcl07t.test.local"
   }
 
   # decide which driver to use based on OS
@@ -98,7 +98,7 @@ FRED_connection <- function(
   # if on Mac, you need  to specify which database name
   # based on prod
   db_name <- if (prod) {
-    "CD_RESEARCH_WEB_PROD"
+    "CD_RESEARCH_WEB"
   } else {
     "CD_RESEARCH_WEB_TEST"
   }

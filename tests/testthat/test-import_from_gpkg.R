@@ -1,6 +1,5 @@
 testthat::skip_if_offline()
 
-
 testthat::test_that("metc districts with import_gpkg", {
   districts <- import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/bdry_mcdistricts_current/gpkg_bdry_mcdistricts_current.zip")
 
@@ -8,7 +7,6 @@ testthat::test_that("metc districts with import_gpkg", {
 
   testthat::expect_equal(nrow(districts), 16)
 })
-
 
 
 testthat::test_that("EJ TPP layer", {
@@ -21,11 +19,11 @@ testthat::test_that("EJ TPP layer", {
 })
 
 
-testthat::test_that("AADT layer", {
-  aadt <- import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_dot/trans_aadt_traffic_count_locs/gpkg_trans_aadt_traffic_count_locs.zip") %>%
+testthat::test_that("park and ride layer", {
+  park_and_ride <- import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_park_rides_transit_centers/gpkg_trans_park_rides_transit_centers.zip") %>%
     suppressWarnings()
 
-  testthat::expect_s3_class(aadt, "sf")
+  testthat::expect_s3_class(park_and_ride, "sf")
 
-  testthat::expect_gte(nrow(aadt), 39728)
+  testthat::expect_gte(nrow(park_and_ride), 190)
 })
