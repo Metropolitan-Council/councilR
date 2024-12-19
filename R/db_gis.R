@@ -63,7 +63,7 @@ gis_connection <- function(
     check_string
   )
 
-  serv <- "azdbsqlcl11.mc.local"
+  serv <- "azdbsqlcl10.mc.local"
 
   # decide which driver to use based on OS
   drv <- if (is_mac()) {
