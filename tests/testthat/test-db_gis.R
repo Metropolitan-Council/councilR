@@ -18,7 +18,7 @@ testthat::test_that("gis_connection is exported", {
 testthat::test_that("GIS connection returns connection object", {
   test_conn <- gis_connection(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY")
+    pwd = httr2::secret_decrypt("0gEYx8sYRcGetutUMIMMbfBq68homB_GRr0LW2hd", "COUNCILR_KEY")
   )
 
   testthat::expect_s4_class(test_conn, "Microsoft SQL Server")
@@ -37,7 +37,7 @@ testthat::test_that("GIS connection returns connection object", {
 testthat::test_that("counties spatial dataset", {
   counties <- import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("0gEYx8sYRcGetutUMIMMbfBq68homB_GRr0LW2hd", "COUNCILR_KEY"),
     query = "GISLibrary.dbo.COUNTIES",
     dbname = "GISLibrary",
     .quiet = TRUE
@@ -55,7 +55,7 @@ testthat::test_that("counties spatial dataset", {
 testthat::test_that("county ctu lookup table", {
   lookup_table <- import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("0gEYx8sYRcGetutUMIMMbfBq68homB_GRr0LW2hd", "COUNCILR_KEY"),
     query = "GISLibrary.dbo.CountyCTULookupTable",
     dbname = "GISLibrary",
     .quiet = TRUE
@@ -74,7 +74,7 @@ testthat::test_that("county ctu lookup table", {
 testthat::test_that("counties spatial dataset without geometry", {
   counties <- import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("tsGlVlM0KBdLcUPNLX5f0Hll2_6HFF_rQx62cw", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("0gEYx8sYRcGetutUMIMMbfBq68homB_GRr0LW2hd", "COUNCILR_KEY"),
     query = "GISLibrary.dbo.COUNTIES",
     dbname = "GISLibrary",
     geometry = FALSE,
