@@ -1,6 +1,6 @@
 ## code to prepare `mn_fips_codes` dataset goes here
 
-load_all()
+devtools::load_all()
 
 mn_fips_codes <- tigris::fips_codes %>%
   dplyr::filter(state_code == "27")
