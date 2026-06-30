@@ -1,0 +1,414 @@
+---
+title: "councilR: A Toolkit"
+subtitle: "Templates, Colors, Functions, and Database Connections for Metropolitan Council R Users"
+author: "Metropolitan Council"
+date: "2026-06-30"
+format:
+  revealjs:
+    theme: council.scss
+    logo: main-logo.png
+    # footer: "councilR v0.3.0 | Metropolitan Council"
+    slide-number: true
+    preview-links: auto
+    chalkboard: true
+    code-fold: false
+    code-line-numbers: false
+    highlight-style: github
+    transition: slide
+    background-transition: fade
+    advance: true
+    scrollable: true
+    code-overflow: wrap
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+```{r setup, include=FALSE}
+library(councilR)
+library(ggplot2)
+```
+
+## What is councilR? {.smaller}
+
+::: {.columns}
+::: {.column width="60%"}
+**Purpose & Overview**
+
+- Collection of commonly used templates, color palettes, and functions
+- Developed by and for Metropolitan Council staff
+- Streamlines database connections and spatial data workflows
+:::
+
+::: {.column width="40%"}
+![](logo.png){width=80%}
+:::
+:::
+
+```r
+remotes::install_github("Metropolitan-Council/councilR")
+library(councilR)
+```
+
+## Package Maintenance & Documentation {.smaller}
+
+**Resources & Support**
+
+::: {.columns}
+::: {.column width="50%"}
+**Documentation**
+
+- Vignettes: Colors, Databases, Spatial Helpers, Credentials
+- Function help: `?function_name`
+- [GitHub Repository](https://github.com/Metropolitan-Council/councilR)
+:::
+
+::: {.column width="50%"}
+**Quality**
+
+- R-CMD-check workflow
+- Comprehensive test suite
+- Active maintenance
+:::
+:::
+
+# Branding & Visualization {background-color="#0054A4"}
+
+## Colors & Themes {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+
+**Brand Colors**
+
+- `colors` - Council Brand Standards palette
+- `blue_cascade` - Website menu colors, good for reference blues
+
+**Scale Functions**
+
+```r
+# Automatic Council palettes (up to 8 levels)
+scale_color_council()
+scale_fill_council()
+```
+
+**Custom Gradients**
+
+```r
+colorRampPalette(
+  c("#e0e3e8", colors$playDaBlue)
+)
+```
+:::
+
+::: {.column width="50%"}
+**ggplot2 Themes**
+
+```r
+theme_council()       # Standard plots
+theme_council_open()  # Scatterplots
+theme_council_geo()   # Maps
+```
+
+**Plotly**
+
+```r
+plot_ly(...) %>%
+  council_layout(
+    main_title = "Title",
+    x_title = "X axis",
+    y_title = "Y axis"
+  )
+```
+:::
+:::
+
+# Database Connections {background-color="#0054A4"}
+
+## Database Overview {.smaller}
+
+**Seamless Data Access**
+
+1. **FRED** - CD Research data (SQL Server)
+2. **FRED-Oracle** - Legacy Oracle database
+3. **GISLibrary** - Spatial datasets (ESRI SQL)
+
+::: {.callout-tip}
+## Security
+Credentials managed via `keyring` package. See `vignette("Credentials")` for setup.
+:::
+
+
+
+## FRED Database {.smaller}
+
+```{r, eval=FALSE}  
+# Create connection
+library(councilR)
+fred <- fred_connection(db = "CD_RESEARCH_WEB", prod = FALSE)
+
+# List available tables
+DBI::dbListTables(fred)
+
+# Import a specific table
+gq_data <- import_from_FRED(table_name = "GQ_UNIT")
+
+# Always disconnect!
+DBI::dbDisconnect(fred)
+```
+
+**Contains:** Regional parks, population estimates, group quarters, and more
+
+## FRED-Oracle Database {.smaller}
+
+**Legacy Data Access**
+
+- `FRED_oracle_connection()` - Connect to Oracle database
+- `import_from_FRED_oracle()` - Direct table import
+- Requires Oracle drivers and specific credentials
+
+```{r, eval=FALSE}
+library(councilR)
+
+# create connection
+conn <- fred_oracle_connection()
+
+# pull table using SQL
+DBI::dbGetQuery(conn, "SELECT * FROM RESEARCH_WEB.RES_PERMIT_TYPE")
+
+# disconnect
+DBI::dbDisconnect(conn)
+
+# import a specific table, with no additional SQL logic
+import_from_FRED(table_name = "RESEARCH_WEB.RES_PERMIT_TYPE")
+```
+
+**Contains:** Some population estimates, housing data
+
+## GISLibrary Database {.smaller}
+
+**Spatial Data Repository**
+
+```r
+library(councilR)
+# Connect to GISLibrary
+gis <- gis_connection()
+
+DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.COUNTIES
+                      where CO_NAME = 'ANOKA'") %>%
+   st_as_sf(wkt = "wkt", crs = 26915)
+
+# Import spatial tables as sf objects
+counties <- import_from_gis(
+  query = "GISLibrary.dbo.COUNTIES",
+  .quiet = TRUE
+)
+
+# Non-spatial tables return data frames
+lookup <- import_from_gis(
+  query = "GISLibrary.dbo.CountyCTULookupTable",
+  geometry = FALSE
+)
+```
+
+# Spatial Data Tools {background-color="#0054A4"}
+
+## Spatial Helper Functions {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**fetch_county_geo()**
+
+- Get 7-county metro geography
+- Returns sf object
+- Optional progress bar
+
+```r
+counties <- fetch_county_geo(
+  progress_bar = FALSE
+)
+```
+:::
+
+::: {.column width="50%"}
+**fetch_ctu_geo()**
+
+- Get Cities and Townships (CTU)
+- Full metro area coverage
+- Ready for immediate mapping
+
+```r
+ctus <- fetch_ctu_geo(
+  progress_bar = FALSE
+)
+```
+:::
+:::
+
+## Import Spatial Data {.smaller}
+
+**import_from_gpkg()**
+
+::: {.callout-warning}
+Needs to be retired or upgraded for new Geospatial Commons acces
+:::
+
+Download and import from Minnesota Geospatial Commons
+
+```r
+# Copy link from Geospatial Commons (GeoPackage .zip format)
+parks <- import_from_gpkg("https://gis.data.mn.gov/.../parks.zip")
+```
+
+
+
+## Quick Mapping Function {.smaller}
+
+**map_council_continuous()**
+
+
+::: {.columns}
+
+::: {.column}
+
+
+- Scale bar
+- Cardinal direction indicator
+- Council theme
+
+
+:::
+
+::: {.column}
+
+
+```{r}
+#| eval: true
+
+fetch_county_geo() %>%
+  map_council_continuous(.fill = ALAND) +
+  labs(title = "Land Area by County")
+```
+
+:::
+
+:::
+
+
+# Utilities & Productivity   {background-color="#0054A4"}
+
+## RStudio Code Snippets {.smaller}
+
+**Instant Access to Common Values**
+
+Install once: `snippets_install()`
+
+::: {.columns}
+::: {.column width="50%"}
+**Available Snippets:**
+
+- `metro_crs` → `26915`
+- `tile_crs` → `4326`
+- `metro_centroid` → `c(-93.30375, 44.91831)`
+:::
+
+::: {.column width="50%"}
+- `counties` → Seven-county vector
+- `counties_mpo` → All MPO counties
+:::
+:::
+
+
+::: {.callout-tip}
+## Pro Tip
+Type snippet name in RStudio and hit Tab to autocomplete!
+:::
+
+## Data Exploration with `look()` {.smaller}
+
+**Random Sampling for data.table**
+
+```r
+library(data.table)
+library(councilR)
+
+titanic <- fread("https://raw.githubusercontent.com/.../titanic_clean.csv")
+
+# Random home destination
+titanic[look(home.dest)]
+
+# Chain multiple filters
+titanic[look(fare)][look(embarked)]
+```
+
+Perfect for exploring large datasets interactively!
+
+## Minnesota FIPS Codes
+
+**Geographic Reference Data**
+
+`mn_fips_codes` dataset:
+
+- County names and FIPS codes
+- Essential for joining Census data
+- Metropolitan Council region identified
+- Ready-to-use reference table
+
+```r
+data(mn_fips_codes)
+head(mn_fips_codes)
+```
+
+# `import_from_gpkg()` {.smaller}
+
+
+::: {.column}
+
+- `import_from_gpkg()` allows you to import spatial data from a GeoPackage file hosted on the Minnesota Geospatial Commons by providing a direct URL to the gpkg file. 
+- Great for public facing code that needs to access spatial data without requiring users to access GISLibrary or other internal databases.
+
+:::
+
+::: {.column}
+
+
+```{r warning=FALSE, message=FALSE}
+library(councilR)
+
+# import the "TPP2050RegionallySignificantProjectPoints" layer only
+import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_tpp2050/gpkg_trans_tpp2050.zip", 
+            layer = "TPP2050RegionallySignificantProjectPoints") %>%
+head()
+``` 
+
+:::
+
+
+## `{arcgislayers}` {.smaller}
+
+Use new REST API [API](https://gis.data.mn.gov/pages/rest-services)
+
+Import using new REST API with `arcgislayers` package. 
+
+```{r}
+library(arcgislayers)
+
+# list items in TPP2050_Highway feature server
+arcgislayers::arc_open("https://arcgis.metc.state.mn.us/data2/rest/services/transportation/TPP2050_Highway/FeatureServer/") %>%
+  arcgislayers::list_items()
+
+
+# import layer from REST API
+arcgislayers::arc_open("https://arcgis.metc.state.mn.us/data2/rest/services/transportation/TPP2050_Highway/FeatureServer/2") %>%
+  head()
+```
+
+# Discussion  {background-color="#0054A4"}
+
+## Questions
+
+- Do you use any of the geospatial helper functions in your work?
+- Do you have preferences on how we should update `import_from_gpkg()`?
+- If we use `{arcgislayers}` for importing spatial data, should we add a wrapper functions to `councilR`?
+
+
