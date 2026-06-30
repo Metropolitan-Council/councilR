@@ -16,7 +16,7 @@ Default is \code{TRUE}.}
 \item{...}{Arguments passed to \verb{[tigris]} functions}
 }
 \value{
-An \code{\link{sf}} object containing specified geographies.
+An \code{\link[sf:sf]{sf::sf}} object containing specified geographies.
 }
 \description{
 The default \code{fetch_county_geo()} to return county outlines, plus a suite of other functions to return more niche geographies.

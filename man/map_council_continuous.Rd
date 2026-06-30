@@ -35,7 +35,7 @@ Default is \code{"#01665e"} (teal)}
 Default is \code{0}.}
 }
 \value{
-a \link{ggplot2} plot
+a \link[ggplot2:ggplot2-package]{ggplot2::ggplot2} plot
 }
 \description{
 Building on functionality for creating maps when mapping continuous data, \code{map_council_continuous()} could save some work.
