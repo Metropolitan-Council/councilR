@@ -80,3 +80,26 @@ test_that("geo theme is mostly blank", {
   testthat::expect_equal(th$panel.grid, ggplot2::element_blank())
   testthat::expect_equal(th$axis.text, ggplot2::element_blank())
 })
+
+test_that("theme_council() works without attaching councilR (#91)", {
+  # Calling councilR::theme_council() without library(councilR) used to error
+  # ("object of type 'closure' is not subsettable") because the bare `colors`
+  # references resolved to grDevices::colors rather than the package data.
+  # Run in a fresh process with no attach to guard against that regression.
+  testthat::skip_if_not_installed("councilR")
+  testthat::skip_if_not_installed("callr")
+
+  th <- callr::r(function() councilR::theme_council())
+  testthat::expect_s3_class(th, "theme")
+
+  # A full plot using the theme should also build without error.
+  p <- callr::r(function() {
+    df <- data.frame(v1 = 1:5, v2 = 6:10)
+    plot <- ggplot2::ggplot(df, ggplot2::aes(x = v1, y = v2)) +
+      ggplot2::geom_point(size = 4) +
+      councilR::theme_council()
+    ggplot2::ggplot_build(plot)$plot$theme
+    "ok"
+  })
+  testthat::expect_identical(p, "ok")
+})

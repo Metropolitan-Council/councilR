@@ -189,21 +189,21 @@ theme_council <- function(base_size = 11,
 
     # SETUP -----
     line = ggplot2::element_line(
-      colour = colors$suppBlack,
+      colour = councilR::colors$suppBlack,
       linewidth = base_line_size,
       linetype = 1,
       lineend = "butt"
     ),
     rect = ggplot2::element_rect(
-      fill = colors$suppWhite,
-      colour = colors$suppBlack,
+      fill = councilR::colors$suppWhite,
+      colour = councilR::colors$suppBlack,
       linewidth = base_rect_size,
       linetype = 1
     ),
     text = ggplot2::element_text(
       family = base_family,
       face = "plain",
-      colour = colors$suppBlack,
+      colour = councilR::colors$suppBlack,
       size = base_size,
       lineheight = 0.9,
       hjust = 0.5,
@@ -368,7 +368,7 @@ theme_council <- function(base_size = 11,
     strip.switch.pad.wrap = ggplot2::unit(half_line / 2, "pt"),
 
     # PLOT -----
-    plot.background = ggplot2::element_rect(colour = colors$suppWhite),
+    plot.background = ggplot2::element_rect(colour = councilR::colors$suppWhite),
 
     ## title -----
     plot.title = ggplot2::element_text(
