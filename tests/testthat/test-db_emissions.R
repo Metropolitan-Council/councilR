@@ -25,7 +25,7 @@ testthat::skip_if(httr2::secret_has_key("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins"))
 testthat::test_that("emissions connection returns connection object", {
   test_conn <- emissions_connection(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("0gEYx8sYRcGetutUMIMMbfBq68homB_GRr0LW2hd", "COUNCILR_KEY")
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY")
   )
 
   testthat::expect_s4_class(test_conn, "Microsoft SQL Server")
@@ -38,12 +38,10 @@ testthat::test_that("emissions connection returns connection object", {
 })
 
 
-
-
 testthat::test_that("Residential electricity data is returned", {
   electric_residential <- import_from_emissions(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("0gEYx8sYRcGetutUMIMMbfBq68homB_GRr0LW2hd", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
     table_name = "metro_energy.vw_electricity_residential_ctu"
   )
 

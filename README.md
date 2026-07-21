@@ -18,7 +18,16 @@ and functions for R users at the Metropolitan Council.
 You can install the released version of `{councilR}` from GitHub.
 
 ``` r
-remotes::install_github("Metropolitan-Council/councilR")
+library(remotes)
+remotes::install_github("Metropolitan-Council/councilR", build_manual = TRUE)
+```
+
+If you use `{renv}`, you can add `{councilR}` to your project by
+running:
+
+``` r
+library(renv)
+renv::install("Metropolitan-Council/councilR")
 ```
 
 ## Contributing
