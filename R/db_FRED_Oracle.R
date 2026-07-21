@@ -68,10 +68,11 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_abort
 FRED_oracle_connection <- function(
-    uid = keyring::key_get("FREDOracle.uid"),
-    pwd = keyring::key_get("FREDOracle.pwd"),
-    url = keyring::key_get("FREDOracle.url"),
-    dsn = keyring::key_get("FREDOracle.dsn")) {
+  uid = keyring::key_get("FREDOracle.uid"),
+  pwd = keyring::key_get("FREDOracle.pwd"),
+  url = keyring::key_get("FREDOracle.url"),
+  dsn = keyring::key_get("FREDOracle.dsn")
+) {
   # check input types
   purrr::map(
     c(uid, pwd, url, dsn),
@@ -177,7 +178,6 @@ import_from_FRED_oracle <- function(table_name,
 
   return(db_sp_table)
 }
-
 
 
 #' @rdname fred-oracle

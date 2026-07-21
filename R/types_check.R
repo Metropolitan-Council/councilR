@@ -244,8 +244,6 @@ check_number_decimal <- function(x,
 }
 
 
-
-
 check_logical <- function(x,
                           ...,
                           allow_null = FALSE,
@@ -421,8 +419,6 @@ oxford_comma <- function(chr, sep = ", ", final = "or") {
     paste0(head, " ", final, " ", last)
   }
 }
-
-
 
 
 #' @param x The object type which does not conform to `what`.

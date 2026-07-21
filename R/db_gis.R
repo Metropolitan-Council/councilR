@@ -55,9 +55,10 @@
 #' @importFrom cli cli_abort
 #' @importFrom odbc odbc
 gis_connection <- function(
-    dbname = "GISLibrary",
-    uid = keyring::key_get("councilR.uid"),
-    pwd = keyring::key_get("councilR.pwd")) {
+  dbname = "GISLibrary",
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd")
+) {
   purrr::map(
     c(dbname, uid, pwd),
     check_string

@@ -271,7 +271,6 @@ council_layout <- function(a_plotly,
 }
 
 
-
 #' @rdname council_layout
 #' @export
 plotly_layout <- council_layout

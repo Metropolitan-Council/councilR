@@ -186,7 +186,6 @@ theme_council <- function(base_size = 11,
 
   half_line <- base_size / 2
   t <- ggplot2::theme(
-
     # SETUP -----
     line = ggplot2::element_line(
       colour = colors$suppBlack,

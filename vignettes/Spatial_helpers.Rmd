@@ -37,13 +37,12 @@ arcgislayers::arc_open("https://arcgis.metc.state.mn.us/data1/rest/services/plan
 
 # Access a specific layer by appending the layer number to the URL. For example, to access layer 0, append "/0" to the URL.
 arcgislayers::arc_open("https://arcgis.metc.state.mn.us/data1/rest/services/planning/Regional_Parks_Trails/FeatureServer/0")
-
 ```
 
 To pull a given layer, pass the URL to `arc_open()`, then use `arc_select()`. You can filter the data using the `where` argument. The `where` argument takes a SQL-like query string.
 
 ```{r regional-parks-commons}
-regional_parks_commons <- arcgislayers::arc_open("https://arcgis.metc.state.mn.us/data1/rest/services/planning/Regional_Parks_Trails/FeatureServer/0") %>% 
+regional_parks_commons <- arcgislayers::arc_open("https://arcgis.metc.state.mn.us/data1/rest/services/planning/Regional_Parks_Trails/FeatureServer/0") %>%
   arcgislayers::arc_select(
     where = "OMFundingAgency = 'Anoka County'"
   )

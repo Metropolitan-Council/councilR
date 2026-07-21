@@ -142,7 +142,6 @@ testthat::test_that("Additional arguments applied", {
   )
 
 
-
   testthat::expect_equal(
     additional_plot$x$layoutAttrs[[2]]$yaxis$title$font$family,
     "Comic Sans MS"
