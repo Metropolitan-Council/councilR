@@ -3,7 +3,7 @@
 \name{import_from_gpkg}
 \alias{import_from_gpkg}
 \alias{import_gpkg}
-\title{Import an \code{sf} object using a geopackage URL}
+\title{DEPRECATED Import an \code{sf} object using a geopackage URL}
 \usage{
 import_from_gpkg(
   link,
@@ -48,6 +48,7 @@ Default is \code{FALSE}.}
 \code{\link[sf:sf]{sf::sf()}} object
 }
 \description{
+Deprecated.
 This function is particularly useful for importing data from
 \href{https://gisdata.mn.gov/}{Minnesota Geospatial Commons}
 when access to GISLibrary is unavailable.
