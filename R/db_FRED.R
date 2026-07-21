@@ -67,10 +67,11 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_abort
 FRED_connection <- function(
-    uid = keyring::key_get("councilR.uid"),
-    pwd = keyring::key_get("councilR.pwd"),
-    db = "CD_RESEARCH_WEB",
-    prod = TRUE) {
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd"),
+  db = "CD_RESEARCH_WEB",
+  prod = TRUE
+) {
   # check input types
   purrr::map(
     c(uid, pwd, db),
@@ -100,7 +101,7 @@ FRED_connection <- function(
   db_name <- if (prod) {
     "CD_RESEARCH_WEB"
   } else {
-    "CD_RESEARCH_WEB_TEST"
+    "CD_RESEARCH_WEB"
   }
 
   # check that DB connection works
@@ -129,7 +130,6 @@ FRED_connection <- function(
       cli::cli_abort("Database failed to connect")
     }
   }
-
 
 
   conn <-
