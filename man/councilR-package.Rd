@@ -27,6 +27,7 @@ Other contributors:
   \item Mauricio León \email{mauricio.leon@metc.state.mn.us} [contributor]
   \item Samuel Limerick \email{samuel.limerick@metc.state.mn.us} [contributor]
   \item Brandon Whited \email{brandon.whited@metc.state.mn.us} [contributor]
+  \item Matt Schroeder \email{matt.schroeder@metc.state.mn.us} [contributor]
   \item Laine McNamara \email{laine.mcnamara@metc.state.mn.us} [reviewer]
 }
 
