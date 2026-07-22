@@ -13,7 +13,8 @@
 #'     converts it into a [sf::sf()] object. The connection will
 #'     be automatically closed after the table is imported. If the table
 #'     does not have any spatial data, the table will be returned as a
-#'     data.frame.
+#'     data.frame. The return object is assigned the coordinate reference system
+#'     (CRS) listed in the database.
 #'
 #'  Further examples can be found in `vignette("Databases", package = "councilR")`.
 #'
@@ -162,6 +163,8 @@ import_from_gis <- function(query,
     )
   )
 
+
+
   # if there are any geometry columns, and we want those columns
   # pull as wkt
   if (("geometry" %in% column_names$DATA_TYPE) & geometry == TRUE) {
@@ -169,6 +172,13 @@ import_from_gis <- function(query,
     geo_column <- column_names %>%
       dplyr::filter(DATA_TYPE == "geometry") %>%
       magrittr::extract2("COLUMN_NAME")
+
+    # fetch CRS
+    query_crs <- DBI::dbGetQuery(
+      conn,
+      paste0(
+        "SELECT distinct Shape.STSrid FROM ",
+        gsub(pattern = "GISLibrary.dbo.", replacement = "", x = query), ""))
 
     # fetch query
     que <- DBI::dbGetQuery(
@@ -179,7 +189,8 @@ import_from_gis <- function(query,
     # convert wkt to sf
     return_table <- sf::st_as_sf(
       que,
-      wkt = "wkt", crs = 26915
+      wkt = "wkt",
+      crs = query_crs[[1]]
     )
   }
   # otherwise, if there are geometry columns and we do NOT want those columns
