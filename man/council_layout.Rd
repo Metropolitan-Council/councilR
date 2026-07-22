@@ -47,7 +47,7 @@ plotly_layout(
 Council plotly formatting
 }
 \note{
-Further examples in \code{vignette("Color")}.
+Further examples in \code{vignette("Color", package = "councilR")}.
 
 The \code{subtitle} returned is an annotation, and so cannot be further modified.
 If you want to modify the subtitle aesthetics, leave \code{subtitle = ""} and
