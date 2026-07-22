@@ -54,6 +54,7 @@ This function is particularly useful for importing data from
 when access to GISLibrary is unavailable.
 }
 \examples{
+\dontrun{
 
 library(councilR)
 
@@ -61,5 +62,5 @@ library(councilR)
 import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
 # import the "RegionalEnvironmentalJusticeByCensusTract" layer only
 import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_tpp2050/gpkg_trans_tpp2050.zip", layer = "RegionalEnvironmentalJusticeByCensusTract")
-
+}
 }

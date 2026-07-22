@@ -28,6 +28,7 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_warn
 #' @examples
+#' \dontrun{
 #'
 #' library(councilR)
 #'
@@ -35,7 +36,7 @@
 #' import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
 #' # import the "RegionalEnvironmentalJusticeByCensusTract" layer only
 #' import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_tpp2050/gpkg_trans_tpp2050.zip", layer = "RegionalEnvironmentalJusticeByCensusTract")
-#'
+#' }
 import_from_gpkg <- function(link,
                              save_file = FALSE,
                              save_path = getwd(),
