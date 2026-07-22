@@ -164,7 +164,6 @@ import_from_gis <- function(query,
   )
 
 
-
   # if there are any geometry columns, and we want those columns
   # pull as wkt
   if (("geometry" %in% column_names$DATA_TYPE) & geometry == TRUE) {
@@ -178,7 +177,9 @@ import_from_gis <- function(query,
       conn,
       paste0(
         "SELECT distinct Shape.STSrid FROM ",
-        gsub(pattern = "GISLibrary.dbo.", replacement = "", x = query), ""))
+        gsub(pattern = "GISLibrary.dbo.", replacement = "", x = query), ""
+      )
+    )
 
     # fetch query
     que <- DBI::dbGetQuery(

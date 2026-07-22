@@ -54,7 +54,8 @@ care to use \code{\link[DBI:dbDisconnect]{DBI::dbDisconnect()}} once you are don
 converts it into a \code{\link[sf:sf]{sf::sf()}} object. The connection will
 be automatically closed after the table is imported. If the table
 does not have any spatial data, the table will be returned as a
-data.frame.
+data.frame. The return object is assigned the coordinate reference system
+(CRS) listed in the database.
 }
 
 Further examples can be found in \code{vignette("Databases", package = "councilR")}.
