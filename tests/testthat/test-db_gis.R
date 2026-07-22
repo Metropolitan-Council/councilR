@@ -104,3 +104,26 @@ testthat::test_that("counties spatial dataset without geometry", {
   # test that object returned is an sf object
   testthat::expect_equal(class(counties)[[1]], "data.frame")
 })
+
+testthat::test_that("CRS differences", {
+
+  zcta <- councilR::import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    query = "MNGEO_zip_code_tabulation_areas",
+    dbname = "GISGDRS",
+    geometry = TRUE,
+    .quiet = TRUE
+  )
+
+  counties <- councilR::import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    query = "Counties",
+    geometry = TRUE,
+    .quiet = TRUE
+  )
+
+  testthat::expect_false(sf::st_crs(counties)[1]$input == sf::st_crs(zcta)[1]$input)
+
+})
