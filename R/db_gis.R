@@ -153,13 +153,14 @@ import_from_gis <- function(query,
     pwd = pwd
   )
 
+  table_name <- sub(pattern = ".*dbo\\.", replacement = "", x = query)
+
   # fetch query table column names
   column_names <- DBI::dbGetQuery(
     conn,
     paste0(
       "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '",
-      # remove GISLibrary.dbo. to get just the table name
-      gsub(pattern = "GISLibrary.dbo.", replacement = "", x = query), "'"
+      table_name, "'"
     )
   )
 
@@ -177,7 +178,7 @@ import_from_gis <- function(query,
       conn,
       paste0(
         "SELECT distinct Shape.STSrid FROM ",
-        gsub(pattern = "GISLibrary.dbo.", replacement = "", x = query), ""
+        table_name
       )
     )
 
