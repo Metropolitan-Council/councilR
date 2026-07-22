@@ -50,6 +50,24 @@ testthat::test_that("counties spatial dataset", {
 })
 
 
+testthat::test_that("CTUs spatial dataset", {
+  ctus <- import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    query = "CTUs",
+    dbname = "GISLibrary",
+    .quiet = TRUE
+  )
+
+  # test that min number of ctus are included
+  testthat::expect_gt(nrow(ctus), 180)
+
+  # test that object returned is an sf object
+  testthat::expect_equal(class(ctus)[[1]], "sf")
+})
+
+
+
 testthat::test_that("county ctu lookup table", {
   lookup_table <- import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
@@ -79,7 +97,7 @@ testthat::test_that("counties spatial dataset without geometry", {
   )
 
   # test that all counties are included
-  # there should be 14 counties
+  # there should be 7 counties
   testthat::expect_equal(nrow(counties), 7)
   testthat::expect_equal(ncol(counties), 7)
 
