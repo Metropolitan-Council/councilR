@@ -87,9 +87,9 @@ t_utility_natural_gas_by_ctu <- import_from_emissions(
 
 }
 \seealso{
-Other database functions: 
-\code{\link{FRED_connection}()},
-\code{\link{FRED_oracle_connection}()},
-\code{\link{gis_connection}()}
+Other database functions:
+\code{\link[=FRED_connection]{FRED_connection()}},
+\code{\link[=FRED_oracle_connection]{FRED_oracle_connection()}},
+\code{\link[=gis_connection]{gis_connection()}}
 }
 \concept{database functions}

@@ -26,14 +26,14 @@ ggplot(test, aes(x = x, y = y, col = as.factor(col), fill = as.factor(col))) +
 }
 }
 \seealso{
-Other aesthetics: 
+Other aesthetics:
 \code{\link{blue_cascade}},
 \code{\link{colors}},
-\code{\link{council.pal}()},
-\code{\link{council_layout}()},
-\code{\link{council_pal2}()},
-\code{\link{map_council_continuous}()},
-\code{\link{scale_color_council}()},
-\code{\link{theme_council}()}
+\code{\link[=council.pal]{council.pal()}},
+\code{\link[=council_layout]{council_layout()}},
+\code{\link[=council_pal2]{council_pal2()}},
+\code{\link[=map_council_continuous]{map_council_continuous()}},
+\code{\link[=scale_color_council]{scale_color_council()}},
+\code{\link[=theme_council]{theme_council()}}
 }
 \concept{aesthetics}

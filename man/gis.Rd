@@ -86,14 +86,9 @@ import_from_gis(query = "GISLibrary.dbo.COUNTIES", dbname = "GISLibrary")
 
 }
 \seealso{
-Other database functions: 
-\code{\link{FRED_connection}()},
-\code{\link{FRED_oracle_connection}()},
-\code{\link{emissions_connection}()}
-
-Other database functions: 
-\code{\link{FRED_connection}()},
-\code{\link{FRED_oracle_connection}()},
-\code{\link{emissions_connection}()}
+Other database functions:
+\code{\link[=FRED_connection]{FRED_connection()}},
+\code{\link[=FRED_oracle_connection]{FRED_oracle_connection()}},
+\code{\link[=emissions_connection]{emissions_connection()}}
 }
 \concept{database functions}

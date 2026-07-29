@@ -42,7 +42,7 @@ Default is \code{FALSE}.}
 
 \item{.quiet}{logical, suppress messages. Default is \code{TRUE}.}
 
-\item{...}{additional parameters passed to \link[sf:st_read]{sf::read_sf}}
+\item{...}{additional parameters passed to \link[sf:read_sf]{sf::read_sf}}
 }
 \value{
 \code{\link[sf:sf]{sf::sf()}} object
