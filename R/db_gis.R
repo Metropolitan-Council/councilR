@@ -180,7 +180,9 @@ import_from_gis <- function(query,
     ),
     seq_len(nrow(column_names))
   )
+  geometry_columns <- column_names$COLUMN_NAME[column_names$DATA_TYPE == "geometry"]
   ordered_columns <- column_names$COLUMN_NAME[column_order]
+  ordered_columns <- ordered_columns[!(ordered_columns %in% geometry_columns)]
   ordered_columns_sql <- paste0("[", ordered_columns, "]", collapse = ", ")
 
 
@@ -197,7 +199,7 @@ import_from_gis <- function(query,
     query_crs <- DBI::dbGetQuery(
       conn,
       paste0(
-        "SELECT distinct Shape.STSrid FROM ",
+        "SELECT distinct ", geo_column, ".STSrid FROM ",
         table_name
       )
     )
@@ -224,6 +226,7 @@ import_from_gis <- function(query,
     geo_columns <- column_names %>%
       dplyr::filter(DATA_TYPE == "geometry") %>%
       magrittr::extract2("COLUMN_NAME")
+
     non_geo_columns <- ordered_columns[!(ordered_columns %in% geo_columns)]
     non_geo_columns_sql <- paste0("[", non_geo_columns, "]", collapse = ", ")
 
