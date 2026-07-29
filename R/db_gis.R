@@ -166,6 +166,7 @@ import_from_gis <- function(query,
     )
   )
 
+  # browser()
   # order columns so varchar fields are sorted by declared length
   # (longest varchar columns at the end)
   column_order <- order(
@@ -187,7 +188,7 @@ import_from_gis <- function(query,
 
 
   # if there are any geometry columns, and we want those columns
-  # pull as wkt
+  # pull as wkb
   if (("geometry" %in% column_names$DATA_TYPE) & geometry == TRUE) {
     # fetch column name with geometry
     geo_column <- column_names %>%
@@ -204,20 +205,22 @@ import_from_gis <- function(query,
       )
     )
 
-    # fetch query
+    # fetch query with geometry as WKB
     que <- DBI::dbGetQuery(
       conn,
       paste0(
         "SELECT ", ordered_columns_sql,
-        ", ", geo_column, ".STAsText() as wkt FROM ", query
+        ", ", geo_column, ".STAsBinary() AS wkb FROM ", query
       )
     )
 
-    # convert wkt to sf
-    return_table <- sf::st_as_sf(
-      que,
-      wkt = "wkt",
-      crs = query_crs[[1]]
+    # convert WKB directly to sf geometry
+    wkb_data <- que$wkb
+    class(wkb_data) <- c("WKB", class(wkb_data))
+    geometry_sfc <- sf::st_as_sfc(wkb_data, crs = query_crs[[1]])
+    return_table <- sf::st_sf(
+      que[, setdiff(names(que), "wkb"), drop = FALSE],
+      geometry = geometry_sfc
     )
   }
   # otherwise, if there are geometry columns and we do NOT want those columns
