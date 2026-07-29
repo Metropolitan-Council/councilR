@@ -55,7 +55,6 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_abort
 #' @importFrom odbc odbc
-#'
 gis_connection <- function(
   dbname = "GISLibrary",
   uid = keyring::key_get("councilR.uid"),
@@ -138,7 +137,6 @@ gis_connection <- function(
 #' @importFrom tictoc tic toc
 #' @importFrom magrittr extract2
 #' @importFrom dplyr filter
-#'
 import_from_gis <- function(query,
                             dbname = "GISLibrary",
                             uid = keyring::key_get("councilR.uid"),
@@ -166,78 +164,48 @@ import_from_gis <- function(query,
     )
   )
 
-  # browser()
-  # order columns so varchar fields are sorted by declared length
-  # (longest varchar columns at the end)
-  column_order <- order(
-    ifelse(
-      column_names$DATA_TYPE %in% c("varchar", "nvarchar", "char", "nchar"),
-      ifelse(
-        is.na(column_names$CHARACTER_MAXIMUM_LENGTH),
-        Inf,
-        column_names$CHARACTER_MAXIMUM_LENGTH
-      ),
-      -Inf
-    ),
-    seq_len(nrow(column_names))
-  )
-  geometry_columns <- column_names$COLUMN_NAME[column_names$DATA_TYPE == "geometry"]
-  ordered_columns <- column_names$COLUMN_NAME[column_order]
-  ordered_columns <- ordered_columns[!(ordered_columns %in% geometry_columns)]
-  ordered_columns_sql <- paste0("[", ordered_columns, "]", collapse = ", ")
-
 
   # if there are any geometry columns, and we want those columns
-  # pull as wkb
+  # pull as wkt
   if (("geometry" %in% column_names$DATA_TYPE) & geometry == TRUE) {
     # fetch column name with geometry
     geo_column <- column_names %>%
       dplyr::filter(DATA_TYPE == "geometry") %>%
       magrittr::extract2("COLUMN_NAME")
 
-
     # fetch CRS
     query_crs <- DBI::dbGetQuery(
       conn,
       paste0(
-        "SELECT distinct ", geo_column, ".STSrid FROM ",
+        "SELECT distinct Shape.STSrid FROM ",
         table_name
       )
     )
 
-    # fetch query with geometry as WKB
+    # fetch query
     que <- DBI::dbGetQuery(
       conn,
-      paste0(
-        "SELECT ", ordered_columns_sql,
-        ", ", geo_column, ".STAsBinary() AS wkb FROM ", query
-      )
+      paste0("SELECT *, ", geo_column, ".STAsText() as wkt FROM ", query)
     )
 
-    # convert WKB directly to sf geometry
-    wkb_data <- que$wkb
-    class(wkb_data) <- c("WKB", class(wkb_data))
-    geometry_sfc <- sf::st_as_sfc(wkb_data, crs = query_crs[[1]])
-    return_table <- sf::st_sf(
-      que[, setdiff(names(que), "wkb"), drop = FALSE],
-      geometry = geometry_sfc
+    # convert wkt to sf
+    return_table <- sf::st_as_sf(
+      que,
+      wkt = "wkt",
+      crs = query_crs[[1]]
     )
   }
   # otherwise, if there are geometry columns and we do NOT want those columns
   else if (("geometry" %in% column_names$DATA_TYPE) & geometry == FALSE) {
-    # find non-geometry columns using the same ordered column logic
-    geo_columns <- column_names %>%
-      dplyr::filter(DATA_TYPE == "geometry") %>%
-      magrittr::extract2("COLUMN_NAME")
-
-    non_geo_columns <- ordered_columns[!(ordered_columns %in% geo_columns)]
-    non_geo_columns_sql <- paste0("[", non_geo_columns, "]", collapse = ", ")
+    # find columns that are NOT geometry
+    non_geo_columns <- column_names %>%
+      dplyr::filter(DATA_TYPE != "geometry")
 
     # fetch query
     que <- DBI::dbGetQuery(
       conn,
       paste0(
-        "SELECT ", non_geo_columns_sql,
+        "SELECT ", paste0(non_geo_columns$COLUMN_NAME, collapse = ", "),
         " FROM ", query
       )
     )
