@@ -125,3 +125,14 @@ testthat::test_that("CRS differences", {
 
   testthat::expect_false(sf::st_crs(counties)[1]$input == sf::st_crs(zcta)[1]$input)
 })
+
+
+testthat::test_that("CTUs differences", {
+  ctus <- councilR::import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    .quiet = TRUE,
+    query = "CTUs"
+  ) %>% 
+  testthat::expect_no_error()
+})
