@@ -37,9 +37,11 @@
 #' # create connection
 #' gis <- gis_connection()
 #'
-#' # pull table using SQL and convert to sf
-#' DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'") %>%
-#'   st_as_sf(wkt = "wkt", crs = 26915)
+#' # pull table using SQL and convert to sf using well-known binary (WKB)
+#' county <- DBI::dbGetQuery(gis, "select *, Shape.STAsBinary() as wkb from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'")
+#' county$geometry <- sf::st_as_sfc(county$wkb, EWKB = FALSE, crs = 26915)
+#' county$wkb <- NULL
+#' sf::st_as_sf(county)
 #'
 #' # disconnect
 #' DBI::dbDisconnect(gis)
@@ -95,7 +97,9 @@ gis_connection <- function(
         Uid = uid,
         Pwd = pwd,
         Server = serv,
-        Trusted_Connection = "yes"
+        Trusted_Connection = "yes",
+        TrustServerCertificate = "yes",
+        Encrypt = "yes"
       ) == FALSE) {
       cli::cli_abort("Database failed to connect")
     }
@@ -133,6 +137,7 @@ gis_connection <- function(
 #' @return `import_from_gis()` - A [sf::sf()] object or a data frame
 #' @export
 #' @importFrom sf st_as_sf
+#' @importFrom sf st_as_sfc
 #' @importFrom DBI dbGetQuery dbDisconnect
 #' @importFrom tictoc tic toc
 #' @importFrom magrittr extract2
@@ -164,9 +169,8 @@ import_from_gis <- function(query,
     )
   )
 
-
   # if there are any geometry columns, and we want those columns
-  # pull as wkt
+  # pull as well-known binary (WKB)
   if (("geometry" %in% column_names$DATA_TYPE) & geometry == TRUE) {
     # fetch column name with geometry
     geo_column <- column_names %>%
@@ -185,15 +189,13 @@ import_from_gis <- function(query,
     # fetch query
     que <- DBI::dbGetQuery(
       conn,
-      paste0("SELECT *, ", geo_column, ".STAsText() as wkt FROM ", query)
+      paste0("SELECT *, ", geo_column, ".STAsBinary() as wkb FROM ", query)
     )
 
-    # convert wkt to sf
-    return_table <- sf::st_as_sf(
-      que,
-      wkt = "wkt",
-      crs = query_crs[[1]]
-    )
+    # convert wkb to sf
+    que$geometry <- sf::st_as_sfc(que$wkb, EWKB = FALSE, crs = query_crs[[1]])
+    que$wkb <- NULL
+    return_table <- sf::st_as_sf(que)
   }
   # otherwise, if there are geometry columns and we do NOT want those columns
   else if (("geometry" %in% column_names$DATA_TYPE) & geometry == FALSE) {
