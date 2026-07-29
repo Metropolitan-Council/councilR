@@ -73,9 +73,11 @@ keyring::key_set_with_value("councilR.pwd", "password")
 # create connection
 gis <- gis_connection()
 
-# pull table using SQL and convert to sf
-DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'") \%>\%
-  st_as_sf(wkt = "wkt", crs = 26915)
+# pull table using SQL and convert to sf using well-known binary (WKB)
+county <- DBI::dbGetQuery(gis, "select *, Shape.STAsBinary() as wkb from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'")
+county$geometry <- sf::st_as_sfc(county$wkb, EWKB = FALSE, crs = 26915)
+county$wkb <- NULL
+sf::st_as_sf(county)
 
 # disconnect
 DBI::dbDisconnect(gis)
