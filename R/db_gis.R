@@ -55,6 +55,7 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_abort
 #' @importFrom odbc odbc
+#'
 gis_connection <- function(
   dbname = "GISLibrary",
   uid = keyring::key_get("councilR.uid"),
@@ -137,6 +138,7 @@ gis_connection <- function(
 #' @importFrom tictoc tic toc
 #' @importFrom magrittr extract2
 #' @importFrom dplyr filter
+#'
 import_from_gis <- function(query,
                             dbname = "GISLibrary",
                             uid = keyring::key_get("councilR.uid"),
@@ -164,6 +166,23 @@ import_from_gis <- function(query,
     )
   )
 
+  # order columns so varchar fields are sorted by declared length
+  # (longest varchar columns at the end)
+  column_order <- order(
+    ifelse(
+      column_names$DATA_TYPE %in% c("varchar", "nvarchar", "char", "nchar"),
+      ifelse(
+        is.na(column_names$CHARACTER_MAXIMUM_LENGTH),
+        Inf,
+        column_names$CHARACTER_MAXIMUM_LENGTH
+      ),
+      -Inf
+    ),
+    seq_len(nrow(column_names))
+  )
+  ordered_columns <- column_names$COLUMN_NAME[column_order]
+  ordered_columns_sql <- paste0("[", ordered_columns, "]", collapse = ", ")
+
 
   # if there are any geometry columns, and we want those columns
   # pull as wkt
@@ -172,6 +191,7 @@ import_from_gis <- function(query,
     geo_column <- column_names %>%
       dplyr::filter(DATA_TYPE == "geometry") %>%
       magrittr::extract2("COLUMN_NAME")
+
 
     # fetch CRS
     query_crs <- DBI::dbGetQuery(
@@ -185,7 +205,10 @@ import_from_gis <- function(query,
     # fetch query
     que <- DBI::dbGetQuery(
       conn,
-      paste0("SELECT *, ", geo_column, ".STAsText() as wkt FROM ", query)
+      paste0(
+        "SELECT ", ordered_columns_sql,
+        ", ", geo_column, ".STAsText() as wkt FROM ", query
+      )
     )
 
     # convert wkt to sf
@@ -197,15 +220,18 @@ import_from_gis <- function(query,
   }
   # otherwise, if there are geometry columns and we do NOT want those columns
   else if (("geometry" %in% column_names$DATA_TYPE) & geometry == FALSE) {
-    # find columns that are NOT geometry
-    non_geo_columns <- column_names %>%
-      dplyr::filter(DATA_TYPE != "geometry")
+    # find non-geometry columns using the same ordered column logic
+    geo_columns <- column_names %>%
+      dplyr::filter(DATA_TYPE == "geometry") %>%
+      magrittr::extract2("COLUMN_NAME")
+    non_geo_columns <- ordered_columns[!(ordered_columns %in% geo_columns)]
+    non_geo_columns_sql <- paste0("[", non_geo_columns, "]", collapse = ", ")
 
     # fetch query
     que <- DBI::dbGetQuery(
       conn,
       paste0(
-        "SELECT ", paste0(non_geo_columns$COLUMN_NAME, collapse = ", "),
+        "SELECT ", non_geo_columns_sql,
         " FROM ", query
       )
     )
