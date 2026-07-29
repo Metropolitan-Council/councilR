@@ -127,8 +127,8 @@ testthat::test_that("CRS differences", {
 })
 
 
-testthat::test_that("CTU errors", {
-  ctus <- councilR::import_from_gis(
+testthat::test_that("No errors", {
+  councilR::import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
     pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
     .quiet = TRUE,
@@ -152,6 +152,16 @@ testthat::test_that("CTU errors", {
     .quiet = TRUE,
     dbname = "GISCD",
     query = "GroupQuartersPoints"
+  ) %>%
+    testthat::expect_no_error()
+
+
+  councilR::import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    .quiet = TRUE,
+    dbname = "GISLibrary",
+    query = "Census2020TigerTract"
   ) %>%
     testthat::expect_no_error()
 })
