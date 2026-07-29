@@ -18,3 +18,5 @@ inst/r/key_setup.R
 inst/presentations/councilR_presentation_files/
 
 README.html
+
+data-raw/troubleshoot_db.R

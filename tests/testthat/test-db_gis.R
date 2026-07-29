@@ -134,7 +134,7 @@ testthat::test_that("CTU errors", {
     .quiet = TRUE,
     query = "CTUs"
   ) %>%
-  testthat::expect_no_error()
+    testthat::expect_no_error()
 
 
   councilR::import_from_gis(
@@ -146,8 +146,6 @@ testthat::test_that("CTU errors", {
   ) %>%
     testthat::expect_no_error()
 
-
-
   councilR::import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
     pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
@@ -156,5 +154,4 @@ testthat::test_that("CTU errors", {
     query = "GroupQuartersPoints"
   ) %>%
     testthat::expect_no_error()
-
 })
