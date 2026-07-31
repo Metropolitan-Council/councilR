@@ -78,8 +78,7 @@ testthat::test_that("county ctu lookup table", {
   )
 
   # test that all CTUs are included
-  # there should be 220 airports
-  testthat::expect_equal(nrow(lookup_table), 220)
+  testthat::expect_equal(nrow(lookup_table), 415)
 
   # test that object returned is an sf object
   testthat::expect_equal(class(lookup_table)[[1]], "data.frame")

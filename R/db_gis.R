@@ -73,7 +73,7 @@ gis_connection <- function(
   drv <- if (is_mac()) {
     "FreeTDS"
   } else {
-    "SQL Server"
+    "ODBC Driver 18 for SQL Server"
   }
 
   # check that DB connection works
@@ -88,7 +88,7 @@ gis_connection <- function(
       == FALSE) {
       cli::cli_abort("Database failed to connect")
     }
-  } else if (drv == "SQL Server") {
+  } else if (drv == "ODBC Driver 18 for SQL Server") {
     if (
       DBI::dbCanConnect(
         odbc::odbc(),
@@ -114,7 +114,7 @@ gis_connection <- function(
         Uid = uid,
         Pwd = pwd
       )
-    } else if (drv == "SQL Server") {
+    } else if (drv == "ODBC Driver 18 for SQL Server") {
       DBI::dbConnect(
         odbc::odbc(),
         Driver = drv,
@@ -122,7 +122,9 @@ gis_connection <- function(
         Uid = uid,
         Pwd = pwd,
         Server = serv,
-        Trusted_Connection = "yes"
+        Trusted_Connection = "yes",
+        TrustServerCertificate = "yes",
+        Encrypt = "yes"
       )
     }
 }
