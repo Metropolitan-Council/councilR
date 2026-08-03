@@ -12,3 +12,11 @@ inst/doc
 /doc/
 /Meta/
 inst/r/key_setup.R
+
+.vscode/
+
+inst/presentations/councilR_presentation_files/
+
+README.html
+
+data-raw/troubleshoot_db.R

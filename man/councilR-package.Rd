@@ -20,12 +20,19 @@ Useful links:
 \author{
 \strong{Maintainer}: Liz Roten \email{liz.roten@metc.state.mn.us} (\href{https://orcid.org/0000-0002-5346-3549}{ORCID})
 
+Authors:
+\itemize{
+  \item Liz Roten \email{liz.roten@metc.state.mn.us} (\href{https://orcid.org/0000-0002-5346-3549}{ORCID})
+}
+
 Other contributors:
 \itemize{
   \item Metropolitan Council [copyright holder]
   \item Ellen Esch \email{ellen.esch@metc.state.mn.us} (\href{https://orcid.org/0000-0002-4253-0910}{ORCID}) [contributor]
   \item Mauricio León \email{mauricio.leon@metc.state.mn.us} [contributor]
+  \item Samuel Limerick \email{samuel.limerick@metc.state.mn.us} [contributor]
   \item Brandon Whited \email{brandon.whited@metc.state.mn.us} [contributor]
+  \item Matt Schroeder \email{matt.schroeder@metc.state.mn.us} [contributor]
   \item Laine McNamara \email{laine.mcnamara@metc.state.mn.us} [reviewer]
 }
 

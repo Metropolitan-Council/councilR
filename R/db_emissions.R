@@ -59,10 +59,11 @@
 #' @importFrom purrr map
 #' @importFrom cli cli_abort
 emissions_connection <- function(
-    uid = keyring::key_get("councilR.uid"),
-    pwd = keyring::key_get("councilR.pwd"),
-    local = TRUE,
-    db = "CD_Emissions") {
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd"),
+  local = TRUE,
+  db = "CD_Emissions"
+) {
   # check input types
   purrr::map(
     c(uid, pwd, db),

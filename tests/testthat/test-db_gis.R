@@ -18,7 +18,7 @@ testthat::test_that("gis_connection is exported", {
 testthat::test_that("GIS connection returns connection object", {
   test_conn <- gis_connection(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("0gEYx8sYRcGetutUMIMMbfBq68homB_GRr0LW2hd", "COUNCILR_KEY")
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY")
   )
 
   testthat::expect_s4_class(test_conn, "Microsoft SQL Server")
@@ -31,13 +31,11 @@ testthat::test_that("GIS connection returns connection object", {
 })
 
 
-
-
 # test return object attributes
 testthat::test_that("counties spatial dataset", {
   counties <- import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("0gEYx8sYRcGetutUMIMMbfBq68homB_GRr0LW2hd", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
     query = "GISLibrary.dbo.COUNTIES",
     dbname = "GISLibrary",
     .quiet = TRUE
@@ -52,29 +50,45 @@ testthat::test_that("counties spatial dataset", {
 })
 
 
+testthat::test_that("CTUs spatial dataset", {
+  ctus <- import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    query = "CTUs",
+    dbname = "GISLibrary",
+    .quiet = TRUE
+  )
+
+  # test that min number of ctus are included
+  testthat::expect_gt(nrow(ctus), 180)
+
+  # test that object returned is an sf object
+  testthat::expect_equal(class(ctus)[[1]], "sf")
+})
+
+
+
 testthat::test_that("county ctu lookup table", {
   lookup_table <- import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("0gEYx8sYRcGetutUMIMMbfBq68homB_GRr0LW2hd", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
     query = "GISLibrary.dbo.CountyCTULookupTable",
     dbname = "GISLibrary",
     .quiet = TRUE
   )
 
   # test that all CTUs are included
-  # there should be 220 airports
-  testthat::expect_equal(nrow(lookup_table), 220)
+  testthat::expect_equal(nrow(lookup_table), 415)
 
   # test that object returned is an sf object
   testthat::expect_equal(class(lookup_table)[[1]], "data.frame")
 })
 
 
-
 testthat::test_that("counties spatial dataset without geometry", {
   counties <- import_from_gis(
     uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
-    pwd = httr2::secret_decrypt("0gEYx8sYRcGetutUMIMMbfBq68homB_GRr0LW2hd", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
     query = "GISLibrary.dbo.COUNTIES",
     dbname = "GISLibrary",
     geometry = FALSE,
@@ -82,10 +96,71 @@ testthat::test_that("counties spatial dataset without geometry", {
   )
 
   # test that all counties are included
-  # there should be 14 counties
+  # there should be 7 counties
   testthat::expect_equal(nrow(counties), 7)
   testthat::expect_equal(ncol(counties), 7)
 
   # test that object returned is an sf object
   testthat::expect_equal(class(counties)[[1]], "data.frame")
+})
+
+testthat::test_that("CRS differences", {
+  zcta <- councilR::import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    query = "MNGEO_zip_code_tabulation_areas",
+    dbname = "GISGDRS",
+    geometry = TRUE,
+    .quiet = TRUE
+  )
+
+  counties <- councilR::import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    query = "Counties",
+    geometry = TRUE,
+    .quiet = TRUE
+  )
+
+  testthat::expect_false(sf::st_crs(counties)[1]$input == sf::st_crs(zcta)[1]$input)
+})
+
+
+testthat::test_that("No errors", {
+  councilR::import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    .quiet = TRUE,
+    query = "CTUs"
+  ) %>%
+    testthat::expect_no_error()
+
+
+  councilR::import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    .quiet = TRUE,
+    dbname = "GISCD",
+    query = "ResidentialPermitPoints"
+  ) %>%
+    testthat::expect_no_error()
+
+  councilR::import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    .quiet = TRUE,
+    dbname = "GISCD",
+    query = "GroupQuartersPoints"
+  ) %>%
+    testthat::expect_no_error()
+
+
+  councilR::import_from_gis(
+    uid = httr2::secret_decrypt("QUHBRb_yoy2RRj59qno8NVXA7mW402xkins", "COUNCILR_KEY"),
+    pwd = httr2::secret_decrypt("lXRKSwTkdFXgyTGpV3j1nWBGs0F1Jac3jUHJn1_6", "COUNCILR_KEY"),
+    .quiet = TRUE,
+    dbname = "GISLibrary",
+    query = "Census2020TigerTract"
+  ) %>%
+    testthat::expect_no_error()
 })

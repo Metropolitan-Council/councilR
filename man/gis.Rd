@@ -54,7 +54,8 @@ care to use \code{\link[DBI:dbDisconnect]{DBI::dbDisconnect()}} once you are don
 converts it into a \code{\link[sf:sf]{sf::sf()}} object. The connection will
 be automatically closed after the table is imported. If the table
 does not have any spatial data, the table will be returned as a
-data.frame.
+data.frame. The return object is assigned the coordinate reference system
+(CRS) listed in the database.
 }
 
 Further examples can be found in \code{vignette("Databases", package = "councilR")}.
@@ -72,9 +73,11 @@ keyring::key_set_with_value("councilR.pwd", "password")
 # create connection
 gis <- gis_connection()
 
-# pull table using SQL and convert to sf
-DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'") \%>\%
-  st_as_sf(wkt = "wkt", crs = 26915)
+# pull table using SQL and convert to sf using well-known binary (WKB)
+county <- DBI::dbGetQuery(gis, "select *, Shape.STAsBinary() as wkb from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'")
+county$geometry <- sf::st_as_sfc(county$wkb, EWKB = FALSE, crs = 26915)
+county$wkb <- NULL
+sf::st_as_sf(county)
 
 # disconnect
 DBI::dbDisconnect(gis)
@@ -85,14 +88,9 @@ import_from_gis(query = "GISLibrary.dbo.COUNTIES", dbname = "GISLibrary")
 
 }
 \seealso{
-Other database functions: 
-\code{\link{FRED_connection}()},
-\code{\link{FRED_oracle_connection}()},
-\code{\link{emissions_connection}()}
-
-Other database functions: 
-\code{\link{FRED_connection}()},
-\code{\link{FRED_oracle_connection}()},
-\code{\link{emissions_connection}()}
+Other database functions:
+\code{\link[=FRED_connection]{FRED_connection()}},
+\code{\link[=FRED_oracle_connection]{FRED_oracle_connection()}},
+\code{\link[=emissions_connection]{emissions_connection()}}
 }
 \concept{database functions}

@@ -13,7 +13,8 @@
 #'     converts it into a [sf::sf()] object. The connection will
 #'     be automatically closed after the table is imported. If the table
 #'     does not have any spatial data, the table will be returned as a
-#'     data.frame.
+#'     data.frame. The return object is assigned the coordinate reference system
+#'     (CRS) listed in the database.
 #'
 #'  Further examples can be found in `vignette("Databases", package = "councilR")`.
 #'
@@ -36,9 +37,11 @@
 #' # create connection
 #' gis <- gis_connection()
 #'
-#' # pull table using SQL and convert to sf
-#' DBI::dbGetQuery(gis, "select *, Shape.STAsText() as wkt from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'") %>%
-#'   st_as_sf(wkt = "wkt", crs = 26915)
+#' # pull table using SQL and convert to sf using well-known binary (WKB)
+#' county <- DBI::dbGetQuery(gis, "select *, Shape.STAsBinary() as wkb from GISLibrary.dbo.COUNTIES where CO_NAME = 'ANOKA'")
+#' county$geometry <- sf::st_as_sfc(county$wkb, EWKB = FALSE, crs = 26915)
+#' county$wkb <- NULL
+#' sf::st_as_sf(county)
 #'
 #' # disconnect
 #' DBI::dbDisconnect(gis)
@@ -55,9 +58,10 @@
 #' @importFrom cli cli_abort
 #' @importFrom odbc odbc
 gis_connection <- function(
-    dbname = "GISLibrary",
-    uid = keyring::key_get("councilR.uid"),
-    pwd = keyring::key_get("councilR.pwd")) {
+  dbname = "GISLibrary",
+  uid = keyring::key_get("councilR.uid"),
+  pwd = keyring::key_get("councilR.pwd")
+) {
   purrr::map(
     c(dbname, uid, pwd),
     check_string
@@ -69,7 +73,7 @@ gis_connection <- function(
   drv <- if (is_mac()) {
     "FreeTDS"
   } else {
-    "SQL Server"
+    "ODBC Driver 18 for SQL Server"
   }
 
   # check that DB connection works
@@ -84,7 +88,7 @@ gis_connection <- function(
       == FALSE) {
       cli::cli_abort("Database failed to connect")
     }
-  } else if (drv == "SQL Server") {
+  } else if (drv == "ODBC Driver 18 for SQL Server") {
     if (
       DBI::dbCanConnect(
         odbc::odbc(),
@@ -93,7 +97,9 @@ gis_connection <- function(
         Uid = uid,
         Pwd = pwd,
         Server = serv,
-        Trusted_Connection = "yes"
+        Trusted_Connection = "yes",
+        TrustServerCertificate = "yes",
+        Encrypt = "yes"
       ) == FALSE) {
       cli::cli_abort("Database failed to connect")
     }
@@ -108,7 +114,7 @@ gis_connection <- function(
         Uid = uid,
         Pwd = pwd
       )
-    } else if (drv == "SQL Server") {
+    } else if (drv == "ODBC Driver 18 for SQL Server") {
       DBI::dbConnect(
         odbc::odbc(),
         Driver = drv,
@@ -116,7 +122,9 @@ gis_connection <- function(
         Uid = uid,
         Pwd = pwd,
         Server = serv,
-        Trusted_Connection = "yes"
+        Trusted_Connection = "yes",
+        TrustServerCertificate = "yes",
+        Encrypt = "yes"
       )
     }
 }
@@ -131,6 +139,7 @@ gis_connection <- function(
 #' @return `import_from_gis()` - A [sf::sf()] object or a data frame
 #' @export
 #' @importFrom sf st_as_sf
+#' @importFrom sf st_as_sfc
 #' @importFrom DBI dbGetQuery dbDisconnect
 #' @importFrom tictoc tic toc
 #' @importFrom magrittr extract2
@@ -151,35 +160,44 @@ import_from_gis <- function(query,
     pwd = pwd
   )
 
+  table_name <- sub(pattern = ".*dbo\\.", replacement = "", x = query)
+
   # fetch query table column names
   column_names <- DBI::dbGetQuery(
     conn,
     paste0(
       "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '",
-      # remove GISLibrary.dbo. to get just the table name
-      gsub(pattern = "GISLibrary.dbo.", replacement = "", x = query), "'"
+      table_name, "'"
     )
   )
 
   # if there are any geometry columns, and we want those columns
-  # pull as wkt
+  # pull as well-known binary (WKB)
   if (("geometry" %in% column_names$DATA_TYPE) & geometry == TRUE) {
     # fetch column name with geometry
     geo_column <- column_names %>%
       dplyr::filter(DATA_TYPE == "geometry") %>%
       magrittr::extract2("COLUMN_NAME")
 
+    # fetch CRS
+    query_crs <- DBI::dbGetQuery(
+      conn,
+      paste0(
+        "SELECT distinct Shape.STSrid FROM ",
+        table_name
+      )
+    )
+
     # fetch query
     que <- DBI::dbGetQuery(
       conn,
-      paste0("SELECT *, ", geo_column, ".STAsText() as wkt FROM ", query)
+      paste0("SELECT *, ", geo_column, ".STAsBinary() as wkb FROM ", query)
     )
 
-    # convert wkt to sf
-    return_table <- sf::st_as_sf(
-      que,
-      wkt = "wkt", crs = 26915
-    )
+    # convert wkb to sf
+    que$geometry <- sf::st_as_sfc(que$wkb, EWKB = FALSE, crs = query_crs[[1]])
+    que$wkb <- NULL
+    return_table <- sf::st_as_sf(que)
   }
   # otherwise, if there are geometry columns and we do NOT want those columns
   else if (("geometry" %in% column_names$DATA_TYPE) & geometry == FALSE) {

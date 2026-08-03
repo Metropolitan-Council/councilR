@@ -50,8 +50,8 @@ snippets_install(snip_tmp)
 
 }
 \seealso{
-Other spatial helpers: 
-\code{\link{fetch_county_geo}()}
+Other spatial helpers:
+\code{\link[=fetch_county_geo]{fetch_county_geo()}}
 }
 \author{
 Garrick Aden-Buie \email{g.adenbuie@gmail.com},
