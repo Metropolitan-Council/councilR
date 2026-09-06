@@ -109,9 +109,9 @@ import_from_FRED(table_name = "RESEARCH_WEB.RES_PERMIT_TYPE")
 
 }
 \seealso{
-Other database functions: 
-\code{\link{FRED_connection}()},
-\code{\link{emissions_connection}()},
-\code{\link{gis_connection}()}
+Other database functions:
+\code{\link[=FRED_connection]{FRED_connection()}},
+\code{\link[=emissions_connection]{emissions_connection()}},
+\code{\link[=gis_connection]{gis_connection()}}
 }
 \concept{database functions}

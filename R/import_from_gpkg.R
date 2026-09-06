@@ -1,4 +1,4 @@
-#' @title Import an `sf` object using a geopackage URL
+#' @title DEPRECATED Import an `sf` object using a geopackage URL
 #'
 #' @param link character, URL for the `.gpkg` object
 #' @param save_file logical, whether to save the downloaded file.
@@ -15,7 +15,8 @@
 #' @return [sf::sf()] object
 #' @export
 #'
-#' @description This function is particularly useful for importing data from
+#' @description Deprecated.
+#'     This function is particularly useful for importing data from
 #'     [Minnesota Geospatial Commons](https://gisdata.mn.gov/)
 #'     when access to GISLibrary is unavailable.
 #'
@@ -25,7 +26,9 @@
 #' @importFrom utils download.file tail unzip
 #' @importFrom data.table last
 #' @importFrom purrr map
+#' @importFrom cli cli_warn
 #' @examples
+#' \dontrun{
 #'
 #' library(councilR)
 #'
@@ -33,7 +36,7 @@
 #' import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
 #' # import the "RegionalEnvironmentalJusticeByCensusTract" layer only
 #' import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_tpp2050/gpkg_trans_tpp2050.zip", layer = "RegionalEnvironmentalJusticeByCensusTract")
-#'
+#' }
 import_from_gpkg <- function(link,
                              save_file = FALSE,
                              save_path = getwd(),
@@ -41,6 +44,14 @@ import_from_gpkg <- function(link,
                              keep_temp = FALSE,
                              .quiet = TRUE,
                              ...) {
+  cli::cli_warn(
+    message = c(
+      "import_from_gpkg() is no longer supported.",
+      "i" = "Please modify your code to use {.href [arcgislayers](https://r.esri.com/arcgislayers/)} instead.",
+      "i" = "See {.vignette councilR::Spatial_helpers} for more information and examples."
+    ),
+    wrap = TRUE
+  )
   # check input types
   purrr::map(
     c(link),

@@ -3,7 +3,7 @@
 \name{import_from_gpkg}
 \alias{import_from_gpkg}
 \alias{import_gpkg}
-\title{Import an \code{sf} object using a geopackage URL}
+\title{DEPRECATED Import an \code{sf} object using a geopackage URL}
 \usage{
 import_from_gpkg(
   link,
@@ -42,17 +42,19 @@ Default is \code{FALSE}.}
 
 \item{.quiet}{logical, suppress messages. Default is \code{TRUE}.}
 
-\item{...}{additional parameters passed to \link[sf:st_read]{sf::read_sf}}
+\item{...}{additional parameters passed to \link[sf:read_sf]{sf::read_sf}}
 }
 \value{
 \code{\link[sf:sf]{sf::sf()}} object
 }
 \description{
+Deprecated.
 This function is particularly useful for importing data from
 \href{https://gisdata.mn.gov/}{Minnesota Geospatial Commons}
 when access to GISLibrary is unavailable.
 }
 \examples{
+\dontrun{
 
 library(councilR)
 
@@ -60,5 +62,5 @@ library(councilR)
 import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
 # import the "RegionalEnvironmentalJusticeByCensusTract" layer only
 import_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/trans_tpp2050/gpkg_trans_tpp2050.zip", layer = "RegionalEnvironmentalJusticeByCensusTract")
-
+}
 }

@@ -42,7 +42,6 @@ testthat::test_that("lowercase res permit type table direct", {
 })
 
 
-
 testthat::test_that("lowercase res unit type table via SQL query", {
   fred <- fred_oracle_connection(
     dsn = httr2::secret_decrypt("cABpjoRCjYNrPb4MwWdDBM20DsU", "COUNCILR_KEY"),
@@ -65,7 +64,6 @@ testthat::test_that("lowercase res unit type table via SQL query", {
 
   DBI::dbDisconnect(fred)
 })
-
 
 
 testthat::test_that("uppercase res unit type table via SQL query", {

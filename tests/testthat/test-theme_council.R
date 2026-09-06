@@ -71,7 +71,6 @@ test_that("open theme is correct", {
 })
 
 
-
 test_that("geo theme is mostly blank", {
   th <- theme_council_geo()
 

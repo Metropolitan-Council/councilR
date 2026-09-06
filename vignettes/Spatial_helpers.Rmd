@@ -16,11 +16,71 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(councilR)
+library(arcgislayers)
 ```
 
 `{councilR}` has a couple functions and snippets to help you access and manipulate spatial data. 
 
+## Data access  
+
+Some datasets are maintained on [Minnesota Geospatial Commons](https://gis.data.mn.gov/). These datasets generally mirror datasets available in the internal GISLibrary. 
+
+You can access these datasets using the [`{arcgislayers}`](https://r.esri.com/arcgislayers/) package.
+
+On Minnesota Geospatial Commons, navigate to "REST Services" and use the search function to find the dataset you want. Click the "Copy" icon for the given dataset to copy the Feature Service URL.
+
+Some Feature Services may reference multiple layers. You can query them with `arc_open()`, then append the layer number to the URL.
+
+```{r arcgislayers-list}
+# returns list of layers in the Feature Service
+arcgislayers::arc_open("https://arcgis.metc.state.mn.us/data1/rest/services/planning/Regional_Parks_Trails/FeatureServer/")
+
+# Access a specific layer by appending the layer number to the URL. For example, to access layer 0, append "/0" to the URL.
+arcgislayers::arc_open("https://arcgis.metc.state.mn.us/data1/rest/services/planning/Regional_Parks_Trails/FeatureServer/0")
+```
+
+To pull a given layer, pass the URL to `arc_open()`, then use `arc_select()`. You can filter the data using the `where` argument. The `where` argument takes a SQL-like query string.
+
+```{r regional-parks-commons}
+regional_parks_commons <- arcgislayers::arc_open("https://arcgis.metc.state.mn.us/data1/rest/services/planning/Regional_Parks_Trails/FeatureServer/0") %>%
+  arcgislayers::arc_select(
+    where = "OMFundingAgency = 'Anoka County'"
+  )
+
+head(regional_parks_commons)
+```
+
+If you can access internal databases, use your Council login user ID and password to access data from the GIS Library. For seamless access, see `vignette("Credentials")` to learn how to set up your credentials.
+
+```{r gis-query, eval = FALSE}
+regional_parks_db <- import_from_gis(query = "GISCD.dbo.RPTAdministrativeBoundary")
+
+head(regional_parks_db)
+```
+
+## Other helpers
+A commonly fetched spatial dataset is the 7-county geography. `fetch_county_geo()` does just that.  
+You can also make a map quickly by using `map_council_continuous()`. This also adds a scale bar and cardinal indicator. 
+
+```{r plot-county, eval = TRUE}
+fetch_county_geo(progress_bar = FALSE) %>%
+  map_council_continuous(.fill = ALAND) +
+  ggplot2::labs(title = "Counties")
+```
+
+
+You can also fetch CTUs. 
+
+```{r plot-city, eval = TRUE}
+fetch_ctu_geo(progress_bar = FALSE) %>%
+  map_council_continuous(.fill = ALAND) +
+  ggplot2::labs(title = "CTUs")
+```
+
+
 ## Snippets
+
+Snippets are text macros that are used for quickly inserting snippets of code in RStudio.
 
 Once you have installed snippets using `councilR::snippets_install()`, you will now have important values quickly accessible. To access them, start typing the snippet name into the console. The snippet will autocomplete. 
 
@@ -37,44 +97,4 @@ metro_crs
 metro_centroid
 #> c(-93.30375,
 #>   44.91831)
-```
-
-## Functions  
-
-Some datasets are maintained on [Minnesota Geospatial Commons](https://gisdata.mn.gov/). These datasets generally mirror datasets available in the internal GISLibrary. On Minnesota Geospatial commons, navigate to the dataset you want to access. Find the button to download the OGC GeoPackage format, and right click on it. Select "Copy link address". The address will end with  ".zip".
-
-Pass this link to `import_from_gpkg()` to get the [sf]() object!
-
-```{r gpkg-query}
-regional_parks_commons <- import_from_gpkg("https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip")
-
-head(regional_parks_commons)
-```
-
-If you can access internal databases, use your Council login user ID and password to access data from the GIS Library. For seamless access, see `vignette("Options")` to review package options.
-
-```{r gis-query, eval = FALSE}
-regional_parks_db <- import_from_gis(query = "PARKSREGIONAL")
-
-head(regional_parks_db)
-```
-
-A commonly fetched spatial dataset is the 7-county geography. `fetch_county_geo()` does just that.  
-You can also make a map quickly by using `map_council_continuous()`. This also adds a scale bar and cardinal indicator. 
-
-
-```{r plot-county, eval = TRUE}
-fetch_county_geo(progress_bar = FALSE) %>%
-  map_council_continuous(.fill = ALAND) +
-  ggplot2::labs(title = "Counties")
-```
-
-
-You can also fetch CTUs. 
-
-
-```{r plot-city, eval = TRUE}
-fetch_ctu_geo(progress_bar = FALSE) %>%
-  map_council_continuous(.fill = ALAND) +
-  ggplot2::labs(title = "CTUs")
 ```
